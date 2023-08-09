@@ -2,7 +2,6 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login,logout
 from account.forms import LoginForm, SignUpForm
 
-# Create your views here.
 
 def login_view(request):
     form = LoginForm(request.POST or None)
@@ -44,5 +43,3 @@ def register_view(request):
     return render(request,'account/register.html', {'form': form, 'msg': msg})
 
 
-def student_view(request):
-    return render(request,'account/student_dasboard.html')
