@@ -1,0 +1,81 @@
+{% extends 'core/base_without_navbar.html' %} {% load static %} {% block css %}
+<link
+  href="{% static 'css/style.bundle.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'css/plugins.bundle.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+{% endblock css %} {% block content %}
+<div
+  class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center p-12"
+>
+  <div class="bg-body d-flex flex-column flex-center rounded-4 w-md-600px p-10">
+    <div
+      class="d-flex flex-center flex-column align-items-stretch h-lg-100 w-md-400px"
+    >
+      <div class="d-flex flex-center flex-column-fluid pb-15 pb-lg-20">
+        <div class="row justify-content-center">
+          <div class="col-md-12">
+            <div class="form-block">
+              <div class="mb-4 mt-4">
+                <h1>User Registration page</h1>
+              </div>
+              <span class="mb-0 text-muted">
+                {% if msg %} {{ msg | safe }} {% else %} Login page {% endif %}
+              </span>
+              <form method="post">
+                {% csrf_token %}
+                <div class="form-group first">
+                  <label for="username">Username</label>
+                  {{ form.username }}
+                </div>
+                <div class="form-group first">
+                  <label for="email">Email</label>
+                  {{ form.email}}
+                </div>
+                <div class="form-group last mb-4">
+                  <label for="password">Password</label>
+                  {{ form.password1 }}
+                </div>
+                <div class="form-group last mb-4">
+                  <label for="password">confirm Password</label>
+                  {{ form.password2 }}
+                </div>
+                <div class="g-3 mb-9">
+                  <div class="row mt-2">
+                    <label
+                      class="d-flex justify-content-center align-items-center mb-5"
+                      >Role</label
+                    >
+                    <div class="mb-5">
+                      {% for choice in form.role %}
+                      <div
+                        class="form-check form-check-inline radio-label btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap"
+                      >
+                        {{ choice }}
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+                <span class="text-error">{{ form.errors }}</span>
+                <input
+                  type="submit"
+                  value="Register"
+                  class="btn btn-pill text-white btn-block btn-primary"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %} {% block script %}
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+{% endblock script %}
