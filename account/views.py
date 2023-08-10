@@ -2,7 +2,6 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login,logout
 from account.forms import LoginForm, SignUpForm
 
-
 def login_view(request):
     form = LoginForm(request.POST or None)
     msg = None
@@ -13,10 +12,10 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None and user.role == 'student':
                 login(request, user)
-                return redirect('account:student')
+                return redirect('student:student_view')
             elif user is not None and user.role == 'teacher':
                 login(request, user)
-                return redirect('customer')
+                return redirect('teacher:teacher_view')
             elif user is not None and user.role == 'parent':
                 login(request, user)
                 return redirect('employee')
@@ -31,8 +30,9 @@ def login_view(request):
 def register_view(request):
     msg = None
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
+        form = SignUpForm(request.POST or None, request.FILES or None)
         if form.is_valid():
+            
             form.save()
             msg = 'user created'
             return redirect('account:login_view')

@@ -11,5 +11,7 @@ class User(AbstractUser):
         ('parent', 'Parent'),
     ]
 
-    role = models.CharField(choices=roles, default='student',max_length=200)
+    role = models.CharField(choices=roles,max_length=200)
+    profile_image = models.ImageField(upload_to='profile_image')
+
 

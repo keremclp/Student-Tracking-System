@@ -27,7 +27,7 @@
               <span class="mb-0 text-muted">
                 {% if msg %} {{ msg | safe }} {% else %} Login page {% endif %}
               </span>
-              <form method="post">
+              <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group first">
                   <label for="username">Username</label>
@@ -44,6 +44,10 @@
                 <div class="form-group last mb-4">
                   <label for="password">confirm Password</label>
                   {{ form.password2 }}
+                </div>
+                <div class="form-group last mb-4">
+                  <label for="password">Image</label>
+                  {{ form.profile_image }}
                 </div>
                 <div class="g-3 mb-9">
                   <div class="row mt-2">

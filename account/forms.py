@@ -2,9 +2,10 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import User
 
+
 class LoginForm(forms.Form):
     username = forms.CharField(
-        widget= forms.TextInput(
+        widget=forms.TextInput(
             attrs={
                 "class": "form-control bg-transparent"
             }
@@ -52,13 +53,22 @@ class SignUpForm(UserCreationForm):
     role = forms.ChoiceField(
         choices=User.roles,
         widget=forms.RadioSelect(
-            
             attrs={
-                
+
                 "class": ""
             }
         ),
-    )            
+    )
+    profile_image = forms.ImageField(
+        required=False,  
+        widget=forms.ClearableFileInput(
+            attrs={
+                "class": "form-control-file"
+            }
+        )
+    )
+
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2', 'role')
+        fields = ('username', 'email', 'password1',
+                  'password2', 'role', 'profile_image')

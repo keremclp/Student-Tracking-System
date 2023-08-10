@@ -21,6 +21,15 @@ from django.urls import path, include
 urlpatterns = [
     # path('home/', home_view, name='home_view'),
     path('admin/', admin.site.urls,name='admin'),
+    
+    # ACCOUNT
     path('', include('account.urls')),
+
+    # STUDENT
+    path('student/', include('student.urls')),
+
+    # TEACHER
+    path('teacher/', include('teacher.urls')),
+
 ]
 

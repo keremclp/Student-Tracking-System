@@ -47,6 +47,8 @@ MY_APPS = [
     'page',
     'user_profile',
     'account',
+    'student',
+    'teacher',
 ]
 
 INSTALLED_APPS = BASE_APPS + THIRD_PART_APPS + MY_APPS
