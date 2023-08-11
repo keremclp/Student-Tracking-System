@@ -32,7 +32,6 @@ def register_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST or None, request.FILES or None)
         if form.is_valid():
-            
             form.save()
             msg = 'user created'
             return redirect('account:login_view')

@@ -25,10 +25,24 @@
                 <h1>User Registration page</h1>
               </div>
               <span class="mb-0 text-muted">
-                {% if msg %} {{ msg | safe }} {% else %} Login page {% endif %}
+                {% if msg %} {{ msg | safe }} {% else %}
+                <div
+                  class="d-flex justify-content-center align-items-center mb-3"
+                >
+                  Login page
+                </div>
+                {% endif %}
               </span>
               <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
+                <div class="form-group first">
+                  <label for="first_name">First name</label>
+                  {{ form.first_name }}
+                </div>
+                <div class="form-group first">
+                  <label for="last_name">Last name</label>
+                  {{ form.last_name }}
+                </div>
                 <div class="form-group first">
                   <label for="username">Username</label>
                   {{ form.username }}
@@ -46,7 +60,7 @@
                   {{ form.password2 }}
                 </div>
                 <div class="form-group last mb-4">
-                  <label for="password">Image</label>
+                  <label>Image</label>
                   {{ form.profile_image }}
                 </div>
                 <div class="g-3 mb-9">
