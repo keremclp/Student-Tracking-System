@@ -8,7 +8,4 @@ def student_view(request):
 
 
 def student_profile(request):
-
-    
-
-    return render(request, 'student/student_profile.html')
+    return render(request, 'student/student_profile/profile_overview.html')

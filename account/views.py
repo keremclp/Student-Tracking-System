@@ -12,7 +12,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None and user.role == 'student':
                 login(request, user)
-                return redirect('student:student_view')
+                return redirect('student:student_profile')
             elif user is not None and user.role == 'teacher':
                 login(request, user)
                 return redirect('teacher:teacher_view')
