@@ -46,7 +46,7 @@
                     <!--begin: Pic-->
                     <div class="me-7 mb-4">
                         <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                            <img src="{% static 'assets/media/avatars/300-1.jpg' %}" alt="image" />
+                            <img src="{{ profile.user.profile_image }}" alt="image" />
                             <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                             <div class="d-flex flex-column">
                                 <!--begin::Name-->
                                 <div class="d-flex align-items-center mb-2">
-                                    <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">Max Smith</a>
+                                    <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{ profile.user.get_full_name }}</a>
                                     <a href="#">
                                         <!--begin::Svg Icon | path: icons/duotune/general/gen026.svg-->
                                         <span class="svg-icon svg-icon-1 svg-icon-primary">
@@ -270,7 +270,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">Max Smith</span>
+                        <span class="fw-bold fs-6 text-gray-800">{{ profile.user.get_full_name }}</span>
                     </div>
                     <!--end::Col-->
                 </div>

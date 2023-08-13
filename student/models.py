@@ -7,9 +7,13 @@ from account.models import User
 
 class StudentProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    slug = models.SlugField(max_length=200)   
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    slug = AutoSlugField(unique=True, populate_from='user__username') 
+    
+    def save(self, *args, **kwargs):
+        # Populate the slug field from user's username
+        if not self.slug:
+            self.slug = self.user.username
+        super().save(*args, **kwargs)
 
 
 
