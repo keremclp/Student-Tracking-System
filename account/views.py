@@ -14,7 +14,7 @@ def login_view(request):
             if user is not None and user.role == 'student':
                 login(request, user)
                 user_slug = StudentProfile.objects.get(user=user).slug
-                return redirect('student:student_profile',user_slug=user_slug)
+                return redirect('student:student_profile_overview',user_slug=user_slug)
             elif user is not None and user.role == 'teacher':
                 login(request, user)
                 return redirect('teacher:teacher_view')
