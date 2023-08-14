@@ -26,13 +26,13 @@ urlpatterns = [
     path('admin/', admin.site.urls,name='admin'),
     
     # ACCOUNT
-    path('', include('account.urls')),
+    path('', include('account.urls', namespace='account')),
 
     # STUDENT
-    path('', include('student.urls')),
+    path('', include('student.urls',namespace='student')),
 
     # TEACHER
-    path('teacher/', include('teacher.urls')),
+    path('teacher/', include('teacher.urls', namespace='teacher')),
 
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

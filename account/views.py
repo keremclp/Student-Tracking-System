@@ -13,8 +13,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None and user.role == 'student':
                 login(request, user)
-                user_slug = StudentProfile.objects.get(user=user).slug
-                return redirect('student:student_profile_overview',user_slug=user_slug)
+                return redirect('student:student_dashboard')
             elif user is not None and user.role == 'teacher':
                 login(request, user)
                 return redirect('teacher:teacher_view')
@@ -49,4 +48,7 @@ def register_view(request):
         form = SignUpForm()
     return render(request,'account/register.html', {'form': form, 'msg': msg})
 
-
+def logout_view(request):
+    # kullanıcıya logout olduğunu message olarak belirtmek 
+    logout(request)
+    return redirect('account:login_view')

@@ -1,5 +1,12 @@
 from student.models import StudentProfile
 
+def profile_global(request):
+    user = request.user
+    print(user)
+    # bring me profile 
+    profile = StudentProfile.objects.get(user=user)
+    return {'profile_global': profile}
+
 def profile_image(request):
     user = request.user
     if user.is_authenticated and user.role == 'student':
