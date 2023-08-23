@@ -389,7 +389,11 @@
                 <!--begin::Username-->
                 <div class="d-flex flex-column">
                   <div class="fw-bold d-flex align-items-center fs-5">
-                    {{ student_profile.user.get_full_name }}
+                    {% if profile_global %}
+                      Welcome, {{ profile_global.user.get_full_name }}
+                    {% else %}
+                      Welcome, Guest
+                    {% endif %}
                     <span
                       class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2"
                       >Pro</span
@@ -411,7 +415,7 @@
             <!--begin::Menu item-->
             <div class="menu-item px-5">
               <a
-                href="../../demo1/dist/account/overview.html"
+                href="{% url 'student:student_profile_overview' user_slug=profile_global.slug %}"
                 class="menu-link px-5"
                 >My Profile</a
               >

@@ -40,7 +40,8 @@ BASE_APPS = [
 ]
 
 THIRD_PART_APPS = [
-
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MY_APPS = [
@@ -142,6 +143,11 @@ STATICFILES_DIRS = [
 ADMINS = [
     ('KEREM CAN', 'django@django.com'),
 ]
+
+# Crispy Forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 AUTH_USER_MODEL = 'account.User'
 # Allow only staff and superusers to login to the admin page
