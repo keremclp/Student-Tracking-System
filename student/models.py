@@ -7,24 +7,16 @@ from django.utils import timezone
 # Create your models here.
 
 
-class Interest(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    slug = AutoSlugField(populate_from='name', unique=True)
 
-    def __str__(self):
-        return self.name
 
 
 class StudentProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     slug = AutoSlugField(unique=True, populate_from='user__username')
-    student_id = models.CharField(max_length=10, unique=True, default="")
-    birth_date = models.DateField(
-        default=timezone.datetime(2000, 1, 1).strftime('%Y-%m-%d'))
-    bio = models.TextField(blank=True, default="")
-    phone_number = models.CharField(max_length=20, blank=True, default="")
-    address = models.TextField(blank=True, default="")
-    interests = models.ManyToManyField('Interest', blank=True, default="")
+    birth_date = models.DateField(null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
+    phone_number = models.CharField(max_length=15, null=True, blank=True)
+    address = models.TextField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         # Populate the slug field from user's username
