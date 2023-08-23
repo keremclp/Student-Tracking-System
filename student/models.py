@@ -2,13 +2,8 @@ from django.db import models
 from autoslug import AutoSlugField
 from django.urls import reverse
 from account.models import User
-from django.utils import timezone
 
 # Create your models here.
-
-
-
-
 
 class StudentProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -33,5 +28,3 @@ class StudentProfile(models.Model):
     def get_absolute_url_edit(self):
         return reverse('student:student_profile_edit', kwargs={'user_slug': self.slug})
 
-
-# Birth date field düzeltilecek
