@@ -42,7 +42,11 @@ def student_profile_edit(request,user_slug):
             print(form.cleaned_data)
             user.first_name = form.cleaned_data.get('first_name')
             user.last_name = form.cleaned_data.get('last_name')
-            user.profile_image = form.cleaned_data.get('profile_image')
+            new_profile_image = form.cleaned_data.get('profile_image')
+            if new_profile_image:
+                user.profile_image = new_profile_image
+                user.save()
+            
             user.save()
             profile.save()
             f.save()
