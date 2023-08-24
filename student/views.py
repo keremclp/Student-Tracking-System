@@ -40,9 +40,10 @@ def student_profile_edit(request,user_slug):
         if form.is_valid():
             f = form.save(commit=False)
             print(form.cleaned_data)
-            profile.user.first_name = form.cleaned_data.get('first_name')
-            profile.user.last_name = form.cleaned_data.get('last_name')
-            profile.user.profile_image = form.cleaned_data.get('profile_image')
+            user.first_name = form.cleaned_data.get('first_name')
+            user.last_name = form.cleaned_data.get('last_name')
+            user.profile_image = form.cleaned_data.get('profile_image')
+            user.save()
             profile.save()
             f.save()
             return redirect('student:student_profile_overview', user_slug=user_slug)
@@ -54,3 +55,7 @@ def student_profile_edit(request,user_slug):
         profile=profile,
     )
     return render(request, 'student/student_profile/profile_settings.html',context)
+
+
+
+# Check the profile_iamge attribute error!!
