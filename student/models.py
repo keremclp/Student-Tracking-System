@@ -12,6 +12,7 @@ class StudentProfile(models.Model):
     bio = models.TextField(null=True, blank=True)
     phone_number = models.CharField(max_length=15, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
+
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name} (ID: {self.pk})"
     def save(self, *args, **kwargs):
@@ -28,4 +29,6 @@ class StudentProfile(models.Model):
 
     def get_absolute_url_edit(self):
         return reverse('student:student_profile_edit', kwargs={'user_slug': self.slug})
+    
+
 

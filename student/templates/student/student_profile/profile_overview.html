@@ -60,27 +60,38 @@
         ></label>
         <!--end::Label-->
         <!--begin::Col-->
+        {% if profile.phone_number %}
         <div class="col-lg-8 d-flex align-items-center">
           <span class="fw-bold fs-6 text-gray-800 me-2"
-            >044 3276 454 935</span
+            >{{ profile.phone_number }}</span
           >
           <span class="badge badge-success">Verified</span>
         </div>
+        {% else %}
+        <div class="col-lg-8 d-flex align-items-center">
+          <span class="fw-bold fs-6 text-gray-800 me-2">------</span>
+        </div>
+        {% endif %}
+        
         <!--end::Col-->
       </div>
       <!--end::Input group-->
       <!--begin::Input group-->
       <div class="row mb-7">
         <!--begin::Label-->
-        <label class="col-lg-4 fw-semibold text-muted">Company Site</label>
+        <label class="col-lg-4 fw-semibold text-muted">Bio</label>
         <!--end::Label-->
         <!--begin::Col-->
         <div class="col-lg-8">
+          {% if profile.bio %}
           <a
             href="#"
             class="fw-semibold fs-6 text-gray-800 text-hover-primary"
-            >keenthemes.com</a
+            >{{ profile.bio }}</a
           >
+          {% else %}
+          <span class="fw-semibold fs-6 text-gray-800">------</span>
+          {% endif %}
         </div>
         <!--end::Col-->
       </div>
@@ -89,18 +100,20 @@
       <div class="row mb-7">
         <!--begin::Label-->
         <label class="col-lg-4 fw-semibold text-muted"
-          >Country
-          <i
-            class="fas fa-exclamation-circle ms-1 fs-7"
-            data-bs-toggle="tooltip"
-            title="Country of origination"
-          ></i
-        ></label>
+          >Birth Date
+        </label>
         <!--end::Label-->
         <!--begin::Col-->
+        {% if profile.birth_date %}
         <div class="col-lg-8">
-          <span class="fw-bold fs-6 text-gray-800">Germany</span>
+          <span class="fw-bold fs-6 text-gray-800">{{ profile.birth_date }}</span>
         </div>
+        {% else %}
+        <div class="col-lg-8">
+          <span class="fw-bold fs-6 text-gray-800">------</span>
+        </div>
+        {% endif %}
+
         <!--end::Col-->
       </div>
       <!--end::Input group-->
@@ -119,12 +132,18 @@
       <!--begin::Input group-->
       <div class="row mb-10">
         <!--begin::Label-->
-        <label class="col-lg-4 fw-semibold text-muted">Allow Changes</label>
+        <label class="col-lg-4 fw-semibold text-muted">Address</label>
         <!--begin::Label-->
         <!--begin::Label-->
+        {% if profile.address %}
         <div class="col-lg-8">
-          <span class="fw-semibold fs-6 text-gray-800">Yes</span>
+          <span class="fw-semibold fs-6 text-gray-800">{{ profile.address }}</span>
         </div>
+        {% else %}
+        <div class="col-lg-8">
+          <span class="fw-semibold fs-6 text-gray-800">------</span>
+        </div>
+        {% endif %}
         <!--begin::Label-->
       </div>
       <!--end::Input group-->

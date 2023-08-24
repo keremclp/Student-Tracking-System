@@ -18,8 +18,16 @@ def student_dashboard(request):
 @login_required(login_url='account:login_view')
 def student_profile_overview(request,user_slug):
     profile = get_object_or_404(StudentProfile, slug=user_slug)
+    total_fields = 4
+    completed_fields = sum(
+        field is not None 
+        for field in [profile.birth_date, profile.bio, profile.phone_number, profile.address]
+    )
+    completion_percentage = (completed_fields / total_fields) * 100  
+    
     context = dict(
         profile=profile,
+        completion_percentage=completion_percentage,
     )
     return render(request, 'student/student_profile/profile_overview.html', context)
 
@@ -52,11 +60,12 @@ def student_profile_edit(request,user_slug):
             f.save()
             return redirect('student:student_profile_overview', user_slug=user_slug)
     
-
+    
     context = dict(
         form = form,
         title = "Edit Profile",
         profile=profile,
+        
     )
     return render(request, 'student/student_profile/profile_settings.html',context)
 
