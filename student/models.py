@@ -24,7 +24,7 @@ class StudentProfile(models.Model):
     def get_absolute_url_overview(self):
         return reverse(
             'student:student_profile_overview',
-            kwargs={'slug': self.slug}
+            kwargs={'user_slug': self.slug}
         )
 
     def get_absolute_url_edit(self):
