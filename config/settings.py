@@ -175,3 +175,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Kullanıcıya bildirim gönderme (django-notifications-hq 1.5.0)
 
 # Telefon numarası teacher ya da parent tarafından onaylanması 
+
+# Öğrenciler için blog sistemi olabilir

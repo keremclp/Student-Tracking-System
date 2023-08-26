@@ -11,7 +11,7 @@ class StudentProfileModelForm(forms.ModelForm):
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
     profile_image = forms.ImageField(required=False)
-    birth_date = forms.DateField(widget=DateInput(format='%d.%m.%Y'), required=False)
+    birth_date = forms.DateField(widget=DateInput(format='%d.%m.%Y'), required=True)
     
     class Meta:
         model = StudentProfile
@@ -28,5 +28,8 @@ class StudentProfileModelForm(forms.ModelForm):
         # Pre-fill the birth date field if the instance has a birth date
         if self.instance and self.instance.birth_date:
             self.fields['birth_date'].initial = self.instance.birth_date
+
+
+# TODO:birth_date tarafında ne zaman edit yapmak istesek birth_day girilmesi gerekiyor, düzeltilmesi lazım
 
     
