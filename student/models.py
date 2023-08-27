@@ -2,12 +2,13 @@ from django.db import models
 from autoslug import AutoSlugField
 from django.urls import reverse
 from account.models import User
+from classroom.models import Classroom
 
 # Create your models here.
 
 class StudentProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    slug = AutoSlugField(unique=True, populate_from='user__username')
+    slug = AutoSlugField(unique=True)
     birth_date = models.DateField(null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
     phone_number = models.CharField(max_length=15, null=True, blank=True)

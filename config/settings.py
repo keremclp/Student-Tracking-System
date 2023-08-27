@@ -45,6 +45,7 @@ BASE_APPS = [
 THIRD_PART_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
+    'autoslug'   
 ]
 
 MY_APPS = [
@@ -53,6 +54,7 @@ MY_APPS = [
     'account',
     'student',
     'teacher',
+    'classroom'
 ]
 
 INSTALLED_APPS = BASE_APPS + THIRD_PART_APPS + MY_APPS

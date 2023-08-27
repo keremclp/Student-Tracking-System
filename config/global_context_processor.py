@@ -53,12 +53,21 @@ def profile_image(request):
 
 
 def completion_percentage(request):
-    user = request.user 
-    profile = StudentProfile.objects.get(user=user)
-    total_fields = 4
-    completed_fields = sum(
-        field is not None and field != ""
-        for field in [profile.birth_date, profile.bio, profile.phone_number, profile.address]
-    )
-    completion_percentage = (completed_fields / total_fields) * 100  
+    user = request.user
+    if user.is_authenticated:
+        try:
+            profile = StudentProfile.objects.get(user=user)
+        except StudentProfile.DoesNotExist:
+            completion_percentage = 0  # No profile, so completion is 0%
+        else:
+            total_fields = 4
+            completed_fields = sum(
+                field is not None and field != ""
+                for field in [profile.birth_date, profile.bio, profile.phone_number, profile.address]
+            )
+            completion_percentage = (completed_fields / total_fields) * 100
+    else:
+        completion_percentage = 0  # User is not authenticated, so completion is 0%
+    
     return {'completion_percentage': completion_percentage}
+
