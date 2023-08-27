@@ -83,6 +83,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'config.global_context_processor.profile_image',
+                'config.global_context_processor.completion_percentage',
             ],
         },
     },

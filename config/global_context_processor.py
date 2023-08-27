@@ -50,3 +50,15 @@ def profile_image(request):
     #         profile_image_path = student_profile.user.profile_image.url
     #     except StudentProfile.DoesNotExist:
     #         profile_image_path = 'default_image_path'
+
+
+def completion_percentage(request):
+    user = request.user 
+    profile = StudentProfile.objects.get(user=user)
+    total_fields = 4
+    completed_fields = sum(
+        field is not None and field != ""
+        for field in [profile.birth_date, profile.bio, profile.phone_number, profile.address]
+    )
+    completion_percentage = (completed_fields / total_fields) * 100  
+    return {'completion_percentage': completion_percentage}
