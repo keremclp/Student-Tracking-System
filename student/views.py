@@ -19,12 +19,15 @@ def student_dashboard(request):
 def student_profile_overview(request,user_slug):
     profile = get_object_or_404(StudentProfile, slug=user_slug)
     total_fields = 4
+    print(profile)
     completed_fields = sum(
-        field is not None 
+        field is not None and field != ""
         for field in [profile.birth_date, profile.bio, profile.phone_number, profile.address]
     )
+    print(completed_fields)
+   
     completion_percentage = (completed_fields / total_fields) * 100  
-    
+    print(completion_percentage)
     context = dict(
         profile=profile,
         completion_percentage=completion_percentage,

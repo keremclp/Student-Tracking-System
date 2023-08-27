@@ -11,7 +11,7 @@ class StudentProfileModelForm(forms.ModelForm):
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
     profile_image = forms.ImageField(required=False)
-    birth_date = forms.DateField(widget=DateInput(format='%d.%m.%Y'), required=True)
+    birth_date = forms.DateField(widget=DateInput(format='%d.%m.%Y'), required=False)
     
     class Meta:
         model = StudentProfile

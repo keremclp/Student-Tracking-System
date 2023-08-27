@@ -1,160 +1,169 @@
-{% extends 'student/student_profile/components/profile_base.html' %}
-
+{% extends 'student/student_profile/components/profile_base.html' %} 
 {% block info %}
-<!--begin::details View-->  
+<!--begin::details View-->
 <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
-    <!--begin::Card header-->
-    <div class="card-header cursor-pointer">
-      <!--begin::Card title-->
-      <div class="card-title m-0">
-        <h3 class="fw-bold m-0">Profile Details</h3>
-      </div>
-      <!--end::Card title-->
-      <!--begin::Action-->
-      <a
-        href="{{ profile.get_absolute_url_edit }}"
-        class="btn btn-sm btn-primary align-self-center"
-        >Edit Profile</a
+  <!--begin::Card header-->
+  <div class="card-header cursor-pointer">
+    <!--begin::Card title-->
+    <div class="card-title m-0">
+      <h3 class="fw-bold m-0">Profile Details</h3>
+    </div>
+    <!--end::Card title-->
+    <!--begin::Action-->
+    <div class="d-flex align-items-center justify-content-center">
+      <div
+        class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative"
       >
-      <!--end::Action-->
+        <a
+          href="{{ profile.get_absolute_url_edit }}"
+          class="btn btn-sm btn-primary align-self-center"
+          >Edit Profile</a
+        >
+        {% if completion_percentage < 100 %}
+        <div
+          class="position-absolute translate-middle bottom-0 start-100 top-100 mb-6 bg-danger rounded-circle border border-4 border-body h-20px w-20px"
+        >
+        </div>
+        {% endif %}
+      </div>
     </div>
-    <!--begin::Card header-->
-    <!--begin::Card body-->
-    <div class="card-body p-9">
-      <!--begin::Row-->
-      <div class="row mb-7">
-        <!--begin::Label-->
-        <label class="col-lg-4 fw-semibold text-muted">Full Name</label>
-        <!--end::Label-->
-        <!--begin::Col-->
-        <div class="col-lg-8">
-          <span class="fw-bold fs-6 text-gray-800"
-            >{{ profile.user.get_full_name }}</span
-          >
-        </div>
-        <!--end::Col-->
-      </div>
-      <!--end::Row-->
-      <!--begin::Input group-->
-      <div class="row mb-7">
-        <!--begin::Label-->
-        <label class="col-lg-4 fw-semibold text-muted">Email</label>
-        <!--end::Label-->
-        <!--begin::Col-->
-        <div class="col-lg-8 fv-row">
-          <span class="fw-semibold text-gray-800 fs-6">{{ profile.user.email }}</span>
-        </div>
-        <!--end::Col-->
-      </div>
-      <!--end::Input group-->
-      <!--begin::Input group-->
-      <div class="row mb-7">
-        <!--begin::Label-->
-        <label class="col-lg-4 fw-semibold text-muted"
-          >Contact Phone
-          <i
-            class="fas fa-exclamation-circle ms-1 fs-7"
-            data-bs-toggle="tooltip"
-            title="Phone number must be active"
-          ></i
-        ></label>
-        <!--end::Label-->
-        <!--begin::Col-->
-        {% if profile.phone_number %}
-        <div class="col-lg-8 d-flex align-items-center">
-          <span class="fw-bold fs-6 text-gray-800 me-2"
-            >{{ profile.phone_number }}</span
-          >
-          <span class="badge badge-success">Verified</span>
-        </div>
-        {% else %}
-        <div class="col-lg-8 d-flex align-items-center">
-          <span class="fw-bold fs-6 text-gray-800 me-2">------</span>
-        </div>
-        {% endif %}
-        
-        <!--end::Col-->
-      </div>
-      <!--end::Input group-->
-      <!--begin::Input group-->
-      <div class="row mb-7">
-        <!--begin::Label-->
-        <label class="col-lg-4 fw-semibold text-muted">Bio</label>
-        <!--end::Label-->
-        <!--begin::Col-->
-        <div class="col-lg-8">
-          {% if profile.bio %}
-          <a
-            href="#"
-            class="fw-semibold fs-6 text-gray-800 text-hover-primary"
-            >{{ profile.bio }}</a
-          >
-          {% else %}
-          <span class="fw-semibold fs-6 text-gray-800">------</span>
-          {% endif %}
-        </div>
-        <!--end::Col-->
-      </div>
-      <!--end::Input group-->
-      <!--begin::Input group-->
-      <div class="row mb-7">
-        <!--begin::Label-->
-        <label class="col-lg-4 fw-semibold text-muted"
-          >Birth Date
-        </label>
-        <!--end::Label-->
-        <!--begin::Col-->
-        {% if profile.birth_date %}
-        <div class="col-lg-8">
-          <span class="fw-bold fs-6 text-gray-800">{{ profile.birth_date }}</span>
-        </div>
-        {% else %}
-        <div class="col-lg-8">
-          <span class="fw-bold fs-6 text-gray-800">------</span>
-        </div>
-        {% endif %}
 
-        <!--end::Col-->
-      </div>
-      <!--end::Input group-->
-      <!--begin::Input group-->
-      <div class="row mb-7">
-        <!--begin::Label-->
-        <label class="col-lg-4 fw-semibold text-muted">Communication</label>
-        <!--end::Label-->
-        <!--begin::Col-->
-        <div class="col-lg-8">
-          <span class="fw-bold fs-6 text-gray-800">Email, Phone</span>
-        </div>
-        <!--end::Col-->
-      </div>
-      <!--end::Input group-->
-      <!--begin::Input group-->
-      <div class="row mb-10">
-        <!--begin::Label-->
-        <label class="col-lg-4 fw-semibold text-muted">Address</label>
-        <!--begin::Label-->
-        <!--begin::Label-->
-        {% if profile.address %}
-        <div class="col-lg-8">
-          <span class="fw-semibold fs-6 text-gray-800">{{ profile.address }}</span>
-        </div>
-        {% else %}
-        <div class="col-lg-8">
-          <span class="fw-semibold fs-6 text-gray-800">------</span>
-        </div>
-        {% endif %}
-        <!--begin::Label-->
-      </div>
-      <!--end::Input group-->
-    </div>
-    <!--end::Card body-->
+    <!--end::Action-->
   </div>
-  <!--end::details View-->
-{% endblock info %}
+  <!--begin::Card header-->
+  <!--begin::Card body-->
+  <div class="card-body p-9">
+    <!--begin::Row-->
+    <div class="row mb-7">
+      <!--begin::Label-->
+      <label class="col-lg-4 fw-semibold text-muted">Full Name</label>
+      <!--end::Label-->
+      <!--begin::Col-->
+      <div class="col-lg-8">
+        <span class="fw-bold fs-6 text-gray-800"
+          >{{ profile.user.get_full_name }}</span
+        >
+      </div>
+      <!--end::Col-->
+    </div>
+    <!--end::Row-->
+    <!--begin::Input group-->
+    <div class="row mb-7">
+      <!--begin::Label-->
+      <label class="col-lg-4 fw-semibold text-muted">Email</label>
+      <!--end::Label-->
+      <!--begin::Col-->
+      <div class="col-lg-8 fv-row">
+        <span class="fw-semibold text-gray-800 fs-6"
+          >{{ profile.user.email }}</span
+        >
+      </div>
+      <!--end::Col-->
+    </div>
+    <!--end::Input group-->
+    <!--begin::Input group-->
+    <div class="row mb-7">
+      <!--begin::Label-->
+      <label class="col-lg-4 fw-semibold text-muted"
+        >Contact Phone
+        <i
+          class="fas fa-exclamation-circle ms-1 fs-7"
+          data-bs-toggle="tooltip"
+          title="Phone number must be active"
+        ></i
+      ></label>
+      <!--end::Label-->
+      <!--begin::Col-->
+      {% if profile.phone_number %}
+      <div class="col-lg-8 d-flex align-items-center">
+        <span class="fw-bold fs-6 text-gray-800 me-2"
+          >{{ profile.phone_number }}</span
+        >
+        <span class="badge badge-success">Verified</span>
+      </div>
+      {% else %}
+      <div class="col-lg-8 d-flex align-items-center">
+        <span class="fw-bold fs-6 text-gray-800 me-2">------</span>
+      </div>
+      {% endif %}
 
+      <!--end::Col-->
+    </div>
+    <!--end::Input group-->
+    <!--begin::Input group-->
+    <div class="row mb-7">
+      <!--begin::Label-->
+      <label class="col-lg-4 fw-semibold text-muted">Bio</label>
+      <!--end::Label-->
+      <!--begin::Col-->
+      <div class="col-lg-8">
+        {% if profile.bio %}
+        <a href="#" class="fw-semibold fs-6 text-gray-800 text-hover-primary"
+          >{{ profile.bio }}</a
+        >
+        {% else %}
+        <span class="fw-semibold fs-6 text-gray-800">------</span>
+        {% endif %}
+      </div>
+      <!--end::Col-->
+    </div>
+    <!--end::Input group-->
+    <!--begin::Input group-->
+    <div class="row mb-7">
+      <!--begin::Label-->
+      <label class="col-lg-4 fw-semibold text-muted">Birth Date </label>
+      <!--end::Label-->
+      <!--begin::Col-->
+      {% if profile.birth_date %}
+      <div class="col-lg-8">
+        <span class="fw-bold fs-6 text-gray-800">{{ profile.birth_date }}</span>
+      </div>
+      {% else %}
+      <div class="col-lg-8">
+        <span class="fw-bold fs-6 text-gray-800">------</span>
+      </div>
+      {% endif %}
 
-{% block js %}
+      <!--end::Col-->
+    </div>
+    <!--end::Input group-->
+    <!--begin::Input group-->
+    <div class="row mb-7">
+      <!--begin::Label-->
+      <label class="col-lg-4 fw-semibold text-muted">Communication</label>
+      <!--end::Label-->
+      <!--begin::Col-->
+      <div class="col-lg-8">
+        <span class="fw-bold fs-6 text-gray-800">Email, Phone</span>
+      </div>
+      <!--end::Col-->
+    </div>
+    <!--end::Input group-->
+    <!--begin::Input group-->
+    <div class="row mb-10">
+      <!--begin::Label-->
+      <label class="col-lg-4 fw-semibold text-muted">Address</label>
+      <!--begin::Label-->
+      <!--begin::Label-->
+      {% if profile.address %}
+      <div class="col-lg-8">
+        <span class="fw-semibold fs-6 text-gray-800"
+          >{{ profile.address }}</span
+        >
+      </div>
+      {% else %}
+      <div class="col-lg-8">
+        <span class="fw-semibold fs-6 text-gray-800">------</span>
+      </div>
+      {% endif %}
+      <!--begin::Label-->
+    </div>
+    <!--end::Input group-->
+  </div>
+  <!--end::Card body-->
+</div>
+<!--end::details View-->
+{% endblock info %} {% block js %}
 <script src="{static 'assets/js/custom/pages/user-profile/general.js'}"></script>
 <script src="assets/js/widgets.bundle.js"></script>
 <script src="assets/js/custom/widgets.js"></script>
