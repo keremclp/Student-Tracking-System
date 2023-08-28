@@ -180,3 +180,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Telefon numarası teacher ya da parent tarafından onaylanması 
 
 # Öğrenciler için blog sistemi olabilir
+
+# Top recent gibi en iyi öğrecileri kupalara göre ayarlanabilir

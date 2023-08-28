@@ -6,36 +6,44 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+
 @login_required(login_url='account:login_view')
 def student_dashboard(request):
+    # Ders programında aynı gün farklı hocaların dersi olacak, ona göre ayarlama yapılması gerekiyor
+    # student = request.user
+    # student_profile = StudentProfile.objects.get(user=student)
+    # classroom = student_profile.classroom
+    # timetable = classroom.timetable_set.all()
     user = request.user
     slug = StudentProfile.objects.get(user=user).slug
     context = dict(
         slug=slug,
     )
-    return render(request, 'student/student_dasboard.html',context)
+    return render(request, 'student/student_dasboard.html', context)
+
 
 @login_required(login_url='account:login_view')
-def student_profile_overview(request,user_slug):
+def student_profile_overview(request, user_slug):
     profile = get_object_or_404(StudentProfile, slug=user_slug)
     context = dict(
         profile=profile,
     )
     return render(request, 'student/student_profile/profile_overview.html', context)
 
-def student_profile_edit(request,user_slug):
+
+def student_profile_edit(request, user_slug):
     user = request.user
     profile = get_object_or_404(StudentProfile, slug=user_slug)
     initial_data = dict(
-        first_name = user.first_name,
-        last_name = user.last_name,
+        first_name=user.first_name,
+        last_name=user.last_name,
     )
-    form = StudentProfileModelForm(instance= profile, initial=initial_data)
+    form = StudentProfileModelForm(instance=profile, initial=initial_data)
     if request.method == "POST":
         form = StudentProfileModelForm(
-            request.POST or None, 
-            request.FILES or None, 
-            instance= profile
+            request.POST or None,
+            request.FILES or None,
+            instance=profile
         )
         if form.is_valid():
             f = form.save(commit=False)
@@ -46,21 +54,19 @@ def student_profile_edit(request,user_slug):
             if new_profile_image:
                 user.profile_image = new_profile_image
                 user.save()
-            
+
             user.save()
             profile.save()
             f.save()
             return redirect('student:student_profile_overview', user_slug=user_slug)
-    
-    
-    context = dict(
-        form = form,
-        title = "Edit Profile",
-        profile=profile,
-        
-    )
-    return render(request, 'student/student_profile/profile_settings.html',context)
 
+    context = dict(
+        form=form,
+        title="Edit Profile",
+        profile=profile,
+
+    )
+    return render(request, 'student/student_profile/profile_settings.html', context)
 
 
 # Check the profile_iamge attribute error!!
