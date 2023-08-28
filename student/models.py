@@ -6,6 +6,7 @@ from autoslug import AutoSlugField
 # Models
 from account.models import User
 from classroom.models import Classroom
+from teacher.models import TeacherProfile
 
 from datetime import date
 
@@ -28,6 +29,7 @@ class StudentClassroom(models.Model):
     classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE)
     enrollment_date = models.DateField(auto_now_add=True)
     notes = models.TextField(blank=True, null=True)
+    responsible_teacher = models.ForeignKey(TeacherProfile, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.classroom.grade_level} - {self.classroom.name}"
