@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login,logout
 from account.forms import LoginForm, SignUpForm
 from student.models import StudentProfile
+from teacher.models import TeacherProfile
 def login_view(request):
     
     form = LoginForm(request.POST or None)
@@ -38,10 +39,13 @@ def register_view(request):
             password = form.cleaned_data['password1']
             user = authenticate(username=username,password=password)
             if user is not None and user.role == 'student':
-                profile, profile_created = StudentProfile.objects.get_or_create(user=user)     
-            # if user is not None and user.role =='teacher':
-            #     profile, profile_created = TeacherProfile.objects.get_or_create(user=user)
-            return redirect('account:login_view')
+                profile, profile_created = StudentProfile.objects.get_or_create(user=user)
+                profile.save()
+                return redirect('account:login_view')
+            if user is not None and user.role =='teacher':
+                profile, profile_created = TeacherProfile.objects.get_or_create(user=user)
+                profile.save()
+                return redirect('account:login_view')
     else:
         form = SignUpForm()
     return render(request,'account/register.html', {'form': form})
