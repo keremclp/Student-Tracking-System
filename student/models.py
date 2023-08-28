@@ -51,7 +51,8 @@ class StudentGrade(models.Model):
     date = models.DateField()
     def __str__(self):
         return f"{self.student.user.first_name} {self.student.user.last_name} - {self.exam_name}"
-    
+
+
 class AttendanceRecord(models.Model):
     STATUS_CHOICES = [
         ('P', 'Present'),
@@ -61,6 +62,7 @@ class AttendanceRecord(models.Model):
     date = models.DateField()
     status = models.CharField(max_length=1, choices=STATUS_CHOICES)
     notes = models.TextField(blank=True, null=True)
+
 
 class StudentClassroom(models.Model):
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)

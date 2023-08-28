@@ -32,7 +32,7 @@ urlpatterns = [
     path('', include('student.urls',namespace='student')),
 
     # TEACHER
-    path('teacher/', include('teacher.urls', namespace='teacher')),
+    path('', include('teacher.urls', namespace='teacher')),
 
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
