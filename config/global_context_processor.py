@@ -1,4 +1,5 @@
 from student.models import StudentProfile
+from teacher.models import TeacherProfile
 
 def profile_global(request):
     user = request.user
@@ -20,21 +21,19 @@ def profile_image(request):
                 profile_global = profile_student
             except StudentProfile.DoesNotExist:
                 pass  # No need to change profile_image_path or profile_global
-
+        elif user.role == 'teacher':
+            try:
+                profile_teacher = TeacherProfile.objects.get(user=user)
+                profile_image_path = profile_teacher.user.profile_image.url
+                profile_global = profile_teacher
+            except TeacherProfile.DoesNotExist:
+                pass  # No need to change profile_image_path or profile_global
         # elif user.role == 'parent':
         #     try:
         #         profile_parent = ParentProfile.objects.get(user=user)
         #         profile_image_path = profile_parent.user.profile_image.url
         #         profile_global = profile_parent
         #     except ParentProfile.DoesNotExist:
-        #         pass  # No need to change profile_image_path or profile_global
-
-        # elif user.role == 'teacher':
-        #     try:
-        #         profile_teacher = TeacherProfile.objects.get(user=user)
-        #         profile_image_path = profile_teacher.user.profile_image.url
-        #         profile_global = profile_teacher
-        #     except TeacherProfile.DoesNotExist:
         #         pass  # No need to change profile_image_path or profile_global
 
     return {

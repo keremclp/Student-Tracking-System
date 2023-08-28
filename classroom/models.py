@@ -1,5 +1,7 @@
 from django.db import models
 from autoslug import AutoSlugField
+
+
 # Create your models here.
 
 
@@ -19,19 +21,19 @@ class Classroom(models.Model):
             self.slug = f"{self.grade_level} - {self.name}"
         super().save(*args, **kwargs)
 
-# class Timetable(models.Model):
-#     DAY_CHOICES = [
-#         (1, 'Monday'),
-#         (2, 'Tuesday'),
-#         (3, 'Wednesday'),
-#         (4, 'Thurday'),
-#         (5, 'Friday'),
-#     ]
-#     classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE)
-#     day_of_week = models.IntegerField(choices=DAY_CHOICES)  # Add all days
-#     start_time = models.TimeField()
-#     end_time = models.TimeField()
-#     subject = models.CharField(max_length=100)
-    # teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+class Timetable(models.Model):
+    DAY_CHOICES = [
+        (1, 'Monday'),
+        (2, 'Tuesday'),
+        (3, 'Wednesday'),
+        (4, 'Thurday'),
+        (5, 'Friday'),
+    ]
+    teacher = models.ForeignKey('teacher.TeacherProfile', on_delete=models.CASCADE)
+    classroom = models.ForeignKey('classroom.Classroom', on_delete=models.CASCADE)
+    day_of_week = models.IntegerField(choices=DAY_CHOICES)  # Add all days
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    subject = models.CharField(max_length=100)
 
 # Migrate yapılmadı buradan devam et ama öncesinde teacher oluştur!

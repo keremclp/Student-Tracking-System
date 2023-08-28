@@ -45,7 +45,6 @@ class StudentProfile(models.Model):
 
 class StudentGrade(models.Model):
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE, related_name='classrooms')
-    classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE, related_name='students')
     grade = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
     exam_name = models.CharField(max_length=100)
     date = models.DateField()
