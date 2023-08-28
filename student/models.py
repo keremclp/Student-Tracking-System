@@ -10,7 +10,28 @@ from classroom.models import Classroom
 from datetime import date
 
 # Create your models here.
+class AttendanceRecord(models.Model):
+    STATUS_CHOICES = [
+        ('P', 'Present'),
+        ('A', 'Absent'),
+    ]
 
+    date = models.DateField()
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES)
+    notes = models.TextField(blank=True, null=True)
+
+    # str function
+    def __str__(self):
+        return f"{self.date} - {self.status}"
+    
+class StudentClassroom(models.Model):
+    classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE)
+    enrollment_date = models.DateField(auto_now_add=True)
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.classroom.grade_level} - {self.classroom.name}"
+    
 class StudentProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     slug = AutoSlugField(unique=True)
@@ -18,6 +39,9 @@ class StudentProfile(models.Model):
     bio = models.TextField(null=True, blank=True)
     phone_number = models.CharField(max_length=15, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
+    attendance_records = models.ManyToManyField(AttendanceRecord,null=True, blank=True)
+    classroom = models.ForeignKey(StudentClassroom, on_delete=models.CASCADE,null=True, blank=True)
+
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name} (ID: {self.pk})"
@@ -52,26 +76,10 @@ class StudentGrade(models.Model):
         return f"{self.student.user.first_name} {self.student.user.last_name} - {self.exam_name}"
 
 
-class AttendanceRecord(models.Model):
-    STATUS_CHOICES = [
-        ('P', 'Present'),
-        ('A', 'Absent'),
-    ]
-
-    date = models.DateField()
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES)
-    notes = models.TextField(blank=True, null=True)
 
 
-class StudentClassroom(models.Model):
-    student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
-    classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE)
-    attendance_records = models.ManyToManyField(AttendanceRecord)
-    enrollment_date = models.DateField(auto_now_add=True)
-    notes = models.TextField(blank=True, null=True)
 
-    def __str__(self):
-        return f"{self.student.user.first_name} {self.student.user.last_name} - {self.classroom.name}"
+
     
     # def get_absolute_url(self):
     #     return reverse('student:student_classroom_detail', kwargs={'pk': self.pk})

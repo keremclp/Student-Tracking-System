@@ -4,7 +4,6 @@ from autoslug import AutoSlugField
 
 # Create your models here.
 
-
 class Classroom(models.Model):
     name = models.CharField(max_length=100)
     slug = AutoSlugField(unique=True)
@@ -35,5 +34,8 @@ class Timetable(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
     subject = models.CharField(max_length=100)
+
+    def __str__(self) -> str:
+        return f"{self.teacher.user.first_name} {self.teacher.user.last_name} - {self.subject} - {self.start_time}"
 
 # Migrate yapılmadı buradan devam et ama öncesinde teacher oluştur!
