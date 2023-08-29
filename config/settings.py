@@ -173,6 +173,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Teacher için öğrenciyi takip etme 
 # Öğrenci ve Teacher için bilgilerini güncelleme
 
+# Öğrenci için öğretmen tarafından ödevlendirme
+# Rehber öğretmen öğrencilere randevu verebilsin görüşme için
+
 # Kullanıcı online (django-online-users 0.1)
 # Kullanıcıya mesaj gönderme (django-messages 0.6.0)
 # Kullanıcıya bildirim gönderme (django-notifications-hq 1.5.0)
