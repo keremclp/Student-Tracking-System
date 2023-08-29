@@ -17,13 +17,18 @@ def student_dashboard(request, ):
     user_slug = StudentProfile.objects.get(user=user).slug
     profile = get_object_or_404(StudentProfile, slug=user_slug)
     student_classroom = profile.classroom
+    print(student_classroom)
     try:
-        timetable = Timetable.objects.get(classroom=student_classroom.classroom)
+        classroom_instance = None
+        if student_classroom is not None:
+            classroom_instance = student_classroom.classroom # It has to be Classroom istance, when remove classroom in here you got Studentclassroom instace
+        print(classroom_instance)
+        timetables = Timetable.objects.filter(classroom=classroom_instance)
     except Timetable.DoesNotExist:
-        timetable = None
-    
+        timetables = None
+
     context = dict(
-        timetable= timetable
+        timetables = timetables
     )
     return render(request, 'student/student_dasboard.html', context)
 
