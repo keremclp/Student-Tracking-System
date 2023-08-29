@@ -37,5 +37,8 @@ class Timetable(models.Model):
 
     def __str__(self) -> str:
         return f"{self.teacher.user.first_name} {self.teacher.user.last_name} - {self.subject} - {self.start_time}"
+    
+    class Meta:
+        ordering = ('start_time',)
 
 # Migrate yapılmadı buradan devam et ama öncesinde teacher oluştur!

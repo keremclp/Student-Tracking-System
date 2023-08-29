@@ -143,16 +143,16 @@
             <!--end::Toolbar-->
           </div>
           <!--end::Header-->
-          <div class="tab-content">
+          <div class="tab-content p-2">
             {% for day, day_timetables in grouped_timetables.items %}
               <div id="{{ day|slugify }}" class="tab-pane {% if day == 'Monday' %}active{% endif %}">
-                <table class="display table table-striped table-bordered dt-responsive nowrap w-full mx-auto mt-5" style="width: 100%">
+                <table class="display table table-striped table-bordered dt-responsive nowrap w-full mx-auto mt-5 custom-table" style="width: 100%">
                   <thead>
                     <tr>
-                      <th>Subject</th>
-                      <th>Teacher</th>
-                      <th>Start Time</th>
-                      <th>End Time</th>
+                      <th class="table-header">Subject</th>
+                      <th class="table-header">Teacher</th>
+                      <th class="table-header">Start Time</th>
+                      <th class="table-header">End Time</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -191,7 +191,7 @@
               <div
                 class="flex-grow-1 bgi-no-repeat bgi-size-contain bgi-position-x-center card-rounded-bottom h-200px mh-200px my-5 mb-lg-12"
                 style="
-                  background-image: url('assets/media/svg/illustrations/easy/6.svg');
+                  background-image: url('{% static "assets/media/svg/illustrations/easy/6.svg" %}');
                 "
               ></div>
               <!--end::Illustration-->
