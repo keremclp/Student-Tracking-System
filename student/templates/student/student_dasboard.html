@@ -17,7 +17,7 @@
       <h1
         class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"
       >
-        Hello Tyler
+        Hello {{ profile.user.first_name }}
       </h1>
       <!--end::Title-->
       <!--begin::Breadcrumb-->
@@ -89,8 +89,13 @@
             <ul class="nav nav-stretch nav-pills nav-pills-custom d-flex mt-3">
               <!--begin::Nav item-->
               {% for day, day_timetables in grouped_timetables.items %}
-                <li class="nav-item">
-                  <a class="nav-link {% if day == 'Monday' %}active{% endif %}" data-bs-toggle="tab" href="#{{ day|slugify }}">{{ day }}</a>
+                <li class="nav-item p-0 ms-0 me-8">
+                  <a class="nav-link btn btn-color-muted px-0 {% if day == 'Monday' %}active{% endif %} " data-bs-toggle="tab" href="#{{ day|slugify }}">
+                    <span class="nav-text fw-semibold fs-4 mb-3">{{ day }}</span>
+                    <span
+                      class="bullet-custom position-absolute z-index-2 w-100 h-2px top-100 bottom-n100 bg-primary rounded"
+                    ></span>                   
+                  </a>
                 </li>
               {% endfor %}
               <!--end::Nav item-->

@@ -36,7 +36,8 @@ def student_dashboard(request):
         grouped_timetables[day_name] = list(day_timetables)
 
     context = dict(
-        grouped_timetables=grouped_timetables
+        grouped_timetables=grouped_timetables,
+        profile=profile,
     )
     return render(request, 'student/student_dasboard.html', context)
 
