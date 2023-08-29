@@ -88,24 +88,12 @@
             <!--begin::Nav-->
             <ul class="nav nav-stretch nav-pills nav-pills-custom d-flex mt-3">
               <!--begin::Nav item-->
-              {% for timetable in timetables %}
+              {% for day, day_timetables in grouped_timetables.items %}
                 <li class="nav-item p-0 ms-0 me-8">
-                  <!--begin::Nav link-->
-                  <a
-                    class="nav-link btn btn-color-muted px-0"
-                    data-bs-toggle="tab"
-                    href="#{{ timetable.get_day_of_week_display|slugify }}"
-                  >
-                    <!--begin::Title-->
-                    <span class="nav-text fw-semibold fs-4 mb-3">{{ timetable.get_day_of_week_display }}</span>
-                    <!--end::Title-->
-                    <!--begin::Bullet-->
-                    <span
-                      class="bullet-custom position-absolute z-index-2 w-100 h-2px top-100 bottom-n100 bg-primary rounded"
-                    ></span>
-                    <!--end::Bullet-->
+                  <a class="nav-link btn btn-color-muted px-0" data-bs-toggle="tab" href="#{{ day|slugify }}">
+                    <span class="nav-text fw-semibold fs-4 mb-3">{{ day }}</span>
+                    <span class="bullet-custom position-absolute z-index-2 w-100 h-2px top-100 bottom-n100 bg-primary rounded"></span>
                   </a>
-                  <!--end::Nav link-->
                 </li>
               {% endfor %}
               <!--end::Nav item-->
@@ -153,8 +141,8 @@
             <!--end::Toolbar-->
           </div>
           <!--end::Header-->
-          {% for timetable in timetables %}
-            <div class="tab-pane fade" id="{{ timetable.get_day_of_week_display|slugify }}">
+          {% for day, day_timetables in grouped_timetables.items %}
+            <div class="tab-pane fade" id="{{ day|slugify }}">
               <table class="display table table-striped table-bordered dt-responsive nowrap w-full mx-auto mt-5" style="width: 100%">
                 <thead>
                   <tr>
@@ -165,15 +153,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for inner_timetable in timetables %}
-                    {% if inner_timetable.get_day_of_week_display == timetable.get_day_of_week_display %}
-                      <tr>
-                        <td>{{ inner_timetable.subject }}</td>
-                        <td>{{ inner_timetable.teacher }}</td>
-                        <td>{{ inner_timetable.start_time }}</td>
-                        <td>{{ inner_timetable.end_time }}</td>
-                      </tr>
-                    {% endif %}
+                  {% for timetable in day_timetables %}
+                    <tr>
+                      <td>{{ timetable.subject }}</td>
+                      <td>{{ timetable.teacher }}</td>
+                      <td>{{ timetable.start_time }}</td>
+                      <td>{{ timetable.end_time }}</td>
+                    </tr>
                   {% endfor %}
                 </tbody>
               </table>

@@ -1,3 +1,5 @@
+from itertools import groupby
+from operator import attrgetter
 from django.shortcuts import get_object_or_404, redirect, render
 from student.forms import StudentProfileModelForm
 
@@ -11,24 +13,30 @@ from django.contrib.auth.decorators import login_required
 
 
 @login_required(login_url='account:login_view')
-def student_dashboard(request, ):
-    # Ders programında aynı gün farklı hocaların dersi olacak, ona göre ayarlama yapılması gerekiyor
+def student_dashboard(request):
     user = request.user
     user_slug = StudentProfile.objects.get(user=user).slug
     profile = get_object_or_404(StudentProfile, slug=user_slug)
     student_classroom = profile.classroom
-    print(student_classroom)
+
     try:
         classroom_instance = None
         if student_classroom is not None:
-            classroom_instance = student_classroom.classroom # It has to be Classroom istance, when remove classroom in here you got Studentclassroom instace
-        print(classroom_instance)
+            classroom_instance = student_classroom.classroom
         timetables = Timetable.objects.filter(classroom=classroom_instance)
     except Timetable.DoesNotExist:
-        timetables = None
+        timetables = []
+
+    # Convert QuerySet to a list and then group timetables by day of the week
+    timetables_list = list(timetables)
+    timetables_list.sort(key=attrgetter('day_of_week'))  # Sort by day_of_week field
+    grouped_timetables = {}
+    for day, day_timetables in groupby(timetables_list, key=lambda t: t.day_of_week):
+        day_name = dict(Timetable.DAY_CHOICES)[day]  # Convert integer day to day name
+        grouped_timetables[day_name] = list(day_timetables)
 
     context = dict(
-        timetables = timetables
+        grouped_timetables=grouped_timetables
     )
     return render(request, 'student/student_dasboard.html', context)
 
