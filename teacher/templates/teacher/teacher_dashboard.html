@@ -1,3 +1,26 @@
 {% extends 'core/base.html' %}
 {% load static %}
 
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Teacher Dashboard</h1>
+            <hr>
+            <h3>Teacher: {{ user.username }}</h3>
+            <h3>Teacher ID: {{ user.id }}</h3>
+            <h3>Teacher Email: {{ user.email }}</h3>
+            <h3>Teacher First Name: {{ user.first_name }}</h3>
+            <h3>Teacher Last Name: {{ user.last_name }}</h3>
+            <h3>Teacher Date Joined: {{ user.date_joined }}</h3>
+            <h3>Teacher Last Login: {{ user.last_login }}</h3>
+            <hr>
+            <h3>Teacher Courses</h3>
+            <hr>
+            <a href="{% url 'teacher:teacher_profile_overview' %}">Profile</a>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

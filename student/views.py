@@ -48,7 +48,7 @@ def student_profile_overview(request, user_slug):
     context = dict(
         profile=profile,
     )
-    return render(request, 'student/student_profile/profile_overview.html', context)
+    return render(request, 'student/student_profile/student_profile_overview.html', context)
 
 
 def student_profile_edit(request, user_slug):
@@ -86,7 +86,7 @@ def student_profile_edit(request, user_slug):
         profile=profile,
 
     )
-    return render(request, 'student/student_profile/profile_settings.html', context)
+    return render(request, 'student/student_profile/student_profile_settings.html', context)
 
 
 # Check the profile_iamge attribute error!!

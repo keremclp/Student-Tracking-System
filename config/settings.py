@@ -45,7 +45,7 @@ BASE_APPS = [
 THIRD_PART_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
-    'autoslug'   
+    'autoslug'
 ]
 
 MY_APPS = [
@@ -75,7 +75,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR /'templates',
+            BASE_DIR / 'templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -166,22 +166,22 @@ LOGIN_ADMIN_RESTRICTED = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
-
 # YAPILMASI DÜŞÜNÜNLER:
 
-# Teacher için öğrenciyi takip etme 
-# Öğrenci ve Teacher için bilgilerini güncelleme
+# TODO: Teacher için öğrenciyi takip etme
+# TODO: öğretmenlerin öğrencilerini görme, bunun çin student profiline gitmeyecek, ayrı bir liste oluşturup orada gösterip öyle çekmemiz gerekiyor https://twitter.com/html5css3_dv/status/1695199371896184939?t=ntiUELfq3U3goBhQAB5r4w&s=08
+# TODO: Öğrenci ve Teacher için bilgilerini güncelleme
 
-# Öğrenci için öğretmen tarafından ödevlendirme
-# Rehber öğretmen öğrencilere randevu verebilsin görüşme için
+# TODO: Öğrenci için öğretmen tarafından ödevlendirme
+# TODO: Rehber öğretmen öğrencilere randevu verebilsin görüşme için
 
-# Kullanıcı online (django-online-users 0.1)
-# Kullanıcıya mesaj gönderme (django-messages 0.6.0)
-# Kullanıcıya bildirim gönderme (django-notifications-hq 1.5.0)
+# TODO: Kullanıcı online (django-online-users 0.1)
+# TODO: Kullanıcıya mesaj gönderme (django-messages 0.6.0)
+# TODO: Kullanıcıya bildirim gönderme (django-notifications-hq 1.5.0)
 
-# Telefon numarası teacher ya da parent tarafından onaylanması 
+# TODO: Telefon numarası teacher ya da parent tarafından onaylanması
 
-# Öğrenciler için blog sistemi olabilir
+# TODO: Öğrenciler için blog sistemi olabilir
 
-# Top recent gibi en iyi öğrecileri kupalara göre ayarlanabilir
+# TODO: Top recent gibi en iyi öğrecileri kupalara göre ayarlanabilir
+# TODO: Öğrenciler için oyunlar vs olabilir.   https://twitter.com/html5css3_dv/status/1695481194295734280?t=rEd-MhQkpNf4QhJTLAf-Hw&s=08
