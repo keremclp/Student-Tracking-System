@@ -7,5 +7,5 @@ app_name = 'teacher'
 
 urlpatterns = [
     path('teacher-dashboard/', teacher_dashboard , name='teacher_dashboard'),
-    path('teacher-profile-overview/', teacher_profile_overview , name='teacher_profile_overview'),
+    path('teacher-profile/<slug:user_slug>/', teacher_profile_overview , name='teacher_profile_overview'),
 ]

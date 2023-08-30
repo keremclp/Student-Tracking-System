@@ -17,7 +17,7 @@
             <hr>
             <h3>Teacher Courses</h3>
             <hr>
-            <a href="{% url 'teacher:teacher_profile_overview' %}">Profile</a>
+            <a href="{% url 'teacher:teacher_profile_overview' user_slug=profile_global.slug %}">Profile</a>
             
         </div>
     </div>
