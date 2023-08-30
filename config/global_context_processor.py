@@ -55,16 +55,33 @@ def completion_percentage(request):
     user = request.user
     if user.is_authenticated:
         try:
-            profile = StudentProfile.objects.get(user=user)
+            total_fields = 4
+            completed_fields = 0 
+            completion_percentage = 0 
+            if user.role == 'student':
+                profile = StudentProfile.objects.get(user=user)
+                completed_fields = sum(
+                    field is not None and field != ""
+                    for field in [profile.birth_date, profile.bio, profile.phone_number, profile.address]
+                )
+            elif user.role == 'teacher':
+                profile = TeacherProfile.objects.get(user=user)
+                print('teacher--------------')
+                completed_fields = sum(
+                    field is not None and field != ""
+                    for field in [profile.birth_date, profile.bio, profile.phone_number, profile.address, profile.experience, profile.salary]
+                )
+                print(completed_fields)
+            # elif user.role == 'parent':
+            #     completed_fields = sum(
+            #         field is not None and field != ""
+            #         for field in [profile.birth_date, profile.bio, profile.phone_number, profile.address, profile.job]
+            #     )
+            completion_percentage = (completed_fields / total_fields) * 100
+            print('---------completion_percentage')
+            print(completion_percentage)   
         except StudentProfile.DoesNotExist:
             completion_percentage = 0  # No profile, so completion is 0%
-        else:
-            total_fields = 4
-            completed_fields = sum(
-                field is not None and field != ""
-                for field in [profile.birth_date, profile.bio, profile.phone_number, profile.address]
-            )
-            completion_percentage = (completed_fields / total_fields) * 100
     else:
         completion_percentage = 0  # User is not authenticated, so completion is 0%
     
