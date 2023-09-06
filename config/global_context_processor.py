@@ -41,16 +41,6 @@ def profile_image(request):
         'profile_global': profile_global
     }
 
-
-
-# elif user.is_authenticated and user.role == 'teacher': 
-    #     try:
-    #         student_profile = StudentProfile.objects.get(user=user)
-    #         profile_image_path = student_profile.user.profile_image.url
-    #     except StudentProfile.DoesNotExist:
-    #         profile_image_path = 'default_image_path'
-
-
 def completion_percentage(request):
     user = request.user
     if user.is_authenticated:
