@@ -40,7 +40,4 @@ class Timetable(models.Model):
     
     class Meta:
         ordering = ('start_time',)
-<<<<<<< HEAD
-=======
 
->>>>>>> f8e4c300663939331c498bd8e881132dbf432086
