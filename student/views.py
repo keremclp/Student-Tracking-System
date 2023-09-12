@@ -87,6 +87,3 @@ def student_profile_edit(request, user_slug):
 
     )
     return render(request, 'student/student_profile/student_profile_settings.html', context)
-
-
-# Check the profile_iamge attribute error!!

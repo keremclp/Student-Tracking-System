@@ -40,5 +40,3 @@ class Timetable(models.Model):
     
     class Meta:
         ordering = ('start_time',)
-
-# Migrate yapılmadı buradan devam et ama öncesinde teacher oluştur!
