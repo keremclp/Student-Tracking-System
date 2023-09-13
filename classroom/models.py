@@ -25,7 +25,7 @@ class Timetable(models.Model):
         (1, 'Monday'),
         (2, 'Tuesday'),
         (3, 'Wednesday'),
-        (4, 'Thurday'),
+        (4, 'Thursday'),
         (5, 'Friday'),
     ]
     teacher = models.ForeignKey('teacher.TeacherProfile', on_delete=models.CASCADE)
