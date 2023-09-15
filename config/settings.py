@@ -181,12 +181,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # TODO: Telefon numarası teacher ya da parent tarafından onaylanması
 
-# TODO: Öğrenciler için blog sistemi olabilir
+# TODO: Öğrenciler için blog sistemi olabilir(Hocanı notla kısmı)
 
 # TODO: Top recent gibi en iyi öğrecileri kupalara göre ayarlanabilir
 # TODO: Öğrenciler için oyunlar vs olabilir.   https://twitter.com/html5css3_dv/status/1695481194295734280?t=rEd-MhQkpNf4QhJTLAf-Hw&s=08
 # TODO: Öğrenciler için devamsızlık bilgisi eklenecek ve bu devamsızlık bilgisi öğretmenler tarafından girecek
-# TODO: Öğretmen ders programını girmeli, her öğretmen kendi branşının ders programını girecek ve ders programını gösterirken sınıfa göre ayarlamak gerekiyor.
 # TODO: Öğretmen ders programını girmeli, her öğretmen kendi branşının ders programını girecek ve ders programını gösterirken sınıfa göre ayarlamak gerekiyor.
 
 # Yapılma Aşamasında:
