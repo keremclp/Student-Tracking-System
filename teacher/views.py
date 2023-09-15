@@ -4,7 +4,12 @@ from teacher.forms import TeacherProfileModelForm
 # Create your views here.
 
 def teacher_dashboard(request):
-    return render(request,'teacher/teacher_dashboard.html')
+    user = request.user
+    teacher_profile = get_object_or_404(TeacherProfile, user=user)
+    context = dict(
+        teacher_profile=teacher_profile,
+    )
+    return render(request,'teacher/teacher_dashboard.html',context)
 
 def teacher_profile_overview(request, user_slug):
     teacher_profile = get_object_or_404(TeacherProfile, slug=user_slug)

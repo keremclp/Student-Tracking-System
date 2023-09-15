@@ -14,6 +14,18 @@
             <h3>Teacher Last Name: {{ user.last_name }}</h3>
             <h3>Teacher Date Joined: {{ user.date_joined }}</h3>
             <h3>Teacher Last Login: {{ user.last_login }}</h3>
+            <h1>Teacher's Classrooms:</h1>
+            <ul>
+                {% for classroom in teacher_profile.classroom.all %}
+                    <li>{{ classroom }}</li>
+                {% endfor %}
+            </ul>
+            <h1>Students in Teacher's Classroom:</h1>
+            <ul>
+                {% for student in teacher_profile.classroom.first.students.all %}
+                    <li>{{ student }}</li>
+                {% endfor %}
+            </ul>
             <hr>
             <h3>Teacher Courses</h3>
             <hr>

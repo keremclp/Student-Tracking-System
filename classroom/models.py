@@ -10,6 +10,7 @@ class Classroom(models.Model):
     grade_level = models.CharField(max_length=10)
     capacity = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+    
 
     def __str__(self):
         return f"{self.grade_level} - {self.name}"

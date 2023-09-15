@@ -30,11 +30,12 @@ class StudentClassroom(models.Model):
     enrollment_date = models.DateField(auto_now_add=True)
     notes = models.TextField(blank=True, null=True)
     responsible_teacher = models.ForeignKey(TeacherProfile, on_delete=models.CASCADE, null=True, blank=True)
-
+    students = models.ManyToManyField('student.StudentProfile', related_name='classrooms')
     def __str__(self):
         return f"{self.classroom.grade_level} - {self.classroom.name}"
     
-class StudentProfile(models.Model):
+
+class StudentProfile(models.Model): 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     slug = AutoSlugField(unique=True)
     birth_date = models.DateField(null=True, blank=True)
@@ -42,7 +43,6 @@ class StudentProfile(models.Model):
     phone_number = models.CharField(max_length=15, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
     attendance_records = models.ManyToManyField(AttendanceRecord,null=True, blank=True)
-    classroom = models.ForeignKey(StudentClassroom, on_delete=models.CASCADE,null=True, blank=True)
 
 
     def __str__(self):
@@ -70,7 +70,7 @@ class StudentProfile(models.Model):
     
 
 class StudentGrade(models.Model):
-    student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE, related_name='classrooms')
+    student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
     grade = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
     exam_name = models.CharField(max_length=100)
     date = models.DateField()

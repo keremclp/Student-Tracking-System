@@ -4,13 +4,13 @@ from django.db import models
 
 # Models
 from account.models import User
-from classroom.models import Classroom
+
 
 # Create your models here.
 
 class TeacherProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    classroom = models.ManyToManyField(Classroom)
+    classroom = models.ManyToManyField('student.StudentClassroom')
     slug = AutoSlugField(unique=True)
     birth_date = models.DateField(null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
