@@ -9,7 +9,7 @@ def teacher_dashboard(request):
 def teacher_profile_overview(request, user_slug):
     teacher_profile = get_object_or_404(TeacherProfile, slug=user_slug)
     context = dict(
-        profile=teacher_profile,
+        teacher_profile=teacher_profile,
     )
     return render(request,'teacher/teacher_profile/teacher_profile_overview.html', context)
 
