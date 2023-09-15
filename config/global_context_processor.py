@@ -48,6 +48,7 @@ def completion_percentage(request):
                     for field in [profile.birth_date, profile.bio, profile.phone_number, profile.address]
                 )
             elif user.role == 'teacher':
+                total_fields = 6
                 profile = TeacherProfile.objects.get(user=user)
                 print('teacher--------------')
                 completed_fields = sum(
@@ -60,7 +61,7 @@ def completion_percentage(request):
             #         field is not None and field != ""
             #         for field in [profile.birth_date, profile.bio, profile.phone_number, profile.address, profile.job]
             #     )
-            completion_percentage = (completed_fields / total_fields) * 100
+            completion_percentage = int((completed_fields / total_fields) * 100)
             print('---------completion_percentage')
             print(completion_percentage)   
         except StudentProfile.DoesNotExist:
