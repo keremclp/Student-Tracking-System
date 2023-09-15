@@ -1,13 +1,6 @@
 from student.models import StudentProfile
 from teacher.models import TeacherProfile
 
-def profile_global(request):
-    user = request.user
-    print(user)
-    # bring me profile 
-    profile = StudentProfile.objects.get(user=user)
-    return {'profile_global': profile}
-
 def profile_image(request):
     user = request.user
     profile_image_path = 'default_image_path'

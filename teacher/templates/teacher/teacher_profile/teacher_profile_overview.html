@@ -15,10 +15,11 @@
         class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative"
       >
         <a
-          href="#"
+          href="{{ teacher_profile.get_absolute_url_edit_teacher }}"
           class="btn btn-sm btn-primary align-self-center"
-          >Edit Profile</a
-        >
+          >Edit Profile
+        </a>
+
         {% if completion_percentage < 100 %}
         <div
           class="position-absolute translate-middle bottom-0 start-100 top-100 mb-6 bg-danger bg-gradient rounded-circle border border-4 border-body h-20px w-20px"
@@ -41,7 +42,7 @@
       <!--begin::Col-->
       <div class="col-lg-8">
         <span class="fw-bold fs-6 text-gray-800"
-          >{{ profile.user.get_full_name }}</span
+          >{{ teacher_profile.user.get_full_name }}</span
         >
       </div>
       <!--end::Col-->
@@ -55,7 +56,7 @@
       <!--begin::Col-->
       <div class="col-lg-8 fv-row">
         <span class="fw-semibold text-gray-800 fs-6"
-          >{{ profile.user.email }}</span
+          >{{ teacher_profile.user.email }}</span
         >
       </div>
       <!--end::Col-->
@@ -74,10 +75,10 @@
       ></label>
       <!--end::Label-->
       <!--begin::Col-->
-      {% if profile.phone_number %}
+      {% if teacher_profile.phone_number %}
       <div class="col-lg-8 d-flex align-items-center">
         <span class="fw-bold fs-6 text-gray-800 me-2"
-          >{{ profile.phone_number }}</span
+          >{{ teacher_profile.phone_number }}</span
         >
         <span class="badge badge-success">Verified</span>
       </div>
@@ -97,9 +98,9 @@
       <!--end::Label-->
       <!--begin::Col-->
       <div class="col-lg-8">
-        {% if profile.bio %}
+        {% if teacher_profile.bio %}
         <a href="#" class="fw-semibold fs-6 text-gray-800 text-hover-primary"
-          >{{ profile.bio }}</a
+          >{{ teacher_profile.bio }}</a
         >
         {% else %}
         <span class="fw-semibold fs-6 text-gray-800">------</span>
@@ -114,9 +115,9 @@
       <label class="col-lg-4 fw-semibold text-muted">Birth Date </label>
       <!--end::Label-->
       <!--begin::Col-->
-      {% if profile.birth_date %}
+      {% if teacher_profile.birth_date %}
       <div class="col-lg-8">
-        <span class="fw-bold fs-6 text-gray-800">{{ profile.birth_date }}</span>
+        <span class="fw-bold fs-6 text-gray-800">{{ teacher_profile.birth_date }}</span>
       </div>
       {% else %}
       <div class="col-lg-8">
@@ -145,10 +146,10 @@
       <label class="col-lg-4 fw-semibold text-muted">Address</label>
       <!--begin::Label-->
       <!--begin::Label-->
-      {% if profile.address %}
+      {% if teacher_profile.address %}
       <div class="col-lg-8">
         <span class="fw-semibold fs-6 text-gray-800"
-          >{{ profile.address }}</span
+          >{{ teacher_profile.address }}</span
         >
       </div>
       {% else %}
@@ -163,7 +164,8 @@
   <!--end::Card body-->
 </div>
 <!--end::details View-->
-{% endblock info %} {% block js %}
+{% endblock info %} 
+{% block js %}
 <script src="{static 'assets/js/custom/pages/user-profile/general.js'}"></script>
 <script src="assets/js/widgets.bundle.js"></script>
 <script src="assets/js/custom/widgets.js"></script>

@@ -1,4 +1,4 @@
-from audioop import reverse
+from django.urls import reverse
 from autoslug import AutoSlugField
 from django.db import models
 
@@ -33,7 +33,7 @@ class TeacherProfile(models.Model):
     #         kwargs={'user_slug': self.slug}
     #     )
     
-    # def get_absolute_url_edit(self):
-    #     return reverse('teacher:teacher_profile_edit', kwargs={'user_slug': self.slug})
+    def get_absolute_url_edit_teacher(self):
+        return reverse('teacher:teacher_profile_edit', kwargs={'user_slug': self.slug})
     
 
