@@ -40,7 +40,7 @@ def teacher_profile_edit(request, user_slug):
             user.save()
             profile.save()
             f.save()
-            return redirect('student:student_profile_overview', user_slug=user_slug)
+            return redirect('teacher:teacher_profile_overview', user_slug=user_slug)
 
     context = dict(
         form=form,

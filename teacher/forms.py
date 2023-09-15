@@ -22,6 +22,8 @@ class TeacherProfileModelForm(forms.ModelForm):
             'bio',
             'phone_number',
             'address',
+            'experience',
+            'salary',
         ]
         
     def __init__(self, *args, **kwargs):
