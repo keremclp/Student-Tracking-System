@@ -1,13 +1,34 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from teacher.models import TeacherProfile
+from django.db.models import Q
+
+# FORMS
 from teacher.forms import TeacherProfileModelForm
-# Create your views here.
+
+# MODELS
+from classroom.models import Classroom
+from student.models import StudentClassroom
+from teacher.models import TeacherProfile
 
 def teacher_dashboard(request):
     user = request.user
     teacher_profile = get_object_or_404(TeacherProfile, user=user)
+
+    classroom_5a = Classroom.objects.get(Q(name='A') & Q(grade_level=5))
+    print(classroom_5a.capacity)
+
+    studentClas = StudentClassroom.objects.get(Q(classroom=classroom_5a))
+    print('student----------')
+    print(studentClas)
+    # all_students = []
+    students=studentClas.students.all()
+    print(students)
+
+    # for i in students:
+    #     all_students.append(i)
     context = dict(
         teacher_profile=teacher_profile,
+        students = students,
+        studentClas = studentClas
     )
     return render(request,'teacher/teacher_dashboard.html',context)
 

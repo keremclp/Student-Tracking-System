@@ -27,6 +27,15 @@
                 {% endfor %}
             </ul>
             <hr>
+            <h1>Students in '5-A' Classrooms:</h1>
+            
+            <h2>Students in Classroom:</h2>
+            <ul>
+            {% for student in students %}
+                <li>{{ student }}</li>
+            {% endfor %}
+                <li>Responsible teacher: {{ studentClas.responsible_teacher }} </li>
+            </ul>
             <h3>Teacher Courses</h3>
             <hr>
             <a href="{% url 'teacher:teacher_profile_overview' user_slug=profile_global.slug %}">Profile</a>
