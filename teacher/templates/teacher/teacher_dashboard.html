@@ -40,7 +40,7 @@
       <h2>Students in Classroom:</h2>
       <ul>
         {% for student in students %}
-        <li>{{ student }}</li>
+        <li>{{ student.user.profile_image.url }}</li>
         {% endfor %}
         <li>Responsible teacher: {{ studentClas.responsible_teacher }}</li>
       </ul>
@@ -49,285 +49,39 @@
       <section>
         <div class="swiper mySwiper container">
           <div class="swiper-wrapper content">
-            <div class="swiper-slide card">
-              <div class="card-content">
-                <div class="image">
-                  <img src="{% static 'assets/media/avatars/300-1.jpg' %}" alt="" />
-                </div>
+            {% for student in students %}
+                <div class="swiper-slide card">
+                <div class="card-content">
+                    <div class="image">
+                    <img src="{{ student.user.profile_image.url }}" alt="" />
+                    </div>
 
-                <div class="media-icons">
-                  <i class="fab fa-facebook"></i>
-                  <i class="fab fa-twitter"></i>
-                  <i class="fab fa-github"></i>
-                </div>
+                    <div class="media-icons">
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-github"></i>
+                    </div>
 
-                <div class="name-profession">
-                  <span class="name">Someone Name</span>
-                  <span class="profession">Web Developer</span>
-                </div>
+                    <div class="name-profession">
+                    <span class="name">{{ student.first_name }}</span>
+                    <span class="profession">{{ student.user.role }}</span>
+                    </div>
 
-                <div class="rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                </div>
+                    <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    </div>
 
-                <div class="button">
-                  <button class="aboutMe">About Me</button>
-                  <button class="hireMe">Hire Me</button>
+                    <div class="button">
+                    <button class="aboutMe">About Me</button>
+                    <button class="hireMe">Hire Me</button>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <div class="swiper-slide card">
-              <div class="card-content">
-                <div class="image">
-                  <img src="{% static 'assets/media/avatars/300-2.jpg' %}" alt="" />
                 </div>
-
-                <div class="media-icons">
-                  <i class="fab fa-facebook"></i>
-                  <i class="fab fa-twitter"></i>
-                  <i class="fab fa-github"></i>
-                </div>
-
-                <div class="name-profession">
-                  <span class="name">Someone Name</span>
-                  <span class="profession">Web Developer</span>
-                </div>
-
-                <div class="rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                </div>
-
-                <div class="button">
-                  <button class="aboutMe">About Me</button>
-                  <button class="hireMe">Hire Me</button>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide card">
-              <div class="card-content">
-                <div class="image">
-                  <img src="{% static 'assets/media/avatars/300-3.jpg' %}" alt="" />
-                </div>
-
-                <div class="media-icons">
-                  <i class="fab fa-facebook"></i>
-                  <i class="fab fa-twitter"></i>
-                  <i class="fab fa-github"></i>
-                </div>
-
-                <div class="name-profession">
-                  <span class="name">Someone Name</span>
-                  <span class="profession">Web Developer</span>
-                </div>
-
-                <div class="rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                </div>
-
-                <div class="button">
-                  <button class="aboutMe">About Me</button>
-                  <button class="hireMe">Hire Me</button>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide card">
-              <div class="card-content">
-                <div class="image">
-                  <img src="{% static 'assets/media/avatars/300-4.jpg' %}" alt="" />
-                </div>
-
-                <div class="media-icons">
-                  <i class="fab fa-facebook"></i>
-                  <i class="fab fa-twitter"></i>
-                  <i class="fab fa-github"></i>
-                </div>
-
-                <div class="name-profession">
-                  <span class="name">Someone Name</span>
-                  <span class="profession">Web Developer</span>
-                </div>
-
-                <div class="rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                </div>
-
-                <div class="button">
-                  <button class="aboutMe">About Me</button>
-                  <button class="hireMe">Hire Me</button>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide card">
-              <div class="card-content">
-                <div class="image">
-                  <img src="{% static 'assets/media/avatars/300-5.jpg' %}" alt="" />
-                </div>
-
-                <div class="media-icons">
-                  <i class="fab fa-facebook"></i>
-                  <i class="fab fa-twitter"></i>
-                  <i class="fab fa-github"></i>
-                </div>
-
-                <div class="name-profession">
-                  <span class="name">Someone Name</span>
-                  <span class="profession">Web Developer</span>
-                </div>
-
-                <div class="rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                </div>
-
-                <div class="button">
-                  <button class="aboutMe">About Me</button>
-                  <button class="hireMe">Hire Me</button>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide card">
-              <div class="card-content">
-                <div class="image">
-                  <img src="{% static 'assets/media/avatars/300-6.jpg' %}" alt="" />
-                </div>
-
-                <div class="media-icons">
-                  <i class="fab fa-facebook"></i>
-                  <i class="fab fa-twitter"></i>
-                  <i class="fab fa-github"></i>
-                </div>
-
-                <div class="name-profession">
-                  <span class="name">Someone Name</span>
-                  <span class="profession">Web Developer</span>
-                </div>
-
-                <div class="rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                </div>
-
-                <div class="button">
-                  <button class="aboutMe">About Me</button>
-                  <button class="hireMe">Hire Me</button>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide card">
-              <div class="card-content">
-                <div class="image">
-                  <img src="{% static 'assets/media/avatars/300-7.jpg' %}" alt="" />
-                </div>
-
-                <div class="media-icons">
-                  <i class="fab fa-facebook"></i>
-                  <i class="fab fa-twitter"></i>
-                  <i class="fab fa-github"></i>
-                </div>
-
-                <div class="name-profession">
-                  <span class="name">Someone Name</span>
-                  <span class="profession">Web Developer</span>
-                </div>
-
-                <div class="rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                </div>
-
-                <div class="button">
-                  <button class="aboutMe">About Me</button>
-                  <button class="hireMe">Hire Me</button>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide card">
-              <div class="card-content">
-                <div class="image">
-                  <img src="{% static 'assets/media/avatars/300-8.jpg' %}" alt="" />
-                </div>
-
-                <div class="media-icons">
-                  <i class="fab fa-facebook"></i>
-                  <i class="fab fa-twitter"></i>
-                  <i class="fab fa-github"></i>
-                </div>
-
-                <div class="name-profession">
-                  <span class="name">Someone Name</span>
-                  <span class="profession">Web Developer</span>
-                </div>
-
-                <div class="rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                </div>
-
-                <div class="button">
-                  <button class="aboutMe">About Me</button>
-                  <button class="hireMe">Hire Me</button>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide card">
-              <div class="card-content">
-                <div class="image">
-                  <img src="{% static 'assets/media/avatars/300-9.jpg' %}" alt="" />
-                </div>
-
-                <div class="media-icons">
-                  <i class="fab fa-facebook"></i>
-                  <i class="fab fa-twitter"></i>
-                  <i class="fab fa-github"></i>
-                </div>
-
-                <div class="name-profession">
-                  <span class="name">Someone Name</span>
-                  <span class="profession">Web Developer</span>
-                </div>
-
-                <div class="rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                </div>
-
-                <div class="button">
-                  <button class="aboutMe">About Me</button>
-                  <button class="hireMe">Hire Me</button>
-                </div>
-              </div>
-            </div>
+            {% endfor %}
           </div>
         </div>
 
