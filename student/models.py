@@ -43,7 +43,7 @@ class StudentProfile(models.Model):
     phone_number = models.CharField(max_length=15, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
     attendance_records = models.ManyToManyField(AttendanceRecord,null=True, blank=True)
-
+    classroom = models.ForeignKey(StudentClassroom, on_delete=models.CASCADE,null=True, blank=True)
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name} (ID: {self.pk})"

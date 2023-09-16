@@ -189,5 +189,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # TODO: Öğretmen ders programını girmeli, her öğretmen kendi branşının ders programını girecek ve ders programını gösterirken sınıfa göre ayarlamak gerekiyor.
 
 # Yapılma Aşamasında:
-# TODO: Teacher profile edit
+# DONE: Teacher profile edit
 # TODO: Create timetable for teacher
