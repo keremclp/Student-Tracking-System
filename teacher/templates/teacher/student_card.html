@@ -1,0 +1,43 @@
+<section>
+        <div class="swiper mySwiper container">
+          <div class="swiper-wrapper content">
+            {% for student in students %}
+            <div class="swiper-slide card">
+              <div class="card-content">
+                <div class="image">
+                  <img src="{{ student.user.profile_image.url }}" alt="" />
+                </div>
+
+                <div class="media-icons">
+                  <i class="fab fa-facebook"></i>
+                  <i class="fab fa-twitter"></i>
+                  <i class="fab fa-github"></i>
+                </div>
+
+                <div class="name-profession">
+                  <span class="name">{{ student.user.first_name }}</span>
+                  <span class="profession">{{ student.user.role }}</span>
+                </div>
+
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+
+                <div class="button">
+                  <button class="aboutMe">About Me</button>
+                  <button class="hireMe">Hire Me</button>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+      </section>
