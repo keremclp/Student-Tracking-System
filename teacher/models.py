@@ -27,11 +27,11 @@ class TeacherProfile(models.Model):
             self.slug = self.user.username
         super().save(*args, **kwargs)
 
-    # def get_absolute_url_overview(self):
-    #     return reverse(
-    #         'teacher:teacher_profile_overview',
-    #         kwargs={'user_slug': self.slug}
-    #     )
+    def get_absolute_url_overview(self):
+        return reverse(
+            'teacher:teacher_profile_overview',
+            kwargs={'user_slug': self.slug}
+        )
     
     def get_absolute_url_edit_teacher(self):
         return reverse('teacher:teacher_profile_edit', kwargs={'user_slug': self.slug})

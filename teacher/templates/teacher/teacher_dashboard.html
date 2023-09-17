@@ -41,7 +41,7 @@
       <h2>Students in Classroom:</h2>
       <ul>
         {% for student in students %}
-        <li>{{ student.user.profile_image.url }}</li>
+        <li>{{ student.user }}</li>
         {% endfor %}
         <li>Responsible teacher: {{ studentClas.responsible_teacher }}</li>
       </ul>
