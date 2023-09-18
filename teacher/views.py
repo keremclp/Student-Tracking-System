@@ -81,6 +81,10 @@ def teacher_create_timetable(request):
     if request.method == "POST":
         form = TeacherTimetableModelForm(request.POST)
         if form.is_valid():
+            
+            # find the logged user in TeacherProfile model
+            teacher_profile = get_object_or_404(TeacherProfile, user=request.user)
+            form.instance.teacher = teacher_profile 
             form.save()
             return redirect('teacher:teacher_dashboard')
     context = dict(

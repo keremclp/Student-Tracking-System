@@ -45,9 +45,6 @@ class TeacherTimetableModelForm(forms.ModelForm):
             'end_time',
             'subject',
         ]
-        widgets = {
-            'start_time': forms.TimeInput(format='%H:%M'),
-            'end_time': forms.TimeInput(format='%H:%M'),
-        }
+        
         
     
