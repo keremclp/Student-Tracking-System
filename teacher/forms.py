@@ -1,6 +1,6 @@
 from django import forms
 from teacher.models import TeacherProfile
-from datetime import datetime
+from classroom.models import Timetable
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -35,4 +35,19 @@ class TeacherProfileModelForm(forms.ModelForm):
 
 # TODO:birth_date tarafında ne zaman edit yapmak istesek birth_day girilmesi gerekiyor, düzeltilmesi lazım
 
+class TeacherTimetableModelForm(forms.ModelForm):
+    class Meta:
+        model = Timetable
+        fields = [
+            'classroom',
+            'day_of_week',
+            'start_time',
+            'end_time',
+            'subject',
+        ]
+        widgets = {
+            'start_time': forms.TimeInput(format='%H:%M'),
+            'end_time': forms.TimeInput(format='%H:%M'),
+        }
+        
     

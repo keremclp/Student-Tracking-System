@@ -170,7 +170,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # TODO: Teacher için öğrenciyi takip etme
 # TODO: öğretmenlerin öğrencilerini görme, bunun çin student profiline gitmeyecek, ayrı bir liste oluşturup orada gösterip öyle çekmemiz gerekiyor https://twitter.com/html5css3_dv/status/1695199371896184939?t=ntiUELfq3U3goBhQAB5r4w&s=08
-# TODO: Öğrenci ve Teacher için bilgilerini güncelleme
+# DONE: Öğrenci ve Teacher için bilgilerini güncelleme
 
 # TODO: Öğrenci için öğretmen tarafından ödevlendirme
 # TODO: Rehber öğretmen öğrencilere randevu verebilsin görüşme için

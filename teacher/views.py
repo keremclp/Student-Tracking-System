@@ -2,10 +2,10 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.db.models import Q
 
 # FORMS
-from teacher.forms import TeacherProfileModelForm
+from teacher.forms import TeacherProfileModelForm,TeacherTimetableModelForm
 
 # MODELS
-from classroom.models import Classroom
+from classroom.models import Classroom,Timetable
 from student.models import StudentClassroom
 from teacher.models import TeacherProfile
 
@@ -75,3 +75,16 @@ def teacher_profile_edit(request, user_slug):
 
     )
     return render(request, 'student/student_profile/student_profile_settings.html', context)
+
+def teacher_create_timetable(request):
+    form = TeacherTimetableModelForm()
+    if request.method == "POST":
+        form = TeacherTimetableModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('teacher:teacher_dashboard')
+    context = dict(
+        form=form,
+        title="Create Timetable",
+    )
+    return render(request, 'teacher/teacher_create_timetable.html', context)
