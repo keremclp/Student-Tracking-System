@@ -190,4 +190,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Yapılma Aşamasında:
 # DONE: Teacher profile edit
-# TODO: Create timetable for teacher
+# DONE: Create timetable for teacher
