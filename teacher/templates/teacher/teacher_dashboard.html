@@ -16,28 +16,8 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h1>Teacher Dashboard</h1>
-      <hr />
-      <h3>Teacher: {{ user.username }}</h3>
-      <h3>Teacher ID: {{ user.id }}</h3>
-      <h3>Teacher Email: {{ user.email }}</h3>
-      <h3>Teacher First Name: {{ user.first_name }}</h3>
-      <h3>Teacher Last Name: {{ user.last_name }}</h3>
-      <h3>Teacher Date Joined: {{ user.date_joined }}</h3>
-      <h3>Teacher Last Login: {{ user.last_login }}</h3>
-      <h1>Teacher's Classrooms:</h1>
-      <ul>
-        {% for classroom in teacher_profile.classroom.all %}
-        <li>{{ classroom }}</li>
-        {% endfor %}
-      </ul>
-      <h1>Students in Teacher's Classroom:</h1>
-      <ul>
-        {% for student in teacher_profile.classroom.first.students.all %}
-        <li>{{ student }}</li>
-        {% endfor %}
-      </ul>
-      <hr />
+      {% include 'teacher/student_card.html' %}
+      
       <h1>Students in '5-A' Classrooms:</h1>
 
       <h2>Students in Classroom:</h2>
@@ -49,7 +29,6 @@
       </ul>
       <h3>Teacher Courses</h3>
       <hr />
-      {% include 'teacher/student_card.html' %}
 
       <a
         href="{% url 'teacher:teacher_profile_overview' user_slug=profile_global.slug %}"
@@ -62,7 +41,7 @@
 {% endblock content %} 
 {% block js %}
 <!-- Swiper JS -->
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="{% static 'assets/js/swiper-bundle.min.js' %}"></script>
 
 <!-- Initialize Swiper -->
 <script>
