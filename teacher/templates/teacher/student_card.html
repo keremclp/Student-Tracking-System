@@ -30,7 +30,10 @@
 
           <div class="button">
             <button class="aboutMe">About Me</button>
-            <button class="hireMe">Hire Me</button>
+            <form method="post" action="{% url 'teacher:activate_student' student.id %}">
+                {% csrf_token %}
+                <input type="submit" value="Activate Student">
+            </form>
           </div>
         </div>
       </div>

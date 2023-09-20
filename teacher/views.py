@@ -6,7 +6,7 @@ from teacher.forms import TeacherProfileModelForm,TeacherTimetableModelForm
 
 # MODELS
 from classroom.models import Classroom,Timetable
-from student.models import StudentClassroom
+from student.models import StudentClassroom, StudentProfile
 from teacher.models import TeacherProfile
 
 def teacher_dashboard(request):
@@ -92,3 +92,19 @@ def teacher_create_timetable(request):
         title="Create Timetable",
     )
     return render(request, 'teacher/teacher_create_timetable.html', context)
+
+def activate_student(request, student_id):
+    # Ensure that only teachers can activate students (you can modify this logic)
+    if not request.user.role == 'teacher':
+        return redirect('teacher_dashboard')  
+    
+    student = get_object_or_404(StudentProfile, id=student_id)
+
+    # Activate the student
+    student.phone_number_active = True
+    student.save()
+
+    # Optionally, change the status from "not verified" to "verified"
+    # You need to define the appropriate field in your StudentProfile model for this status.
+
+    return redirect('teacher:teacher_dashboard')
