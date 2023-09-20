@@ -41,6 +41,8 @@ class StudentProfile(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
     phone_number = models.CharField(max_length=15, null=True, blank=True)
+    # add for checking phone active or not 
+    phone_number_active = models.BooleanField(default=False)
     address = models.TextField(null=True, blank=True)
     attendance_records = models.ManyToManyField(AttendanceRecord,null=True, blank=True)
     classroom = models.ForeignKey(StudentClassroom, on_delete=models.CASCADE,null=True, blank=True)
