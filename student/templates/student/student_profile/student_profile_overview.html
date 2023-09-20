@@ -78,7 +78,7 @@
       <div class="col-lg-8 d-flex align-items-center">
         <span class="fw-bold fs-6 text-gray-800 me-2">{{ profile.phone_number }}</span>
         
-          {% if phone_number_active %}
+          {% if profile.phone_number_active %}
           <span class="badge badge-success">Verified</span>
           {% else %}
           <span class="badge badge-danger">Not Verified</span>
