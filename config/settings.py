@@ -170,6 +170,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # TODO: Teacher için öğrenciyi takip etme
 # TODO: öğretmenlerin öğrencilerini görme, bunun çin student profiline gitmeyecek, ayrı bir liste oluşturup orada gösterip öyle çekmemiz gerekiyor https://twitter.com/html5css3_dv/status/1695199371896184939?t=ntiUELfq3U3goBhQAB5r4w&s=08
+# bunu yaparken bir buton koy carcatlog projesindeki gibi bir modal açılsın öyle görsün öğrenci hakkındaki detayları öğretmen !! Öğrenci profili gibi değil! Metronic de vardı bir yerde!!
 # DONE: Öğrenci ve Teacher için bilgilerini güncelleme
 
 # TODO: Öğrenci için öğretmen tarafından ödevlendirme
