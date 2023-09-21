@@ -192,4 +192,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # DONE: Teacher profile edit
 # DONE: Create timetable for teacher
 # TODO: Teacher öğrencileri öğrenciye atama yapması gerekiyor! Öğrenci kendini başka yere yapabilir bu yüzden öğrentmen yapsın
-# TODO: Telefon numarası onaylama
+# TODO: Telefon numarası onaylama yapıldı ama telefon numarası olmadığı zamanda onaylıyor ve tel öğrenci tarafından girildiği zaman onaylanmış şekliyle geliyor.

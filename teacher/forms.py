@@ -45,6 +45,13 @@ class TeacherTimetableModelForm(forms.ModelForm):
             'end_time',
             'subject',
         ]
+        widgets = {
+            'classroom': forms.Select(attrs={'class': 'form-control w-100'}),
+            'day_of_week': forms.Select(attrs={'class': 'form-control w-100'}),
+            'start_time': forms.TimeInput(attrs={'class': 'form-control w-100'}),
+            'end_time': forms.TimeInput(attrs={'class': 'form-control w-100'}),
+            'subject': forms.TextInput(attrs={'class': 'form-control w-100'}),
+        }
         
         
     

@@ -15,22 +15,14 @@
 	</div>
 	<!--begin::Card header-->
 	<!--begin::Content-->
-	<div id="kt_account_settings_profile_details" class="collapse show">
+	<div id="kt_account_settings_profile_details" class="collapse show d-flex flex-center">
 		<!--begin::Form-->
-		<form id="kt_account_profile_details_form" class="form" enctype="multipart/form-data" method="post">
+		<form id="kt_account_profile_details_form" class="form w-50" enctype="multipart/form-data" method="post">
 			{% csrf_token %}
 			<!--begin::Card body-->
 			<div class="card-body border-top p-9">
-				<!--begin::Input group-->
-				<div class="row mb-6">
-					<!--begin::Label-->
-					<!--end::Label-->
-					<!--begin::Col-->
-					{{ form.media }}
-					<!--end::Col-->
-				</div>
-				<!--end::Input group-->
 				{{ form|crispy }}
+			</div>
 			<!--end::Card body-->
 			<!--begin::Actions-->
 			<div class="card-footer d-flex justify-content-end py-6 px-9">
