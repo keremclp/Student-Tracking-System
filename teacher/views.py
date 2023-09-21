@@ -76,6 +76,7 @@ def teacher_profile_edit(request, user_slug):
     )
     return render(request, 'student/student_profile/student_profile_settings.html', context)
 
+# TODO: for create-timetable add editing if teacher add wrong timetable
 def teacher_create_timetable(request):
     form = TeacherTimetableModelForm()
     if request.method == "POST":
