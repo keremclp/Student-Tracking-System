@@ -29,11 +29,22 @@
       </ul>
       <h3>Teacher Courses</h3>
       <hr />
-
-      <a
-        href="{% url 'teacher:teacher_profile_overview' user_slug=profile_global.slug %}"
-        >Profile</a
-      >
+      <div class="flex flex-direction-column">
+        <a
+          class="bg-primary text-light"
+          href="{% url 'teacher:teacher_profile_overview' user_slug=profile_global.slug %}"
+          >Profile</a
+        >
+        <a
+          class="bg-danger text-dark"
+          href="{% url 'teacher:teacher_create_timetable'%}"
+          >Create TimeTable</a
+        >
+        <a
+          href="{% url 'teacher:teacher_create_classroom' %}"
+          >Create Classroom</a
+        >
+      </div>
     </div>
   </div>
 </div>
