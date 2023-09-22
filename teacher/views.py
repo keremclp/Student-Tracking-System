@@ -105,7 +105,7 @@ def teacher_create_classroom(request):
         form=form,
         title="Create Classroom",
     )
-    return render(request, 'teacher/teacher_create_classroom.html', context)
+    return render(request, 'teacher/teacher_classroom_create.html', context)
 
 def activate_student(request, student_id):
     # Ensure that only teachers can activate students (you can modify this logic)
