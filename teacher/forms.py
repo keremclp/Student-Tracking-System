@@ -1,7 +1,9 @@
 from django import forms
+
+# Models
 from teacher.models import TeacherProfile
 from classroom.models import Timetable, Classroom
-
+from student.models import StudentClassroom
 class DateInput(forms.DateInput):
     input_type = 'date'
     format = '%d.%m.%Y'  # Format used in the form input
@@ -65,4 +67,16 @@ class TeacherCreateClassroom(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control w-100'}),
             'grade_level': forms.TextInput(attrs={'class': 'form-control w-100'}),
             'capacity': forms.NumberInput(attrs={'class': 'form-control w-100'}),
+        }
+
+class CreateStudentClassroom(forms.ModelForm):
+    class Meta:
+        model = StudentClassroom
+        fields = [
+            'classroom',
+            'students',
+        ]
+        widgets = {
+            'classroom': forms.Select(attrs={'class': 'form-control w-100'}),
+            'students': forms.SelectMultiple(attrs={'class': 'form-control w-100'}),
         }

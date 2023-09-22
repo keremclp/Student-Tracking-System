@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.db.models import Q
 
 # FORMS
-from teacher.forms import TeacherProfileModelForm,TeacherTimetableModelForm,TeacherCreateClassroom
+from teacher.forms import TeacherProfileModelForm,TeacherTimetableModelForm,TeacherCreateClassroom, CreateStudentClassroom
 
 # MODELS
 from classroom.models import Classroom,Timetable
@@ -10,6 +10,7 @@ from student.models import StudentClassroom, StudentProfile
 from teacher.models import TeacherProfile
 
 def teacher_dashboard(request):
+    # TODO: check the clasroom has or not 
     user = request.user
     teacher_profile = get_object_or_404(TeacherProfile, user=user)
 
@@ -106,6 +107,20 @@ def teacher_create_classroom(request):
         title="Create Classroom",
     )
     return render(request, 'teacher/teacher_classroom_create.html', context)
+
+def create_student_classroom(request):
+    form = CreateStudentClassroom()
+    if request.method == "POST":
+        form = CreateStudentClassroom(request.POST)
+        if form.is_valid():
+            
+            form.save()
+            return redirect('teacher:teacher_dashboard')
+    context = dict(
+        form=form,
+        title="Add Students to Classroom",
+    )
+    return render(request, 'teacher/create_student_classroom.html', context)
 
 def activate_student(request, student_id):
     # Ensure that only teachers can activate students (you can modify this logic)
