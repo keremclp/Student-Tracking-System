@@ -170,10 +170,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # TODO: Teacher için öğrenciyi takip etme
 # TODO: öğretmenlerin öğrencilerini görme, bunun çin student profiline gitmeyecek, ayrı bir liste oluşturup orada gösterip öyle çekmemiz gerekiyor https://twitter.com/html5css3_dv/status/1695199371896184939?t=ntiUELfq3U3goBhQAB5r4w&s=08
+# bunu yaparken bir buton koy carcatlog projesindeki gibi bir modal açılsın öyle görsün öğrenci hakkındaki detayları öğretmen !! Öğrenci profili gibi değil! Metronic de vardı bir yerde!!
+
 # DONE: Öğrenci ve Teacher için bilgilerini güncelleme
 
 # TODO: Öğrenci için öğretmen tarafından ödevlendirme
 # TODO: Rehber öğretmen öğrencilere randevu verebilsin görüşme için
+
+# TODO: Öğrenciler ve öğretmenler için bir todo app gibi bir şey yapabilirsin!!
 
 # TODO: Kullanıcı online (django-online-users 0.1)
 # TODO: Kullanıcıya mesaj gönderme (django-messages 0.6.0)
@@ -191,5 +195,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Yapılma Aşamasında:
 # DONE: Teacher profile edit
 # DONE: Create timetable for teacher
-# TODO: Teacher öğrencileri öğrenciye atama yapması gerekiyor! Öğrenci kendini başka yere yapabilir bu yüzden öğrentmen yapsın
+# TODO: Teacher öğrencileri sınıflara atama yapması gerekiyor! Öğrenci kendini başka yere yapabilir bu yüzden öğrentmen yapsın
 # TODO: Telefon numarası onaylama yapıldı ama telefon numarası olmadığı zamanda onaylıyor ve tel öğrenci tarafından girildiği zaman onaylanmış şekliyle geliyor.
