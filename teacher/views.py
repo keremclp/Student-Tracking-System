@@ -18,11 +18,8 @@ def teacher_dashboard(request):
     print(classroom_5a.capacity)
 
     studentClas = StudentClassroom.objects.get(Q(classroom=classroom_5a))
-    print('student----------')
-    print(studentClas)
     # all_students = []
     students=studentClas.students.all()
-    print(students)
 
     # for i in students:
     #     all_students.append(i)
@@ -113,7 +110,7 @@ def create_student_classroom(request):
     if request.method == "POST":
         form = CreateStudentClassroom(request.POST)
         if form.is_valid():
-            
+
             form.save()
             return redirect('teacher:teacher_dashboard')
     context = dict(
