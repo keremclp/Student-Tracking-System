@@ -63,6 +63,6 @@ class TeacherCreateClassroom(forms.ModelForm):
         ]
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control w-100'}),
-            'grade_level': forms.Select(attrs={'class': 'form-control w-100'}),
+            'grade_level': forms.TextInput(attrs={'class': 'form-control w-100'}),
             'capacity': forms.NumberInput(attrs={'class': 'form-control w-100'}),
         }
