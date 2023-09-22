@@ -1,6 +1,6 @@
 from django import forms
 from teacher.models import TeacherProfile
-from classroom.models import Timetable
+from classroom.models import Timetable, Classroom
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -52,6 +52,17 @@ class TeacherTimetableModelForm(forms.ModelForm):
             'end_time': forms.TimeInput(attrs={'class': 'form-control w-100'}),
             'subject': forms.TextInput(attrs={'class': 'form-control w-100'}),
         }
-        
-        
-    
+
+class TeacherCreateClassroom(forms.ModelForm):
+    class Meta:
+        model = Classroom
+        fields = [
+            'name',
+            'grade_level',
+            'capacity',
+        ]
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control w-100'}),
+            'grade_level': forms.Select(attrs={'class': 'form-control w-100'}),
+            'capacity': forms.NumberInput(attrs={'class': 'form-control w-100'}),
+        }
