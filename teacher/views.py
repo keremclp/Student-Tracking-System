@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.db.models import Q
 
 # FORMS
-from teacher.forms import TeacherProfileModelForm,TeacherTimetableModelForm
+from teacher.forms import TeacherProfileModelForm,TeacherTimetableModelForm,TeacherCreateClassroom
 
 # MODELS
 from classroom.models import Classroom,Timetable
@@ -93,6 +93,19 @@ def teacher_create_timetable(request):
         title="Create Timetable",
     )
     return render(request, 'teacher/teacher_create_timetable.html', context)
+
+def teacher_create_classroom(request):
+    form = TeacherCreateClassroom()
+    if request.method == "POST":
+        form = TeacherCreateClassroom(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('teacher:teacher_dashboard')
+    context = dict(
+        form=form,
+        title="Create Classroom",
+    )
+    return render(request, 'teacher/teacher_create_classroom.html', context)
 
 def activate_student(request, student_id):
     # Ensure that only teachers can activate students (you can modify this logic)
