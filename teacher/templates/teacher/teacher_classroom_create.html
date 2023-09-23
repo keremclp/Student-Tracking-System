@@ -14,9 +14,9 @@
 		<div class="d-flex align-items-center justify-content-center">
 			<div class="mx-20">
 				<a
-				href="{{ teacher_profile.get_absolute_url_edit_teacher }}"
-				class="btn btn-sm btn-primary align-self-center"
-				>Edit Profile
+					href="{% url 'teacher:create_student_classroom' %}"
+					class="btn btn-sm btn-primary align-self-center"
+					>Edit Profile
 				</a>
 			</div>
 		</div>
