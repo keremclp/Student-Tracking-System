@@ -129,9 +129,22 @@ def add_student_classroom(request):
     if request.method == "POST":
         form = CreateStudentClassroom(request.POST)
         if form.is_valid():
-
-            form.save()
-            return redirect('teacher:teacher_dashboard')
+            student_classroom = form.save(commit=False)
+            teacher_profile = get_object_or_404(TeacherProfile, user=request.user)
+            student_classroom.responsible_teacher = teacher_profile
+            classroom = form.cleaned_data['classroom']
+            
+            if StudentClassroom.objects.filter(classroom=classroom).exists():
+                context = dict(
+                    form=form,
+                    title='Add Students to Classroomxx'
+                )
+                # TODO: add messages 
+                return render(request, 'teacher/teacher_classroom_create.html', context)
+            else:
+                student_classroom.save()
+                return redirect('teacher:teacher_dashboard')
+                
     context = dict(
         form=form,
         title="Add Students to Classroom",
