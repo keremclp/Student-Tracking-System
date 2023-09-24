@@ -1,6 +1,4 @@
-{% extends 'core/base.html' %} 
-{% load static %} 
-{% block css %}
+{% extends 'core/base.html' %} {% load static %} {% block css %}
 <link
   href="{% static 'assets/css/student_card.css' %}"
   rel="stylesheet"
@@ -17,7 +15,7 @@
   <div class="row">
     <div class="col-md-12">
       {% include 'teacher/student_card.html' %}
-      
+
       <h1>Students in '5-A' Classrooms:</h1>
 
       <h2>Students in Classroom:</h2>
@@ -35,30 +33,29 @@
             class="bg-primary text-light mx-1"
             href="{% url 'teacher:teacher_profile_overview' user_slug=profile_global.slug %}"
             >Profile</a
-            >
+          >
           <a
             class="bg-danger text-dark mx-1"
             href="{% url 'teacher:teacher_create_timetable'%}"
             >Create TimeTable</a
           >
           <a
-          class="bg-dark text-light mx-1"
+            class="bg-dark text-light mx-1"
             href="{% url 'teacher:teacher_create_classroom' %}"
             >Create Classroom</a
-          >    
+          >
           <a
-          class="bg-white text-dark mx-1"
-            href="{% url 'teacher:create_student_classroom' %}"
-            >Create Student Classroom</a
-          >    
+            class="bg-white text-dark mx-1"
+            href="{% url 'teacher:add_student_classroom' %}"
+            >Add Student to Classroom</a
+          >
         </div>
       </div>
     </div>
   </div>
 </div>
 
-{% endblock content %} 
-{% block js %}
+{% endblock content %} {% block js %}
 <!-- Swiper JS -->
 <script src="{% static 'assets/js/swiper-bundle.min.js' %}"></script>
 
