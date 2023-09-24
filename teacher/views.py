@@ -15,11 +15,14 @@ def teacher_dashboard(request):
     teacher_profile = get_object_or_404(TeacherProfile, user=user)
 
     classroom_5a = Classroom.objects.get(Q(name='A') & Q(grade_level=5))
-    print(classroom_5a.capacity)
+    print(classroom_5a)
 
     studentClas = StudentClassroom.objects.get(Q(classroom=classroom_5a))
     # all_students = []
     students=studentClas.students.all()
+    print(students)
+    print(type(students))
+
 
     # for i in students:
     #     all_students.append(i)
@@ -97,8 +100,17 @@ def teacher_create_classroom(request):
     if request.method == "POST":
         form = TeacherCreateClassroom(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('teacher:teacher_dashboard')
+            name = form.cleaned_data['name']
+            grade_level = form.cleaned_data['grade_level']
+            if Classroom.objects.filter(name=name, grade_level=grade_level).exists():
+                context = dict(
+                    form=form,
+                    title='Create Classroom'
+                )
+                return render(request, 'teacher/teacher_classroom_create.html', context)
+            else:
+                form.save()
+                return redirect('teacher:teacher_dashboard')
     context = dict(
         form=form,
         title="Create Classroom",
