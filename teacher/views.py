@@ -124,32 +124,44 @@ def teacher_create_classroom(request):
     return render(request, 'teacher/teacher_classroom_create.html', context)
 
 
+
 def add_student_classroom(request):
     form = CreateStudentClassroom()
     if request.method == "POST":
         form = CreateStudentClassroom(request.POST)
         if form.is_valid():
-            student_classroom = form.save(commit=False)
+            classroom = form.cleaned_data['classroom']
+            students = form.cleaned_data['students']
+
+            # Check if a StudentClassroom already exists for this classroom
+            student_classroom, created = StudentClassroom.objects.get_or_create(classroom=classroom)
+
+            # Check if the selected students are already associated with the classroom
+            existing_students = student_classroom.students.all()
+            new_students = set(students) - set(existing_students)
+
+            if not new_students:
+                print('These students are already in the classroom.')
+                return redirect('teacher:teacher_dashboard')
+
+            # Add new students to the existing classroom
+            student_classroom.students.add(*new_students)
+
+            # Save the StudentClassroom object
+            student_classroom.save()
+
             teacher_profile = get_object_or_404(TeacherProfile, user=request.user)
             student_classroom.responsible_teacher = teacher_profile
-            classroom = form.cleaned_data['classroom']
-            
-            if StudentClassroom.objects.filter(classroom=classroom).exists():
-                context = dict(
-                    form=form,
-                    title='Add Students to Classroomxx'
-                )
-                # TODO: add messages and and studentclassroom edit part
-                return render(request, 'teacher/teacher_classroom_create.html', context)
-            else:
-                student_classroom.save()
-                return redirect('teacher:teacher_dashboard')
-                
+            student_classroom.save()
+
+            return redirect('teacher:teacher_dashboard')
+
     context = dict(
         form=form,
         title="Add Students to Classroom",
     )
     return render(request, 'teacher/teacher_classroom_create.html', context)
+
 
 
 def activate_student(request, student_id):
