@@ -15,16 +15,20 @@
   <div class="row">
     <div class="col-md-12">
       {% include 'teacher/student_card.html' %}
-
       <h1>Students in Classrooms:</h1>
-
       <ul>
-        {% for student in students_in_responsible_classes %}
-        <li>{{ student.user }}</li>
-        {% endfor %}
-        <li>Responsible teacher: {{ studentClas.responsible_teacher }}</li>
+       {% if students_in_class %}
+          <h2>Students in Your Class</h2>
+          <ul>
+              {% for student in students_in_class %}
+              <li>{{ student.user.first_name }} {{ student.user.last_name }}</li>
+              <!-- You can display other student information here -->
+              {% endfor %}
+          </ul>
+        {% else %}
+        <p>You are not responsible for any class at the moment.</p>
+        {% endif %}
       </ul>
-      <h3>Teacher Courses</h3>
       <hr />
       <div class="d-flex flex-direction-column">
         <div>

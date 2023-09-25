@@ -11,37 +11,28 @@ from teacher.models import TeacherProfile
 
 
 def teacher_dashboard(request):
-    user = request.user
+    # Assuming you have a way to identify the currently logged-in teacher, e.g., request.user
+    # Retrieve the teacher's profile
+    teacher_profile = TeacherProfile.objects.get(user=request.user)
+    print(teacher_profile)
+    # Retrieve the responsible class for the teacher
+    responsible_class = StudentClassroom.objects.filter(responsible_teacher=teacher_profile)
     
-    try:
-        teacher_profile = TeacherProfile.objects.get(user=user)
-    except TeacherProfile.DoesNotExist:
-        teacher_profile = None
-
-    if teacher_profile:
-        # Get the StudentClassrooms where the teacher is responsible
-        responsible_classrooms = teacher_profile.studentclassroom_set.all()
-
-        students_in_responsible_classes = []
-        for classroom in responsible_classrooms:
-            # Get the students associated with each classroom
-            students = classroom.students.all()
-            students_in_responsible_classes.extend(students)
-
-        context = dict(
-            teacher_profile = teacher_profile,
-            students_in_responsible_classes = students_in_responsible_classes
-        )
-
-        return render(request, 'teacher/teacher_dashboard.html', context)
+    students = []
+    for classroom in responsible_class:
+        students = classroom.students.all() 
+    print(students)
+    if responsible_class:
+        students_in_class = students
     else:
-        # Handle the case where the user is not associated with a TeacherProfile
-        # You can return an error message or redirect them as needed.
-        pass
-    
-    
-    return render(request, 'teacher/teacher_dashboard.html', context)
+        students_in_class = []
 
+    # You can pass the students_in_class queryset to your template for rendering
+    context = dict(
+        students_in_class = students_in_class,
+    )
+
+    return render(request, 'teacher/teacher_dashboard.html', context)
 
 def teacher_profile_overview(request, user_slug):
     teacher_profile = get_object_or_404(TeacherProfile, slug=user_slug)

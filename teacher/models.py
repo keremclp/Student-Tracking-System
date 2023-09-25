@@ -10,7 +10,6 @@ from account.models import User
 
 class TeacherProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    classroom = models.ManyToManyField('student.StudentClassroom')
     slug = AutoSlugField(unique=True)
     birth_date = models.DateField(null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
