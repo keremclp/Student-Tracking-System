@@ -16,11 +16,10 @@
     <div class="col-md-12">
       {% include 'teacher/student_card.html' %}
 
-      <h1>Students in '5-A' Classrooms:</h1>
+      <h1>Students in Classrooms:</h1>
 
-      <h2>Students in Classroom:</h2>
       <ul>
-        {% for student in students %}
+        {% for student in students_in_responsible_classes %}
         <li>{{ student.user }}</li>
         {% endfor %}
         <li>Responsible teacher: {{ studentClas.responsible_teacher }}</li>

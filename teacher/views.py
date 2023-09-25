@@ -11,26 +11,35 @@ from teacher.models import TeacherProfile
 
 
 def teacher_dashboard(request):
-    # TODO: check the clasroom has or not
     user = request.user
-    teacher_profile = get_object_or_404(TeacherProfile, user=user)
+    
+    try:
+        teacher_profile = TeacherProfile.objects.get(user=user)
+    except TeacherProfile.DoesNotExist:
+        teacher_profile = None
 
-    classroom_5a = Classroom.objects.get(Q(name='A') & Q(grade_level=5))
-    print(classroom_5a)
+    if teacher_profile:
+        # Get the StudentClassrooms where the teacher is responsible
+        responsible_classrooms = teacher_profile.studentclassroom_set.all()
 
-    studentClas = StudentClassroom.objects.get(Q(classroom=classroom_5a))
-    # all_students = []
-    students = studentClas.students.all()
-    print(students)
-    print(type(students))
+        students_in_responsible_classes = []
+        for classroom in responsible_classrooms:
+            # Get the students associated with each classroom
+            students = classroom.students.all()
+            students_in_responsible_classes.extend(students)
 
-    # for i in students:
-    #     all_students.append(i)
-    context = dict(
-        teacher_profile=teacher_profile,
-        students=students,
-        studentClas=studentClas
-    )
+        context = dict(
+            teacher_profile = teacher_profile,
+            students_in_responsible_classes = students_in_responsible_classes
+        )
+
+        return render(request, 'teacher/teacher_dashboard.html', context)
+    else:
+        # Handle the case where the user is not associated with a TeacherProfile
+        # You can return an error message or redirect them as needed.
+        pass
+    
+    
     return render(request, 'teacher/teacher_dashboard.html', context)
 
 
