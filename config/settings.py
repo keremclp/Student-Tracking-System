@@ -176,6 +176,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # TODO: Öğrenci için öğretmen tarafından ödevlendirme yapabilmeli ve bunu student dashboardda gösterilmeli
 # TODO: Öğretmenler için quiz app yapıp quiz puanlarını öğrenci için girilmeli
+# TODO: Top recent gibi en iyi öğrecileri quiz puanları ve ödev teslim sayısını dikkate alarak kupalara göre ayarlanabilir. Top recent olarak göster ve öğrenci kendi profilinde kupasını görsün.
+
 
 # TODO: Rehber öğretmen öğrencilere randevu verebilsin görüşme için
 
@@ -190,7 +192,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # TODO: Öğrenciler için blog sistemi olabilir(Hocanı notla kısmı) #Social->Feeds
 
-# TODO: Top recent gibi en iyi öğrecileri kupalara göre ayarlanabilir
 # TODO: Öğrenciler için oyunlar vs olabilir.   https://twitter.com/html5css3_dv/status/1695481194295734280?t=rEd-MhQkpNf4QhJTLAf-Hw&s=08
 # TODO: Öğrenciler için devamsızlık bilgisi eklenecek ve bu devamsızlık bilgisi öğretmenler tarafından girecek
 # TODO: Öğretmen ders programını girmeli, her öğretmen kendi branşının ders programını girecek ve ders programını gösterirken sınıfa göre ayarlamak gerekiyor.
