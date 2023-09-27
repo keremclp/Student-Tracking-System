@@ -174,7 +174,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # DONE: Öğrenci ve Teacher için bilgilerini güncelleme
 
-# TODO: Öğrenci için öğretmen tarafından ödevlendirme
+# TODO: Öğrenci için öğretmen tarafından ödevlendirme yapabilmeli ve bunu student dashboardda gösterilmeli
+# TODO: Öğretmenler için quiz app yapıp quiz puanlarını öğrenci için girilmeli
+
 # TODO: Rehber öğretmen öğrencilere randevu verebilsin görüşme için
 
 # TODO: Öğrenciler ve öğretmenler için bir todo app gibi bir şey yapabilirsin!!
