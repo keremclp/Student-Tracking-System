@@ -182,7 +182,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # TODO: Rehber öğretmen öğrencilere randevu verebilsin görüşme için
 
 # TODO: Öğrenciler ve öğretmenler için bir todo app gibi bir şey yapabilirsin!!
-# TODO: Öğrenciler için bir todo app gibi bir şey yapabilirsin!!
 
 # TODO: Kullanıcı online (django-online-users 0.1)
 # TODO: Kullanıcıya mesaj gönderme (django-messages 0.6.0)
