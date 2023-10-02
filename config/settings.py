@@ -196,7 +196,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # TODO: Öğrenciler için devamsızlık bilgisi eklenecek ve bu devamsızlık bilgisi öğretmenler tarafından girecek
 # TODO: Öğretmen ders programını girmeli, her öğretmen kendi branşının ders programını girecek ve ders programını gösterirken sınıfa göre ayarlamak gerekiyor.
 
-# TODO: Öğretmen öğrenciyi sınıfa atağı zaman öğrenci dashboardda 5-A sınıfına kayıtlı olduğunu göremiyor
+# DONE: Öğretmen öğrenciyi sınıfa atağı zaman öğrenci dashboardda 5-A sınıfına kayıtlı olduğunu göremiyor
 
 # Yapılma Aşamasında:
 # DONE: Teacher profile edit
