@@ -135,7 +135,7 @@ def add_student_classroom(request):
         if form.is_valid():
             classroom = form.cleaned_data['classroom']
             students = form.cleaned_data['students']
-
+            
             # Check if a StudentClassroom already exists for this classroom
             student_classroom, created = StudentClassroom.objects.get_or_create(classroom=classroom)
 
@@ -156,6 +156,10 @@ def add_student_classroom(request):
             teacher_profile = get_object_or_404(TeacherProfile, user=request.user)
             student_classroom.responsible_teacher = teacher_profile
             student_classroom.save()
+
+            for student in new_students:
+                student.classroom = student_classroom
+                student.save()
 
             return redirect('teacher:teacher_dashboard')
 
