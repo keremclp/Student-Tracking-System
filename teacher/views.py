@@ -127,6 +127,9 @@ def teacher_create_classroom(request):
 
 def add_student_classroom(request):
     form = CreateStudentClassroom()
+    initial_data = dict(
+        
+    ) 
     if request.method == "POST":
         form = CreateStudentClassroom(request.POST)
         if form.is_valid():
