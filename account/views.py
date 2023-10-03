@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login,logout
 from account.forms import LoginForm, SignUpForm
@@ -6,7 +7,6 @@ from teacher.models import TeacherProfile
 def login_view(request):
     
     form = LoginForm(request.POST or None)
-    msg = None
     if request.method == 'POST':
         if form.is_valid():
             username = form.cleaned_data.get('username')
@@ -14,9 +14,11 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None and user.role == 'student':
                 login(request, user)
+                messages.success(request,f'{username} successfully logged in.')
                 return redirect('student:student_dashboard')
             elif user is not None and user.role == 'teacher':
                 login(request, user)
+                messages.success(request,f'{username} successfully logged in.')
                 return redirect('teacher:teacher_dashboard')
             elif user is not None and user.role == 'parent':
                 login(request, user)
@@ -25,7 +27,7 @@ def login_view(request):
                 msg= 'invalid credentials'
         else:
             msg = 'error validating form'
-    return render(request, 'account/login.html', {'form': form, 'msg': msg})
+    return render(request, 'account/login.html', {'form': form})
 
 
 
@@ -51,6 +53,8 @@ def register_view(request):
     return render(request,'account/register.html', {'form': form})
 
 def logout_view(request):
+    username = request.user.username
     # kullanıcıya logout olduğunu message olarak belirtmek 
     logout(request)
+    messages.success(request,f'{username} successfully log out.')
     return redirect('account:login_view')

@@ -92,20 +92,23 @@
     <!--end::Theme mode setup on page load-->
     <!--begin::App-->
     <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+
       <!--begin::Page-->
       <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
+
         {% include 'core/header.html' %}
         <!--begin::Wrapper-->
         <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
-          {% include 'core/sidebar.html' %}
 
           <!--begin::Main-->
           <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+            {% include 'core/messages.html' %}
+
             <!--begin::Content wrapper-->
             <div class="d-flex flex-column flex-column-fluid">
-              <!-- {% block breadcrumb %}
-              {% endblock breadcrumb %}  -->
-
+              {% include 'core/sidebar.html' %}
+              
+              
               {% block content %} 
               {% endblock content %}
             </div>
