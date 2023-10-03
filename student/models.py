@@ -26,6 +26,7 @@ class AttendanceRecord(models.Model):
         return f"{self.date} - {self.status}"
     
 class StudentClassroom(models.Model):
+    slug = AutoSlugField(blank=True, null=True)
     classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE)
     enrollment_date = models.DateField(auto_now_add=True)
     notes = models.TextField(blank=True, null=True)
@@ -33,6 +34,12 @@ class StudentClassroom(models.Model):
     students = models.ManyToManyField('student.StudentProfile', related_name='classrooms')
     def __str__(self):
         return f"{self.classroom.grade_level} - {self.classroom.name}"
+    
+    def save(self, *args, **kwargs):
+        # Populate the slug field from user's username
+        if not self.slug:
+            self.slug = f"{self.classroom.grade_level} - {self.classroom.name}"
+        super().save(*args, **kwargs)
     
     
 
