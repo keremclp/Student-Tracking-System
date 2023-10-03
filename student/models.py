@@ -34,6 +34,7 @@ class StudentClassroom(models.Model):
     def __str__(self):
         return f"{self.classroom.grade_level} - {self.classroom.name}"
     
+    
 
 class StudentProfile(models.Model): 
     user = models.OneToOneField(User, on_delete=models.CASCADE)

@@ -18,7 +18,7 @@ def student_dashboard(request):
     user_slug = StudentProfile.objects.get(user=user).slug
     profile = get_object_or_404(StudentProfile, slug=user_slug)
     student_classroom = profile.classroom
-
+    
     try:
         classroom_instance = None
         if student_classroom is not None:

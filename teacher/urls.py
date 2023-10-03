@@ -7,7 +7,8 @@ from teacher.views import (
     teacher_create_timetable,
     activate_student,
     teacher_create_classroom,
-    add_student_classroom
+    add_student_classroom,
+    edit_student_classroom
 )
 
 
@@ -27,4 +28,6 @@ urlpatterns = [
          name='teacher_create_classroom'),
     path('teacher-create-student-classroom/',
          add_student_classroom, name='add_student_classroom'),
+     path('edit_student_classroom/<slug:classroom_slug>/', edit_student_classroom, name='edit_student_classroom'),
+     
 ]

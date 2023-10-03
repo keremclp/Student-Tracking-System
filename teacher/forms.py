@@ -80,3 +80,13 @@ class CreateStudentClassroom(forms.ModelForm):
             'classroom': forms.Select(attrs={'class': 'form-control w-100'}),
             'students': forms.SelectMultiple(attrs={'class': 'form-control w-100'}),
         }
+
+class EditStudentClassroom(forms.ModelForm):
+    class Meta:
+        model = StudentClassroom
+        fields = [
+            'students',
+        ]
+        widgets = {
+            'students': forms.SelectMultiple(attrs={'class': 'form-control w-100'}),
+        }
