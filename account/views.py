@@ -16,6 +16,7 @@ def login_view(request):
                 login(request, user)
                 messages.success(request,f'{username} successfully logged in.')
                 return redirect('student:student_dashboard')
+            
             elif user is not None and user.role == 'teacher':
                 login(request, user)
                 messages.success(request,f'{username} successfully logged in.')
@@ -24,9 +25,9 @@ def login_view(request):
                 login(request, user)
                 return redirect('employee')
             else:
-                msg= 'invalid credentials'
+                messages.warning(request,"Please check your email or password")
         else:
-            msg = 'error validating form'
+            messages.error(request, "Validation Error")
     return render(request, 'account/login.html', {'form': form})
 
 
