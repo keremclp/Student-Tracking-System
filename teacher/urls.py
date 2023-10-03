@@ -28,6 +28,6 @@ urlpatterns = [
          name='teacher_create_classroom'),
     path('teacher-create-student-classroom/',
          add_student_classroom, name='add_student_classroom'),
-     path('edit_student_classroom/<slug:classroom_slug>/', edit_student_classroom, name='edit_student_classroom'),
+     path('edit-student-classroom/<slug:classroom_slug>/', edit_student_classroom, name='edit_student_classroom'),
      
 ]
