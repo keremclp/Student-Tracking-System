@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    '192.168.1.41'
+    '192.168.1.41',
+    '10.26.241.91' # University library kbu_C
 ]
 
 
