@@ -15,25 +15,17 @@
 	</div>
 	<!--begin::Card header-->
 	<!--begin::Content-->
-	<div id="kt_account_settings_profile_details" class="collapse show d-flex flex-center">
+	<div class="collapse show d-flex flex-center">
 		<!--begin::Form-->
-		<form method="post">
+		<form method="post" class="mb-5">
 			{% csrf_token %}
 			<h2>Students in Classroom:</h2>
 			{{ form.as_p }}
-			
-			
-			<!-- <ul>
-			{% for student in classroom.students.all %}
-				<li>
-				<input type="checkbox" name="students" value="{{ student.user.username }}" {% if student in classroom.students.all %}checked{% endif %}>
-				{{ student }}
-				</li>
-			{% endfor %}
-			</ul> -->
-			
-			<button type="submit">Save Changes</button>
+			<div class="d-flex flex-end">
+				<button type="submit" class="">Save Changes</button>
+			</div>	
 		</form>
+		
 		
 		<!--end::Form-->
 	</div>
