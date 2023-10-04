@@ -82,11 +82,16 @@ class CreateStudentClassroom(forms.ModelForm):
         }
 
 class EditStudentClassroom(forms.ModelForm):
+    students = forms.ModelMultipleChoiceField(
+        queryset=None,
+        widget=forms.CheckboxSelectMultiple,
+    )
+
     class Meta:
         model = StudentClassroom
-        fields = [
-            'students',
-        ]
-        widgets = {
-            'students': forms.SelectMultiple(attrs={'class': 'form-control w-100'}),
-        }
+        fields = []
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['students'].queryset = self.instance.students.all()
+        

@@ -32,6 +32,7 @@ ALLOWED_HOSTS = [
 ]
 
 
+
 # Application definition
 
 BASE_APPS = [

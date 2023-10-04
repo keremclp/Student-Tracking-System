@@ -19,21 +19,22 @@
 		<!--begin::Form-->
 		<form method="post">
 			{% csrf_token %}
+			<h2>Students in Classroom:</h2>
 			{{ form.as_p }}
 			
-			<h2>Students in Classroom:</h2>
-			<ul>
+			
+			<!-- <ul>
 			{% for student in classroom.students.all %}
 				<li>
-				<input type="checkbox" name="students" value="{{ student.id }}" {% if student in classroom.students.all %}checked{% endif %}>
+				<input type="checkbox" name="students" value="{{ student.user.username }}" {% if student in classroom.students.all %}checked{% endif %}>
 				{{ student }}
 				</li>
 			{% endfor %}
-			</ul>
+			</ul> -->
 			
 			<button type="submit">Save Changes</button>
 		</form>
-		<a href="{% url 'teacher:teacher_dashboard' %}">Back to Dashboard</a>
+		
 		<!--end::Form-->
 	</div>
 	<!--end::Content-->

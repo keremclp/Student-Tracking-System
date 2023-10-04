@@ -170,17 +170,23 @@ def add_student_classroom(request):
     return render(request, 'teacher/teacher_classroom_create.html', context)
 
 
-def edit_student_classroom(request, classroom_slug):
+def remove_student_from_classroom(request, classroom_slug):
     classroom = get_object_or_404(StudentClassroom, slug=classroom_slug)
-
-    # Check if the logged-in teacher is the responsible teacher for this classroom
-    # if classroom.responsible_teacher != request.user.teacherprofile:
-    #     ("You do not have permission to edit this classroom.")
 
     if request.method == "POST":
         form = EditStudentClassroom(request.POST, instance=classroom)
+        
         if form.is_valid():
-            form.save()
+            # Get the selected students to be removed
+            selected_students = form.cleaned_data.get('students')
+            
+            # Remove the selected students from the classroom
+            classroom.students.remove(*selected_students)
+
+            for student in selected_students:
+                student.classroom = None
+                student.save()
+
             return redirect('teacher:teacher_dashboard')
     else:
         form = EditStudentClassroom(instance=classroom)
@@ -191,6 +197,7 @@ def edit_student_classroom(request, classroom_slug):
         'title': "Edit Students in Classroom",
     }
     return render(request, 'teacher/edit_student_classroom.html', context)
+
 def activate_student(request, student_id):
     # Ensure that only teachers can activate students (you can modify this logic)
     if not request.user.role == 'teacher':
