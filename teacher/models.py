@@ -17,6 +17,7 @@ class TeacherProfile(models.Model):
     address = models.TextField(null=True, blank=True)
     experience = models.IntegerField(null=True, blank=True)
     salary = models.IntegerField(null=True, blank=True)
+    classroom = models.OneToOneField('student.StudentClassroom', null=True, blank=True, on_delete=models.CASCADE)
     
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name} (ID: {self.pk})"

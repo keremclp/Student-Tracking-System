@@ -52,6 +52,11 @@
             href="{% url 'teacher:add_student_classroom' %}"
             >Add Student to Classroom</a
           >
+          <a
+            class="bg-white text-danger mx-1" 
+            href="{% url 'teacher:remove_student_from_classroom' classroom_slug=profile_global.classroom.slug %}"
+            >Remove Student from classroom</a
+          >
         </div>
       </div>
     </div>
