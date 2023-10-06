@@ -203,5 +203,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Yapılma Aşamasında:
 # DONE: Teacher profile edit
 # DONE: Create timetable for teacher
-# TODO: Teacher atama yapabiliyor ama misal yanlış ya da eksik girdi onu düzeltmesi gerekiyor.(add student to classroom-edit )
+# DONE: Teacher atama yapabiliyor ama misal yanlış ya da eksik girdi onu düzeltmesi gerekiyor.(add student to classroom-edit )
 # TODO: Telefon numarası onaylama yapıldı ama telefon numarası olmadığı zamanda onaylıyor ve tel öğrenci tarafından girildiği zaman onaylanmış şekliyle geliyor.
+
+
+# Version 2 için yapılacaklar :
+# TODO: Yapay zeka işin içi egiriş olmuş olacak ve fotoğraf yükleme için araştırma yap!!
