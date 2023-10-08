@@ -169,7 +169,7 @@ def add_student_classroom(request):
     )
     return render(request, 'teacher/teacher_classroom_create.html', context)
 
-
+# TODO: öğrenciler için pagenation ekle ve #Usermanagement->Users içindeki list gibi yap actions kısmını o şekilde ayarlayabilirsin
 def remove_student_from_classroom(request, classroom_slug):
     classroom = get_object_or_404(StudentClassroom, slug=classroom_slug)
 
@@ -213,3 +213,20 @@ def activate_student(request, student_id):
     # You need to define the appropriate field in your StudentProfile model for this status.
 
     return redirect('teacher:teacher_dashboard')
+
+def student_list(request):
+    # Ensure that only teachers can view the list of users (you can modify this logic)
+    if not request.user.role == 'teacher':
+        return redirect('teacher_dashboard')
+
+    # Retrieve the list of students
+    students = StudentProfile.objects.all()
+
+    # Retrieve the list of teachers
+    teachers = TeacherProfile.objects.all()
+
+    context = {
+        'students': students,
+        'teachers': teachers,
+    }
+    return render(request, 'teacher/student_list.html', context)   

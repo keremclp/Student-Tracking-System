@@ -8,7 +8,8 @@ from teacher.views import (
     activate_student,
     teacher_create_classroom,
     add_student_classroom,
-    remove_student_from_classroom
+    remove_student_from_classroom,
+    student_list
 )
 
 
@@ -29,5 +30,6 @@ urlpatterns = [
     path('teacher-create-student-classroom/',
          add_student_classroom, name='add_student_classroom'),
      path('edit-student-classroom/<slug:classroom_slug>/', remove_student_from_classroom, name='remove_student_from_classroom'),
+     path('student-list/', student_list, name='student_list'),
      
 ]

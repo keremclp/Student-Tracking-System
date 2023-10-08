@@ -170,7 +170,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # YAPILMASI DÜŞÜNÜNLER:
-# TODO: user_profile appine profile işlemleri aktar!!
+# TODO: user_profile appine profile işlemleri aktar!! ve bunu #2Ecommerce->Customer Details gibi yapabilirsin
 # TODO: Teacher için öğrenciyi takip etme
 # TODO: öğretmenlerin öğrencilerini görme, bunun çin student profiline gitmeyecek, ayrı bir liste oluşturup orada gösterip öyle çekmemiz gerekiyor https://twitter.com/html5css3_dv/status/1695199371896184939?t=ntiUELfq3U3goBhQAB5r4w&s=08
 # bunu yaparken bir buton koy carcatlog projesindeki gibi bir modal açılsın öyle görsün öğrenci hakkındaki detayları öğretmen !! Öğrenci profili gibi değil! Metronic de vardı bir yerde!!
@@ -192,7 +192,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # TODO: Telefon numarası teacher ya da parent tarafından onaylanması
 
-# TODO: Öğrenciler için blog sistemi olabilir(Hocanı notla kısmı) #Social->Feeds  # https://twitter.com/html5css3_dv/status/1695199371896184939?t=ntiUELfq3U3goBhQAB5r4w&s=08 bunu da kullanabirsin.
+# TODO: Öğrenciler için blog sistemi olabilir #Social->Feeds  # https://twitter.com/html5css3_dv/status/1695199371896184939?t=ntiUELfq3U3goBhQAB5r4w&s=08 bunu da kullanabirsin.
+
+# TODO: (Hocanı notla kısmı) https://twitter.com/html5css3_dv/status/1695199371896184939?t=ntiUELfq3U3goBhQAB5r4w&s=08 bunu da kullanabirsin.
 
 
 # TODO: Öğrenciler için oyunlar vs olabilir.   https://twitter.com/html5css3_dv/status/1695481194295734280?t=rEd-MhQkpNf4QhJTLAf-Hw&s=08
