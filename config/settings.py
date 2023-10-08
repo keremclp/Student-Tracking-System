@@ -192,7 +192,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # TODO: Telefon numarası teacher ya da parent tarafından onaylanması
 
-# TODO: Öğrenciler için blog sistemi olabilir(Hocanı notla kısmı) #Social->Feeds
+# TODO: Öğrenciler için blog sistemi olabilir(Hocanı notla kısmı) #Social->Feeds  # https://twitter.com/html5css3_dv/status/1695199371896184939?t=ntiUELfq3U3goBhQAB5r4w&s=08 bunu da kullanabirsin.
 
 
 # TODO: Öğrenciler için oyunlar vs olabilir.   https://twitter.com/html5css3_dv/status/1695481194295734280?t=rEd-MhQkpNf4QhJTLAf-Hw&s=08
@@ -206,7 +206,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # DONE: Create timetable for teacher
 # DONE: Teacher atama yapabiliyor ama misal yanlış ya da eksik girdi onu düzeltmesi gerekiyor.(add student to classroom-edit )
 # TODO: Telefon numarası onaylama yapıldı ama telefon numarası olmadığı zamanda onaylıyor ve tel öğrenci tarafından girildiği zaman onaylanmış şekliyle geliyor.
-
+# TODO: öğretmenlerin öğrencilerini görme, bunun çin student profiline gitmeyecek, ayrı bir liste oluşturup orada gösterip öyle çekmemiz gerekiyor https://twitter.com/html5css3_dv/status/1695199371896184939?t=ntiUELfq3U3goBhQAB5r4w&s=08
+# bunu yaparken bir buton koy carcatlog projesindeki gibi bir modal açılsın öyle görsün öğrenci hakkındaki detayları öğretmen !! Öğrenci profili gibi değil! Metronic de vardı bir yerde!!
 
 # Version 2 için yapılacaklar :
 # TODO: Yapay zeka işin içi egiriş olmuş olacak ve fotoğraf yükleme için araştırma yap!!
