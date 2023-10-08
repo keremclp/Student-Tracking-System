@@ -41,6 +41,13 @@ class StudentClassroom(models.Model):
             self.slug = f"{self.classroom.grade_level} - {self.classroom.name}"
         super().save(*args, **kwargs)
     
+    def get_absolute_url_classroom(self):
+        return reverse(
+            'teacher:remove_student_from_classroom', 
+            kwargs={
+                'classroom_slug': self.slug
+            }
+        )
     
 
 class StudentProfile(models.Model): 

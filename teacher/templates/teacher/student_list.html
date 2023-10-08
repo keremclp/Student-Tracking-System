@@ -1091,15 +1091,15 @@
                     <a
                         href="../../demo1/dist/apps/user-management/users/view.html"
                         class="text-gray-800 text-hover-primary mb-1"
-                        >Emma Smith</a
+                        > {{ student.user.get_full_name }} </a
                     >
-                    <span>smith@kpmg.com</span>
+                    <span>{{ student.user.email }}</span>
                     </div>
                     <!--begin::User details-->
                 </td>
                 <!--end::User=-->
                 <!--begin::Role=-->
-                <td>Administrator</td>
+                <td> {{ student.user.role }} </td>
                 <!--end::Role=-->
                 <!--begin::Last login=-->
                 <td>
@@ -1154,9 +1154,8 @@
                     <!--begin::Menu item-->
                     <div class="menu-item px-3">
                         <a
-                        href="#"
+                        href="{{ student.classroom.get_absolute_url_classroom }}"
                         class="menu-link px-3"
-                        data-kt-users-table-filter="delete_row"
                         >Delete</a
                         >
                     </div>
