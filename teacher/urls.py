@@ -29,7 +29,8 @@ urlpatterns = [
          name='teacher_create_classroom'),
     path('teacher-create-student-classroom/',
          add_student_classroom, name='add_student_classroom'),
-     path('edit-student-classroom/<slug:classroom_slug>/', remove_student_from_classroom, name='remove_student_from_classroom'),
-     path('student-list/', student_list, name='student_list'),
-     
+    path('edit-student-classroom/<slug:classroom_slug>/',
+         remove_student_from_classroom, name='remove_student_from_classroom'),
+    path('student-list/<slug:classroom_slug>/', student_list, name='student_list'),
+
 ]

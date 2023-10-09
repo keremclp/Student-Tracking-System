@@ -214,14 +214,15 @@ def activate_student(request, student_id):
 
     return redirect('teacher:teacher_dashboard')
 
-def student_list(request):
+def student_list(request, classroom_slug):
     # Ensure that only teachers can view the list of users (you can modify this logic)
     if not request.user.role == 'teacher':
         return redirect('teacher_dashboard')
-
+    
+    classroom = get_object_or_404(StudentClassroom, slug=classroom_slug)
     # Retrieve the list of students
-    students = StudentProfile.objects.all()
-
+    students = classroom.students.all()
+    print(students)
     # Retrieve the list of teachers
     teachers = TeacherProfile.objects.all()
 
