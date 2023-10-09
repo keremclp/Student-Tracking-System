@@ -1100,7 +1100,6 @@
                         class="text-gray-800 text-hover-primary mb-1"
                         > {{ student.user.get_full_name }} </a
                     >
-                    <span>{{ student.user.email }}</span>
                     </div>
                     <!--begin::User details-->
                 </td>
@@ -1138,8 +1137,20 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- Add your modal content here -->
-                                    {{ student.user.get_full_name }}
-                                    <img src="{{ student.user.profile_image|thumbnail_url:'avatar'  }}" alt="">
+                                    <div class="d-flex flex-start">
+                                      <img src="{{ student.user.profile_image|thumbnail_url:'avatar2'  }}" class="rounded-circle ml-2">
+                                      <div class="ml-4">
+                                        <div class="d-flex flex-column">
+                                              <span class="d-flex flex-start">
+                                                {{ student.user.get_full_name }}
+                                              </span>
+                                              <span>
+                                                {{ student.user.email }}
+                                                
+                                              </span>
+                                        </div>
+                                      </div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
