@@ -57,6 +57,11 @@
             href="{% url 'teacher:remove_student_from_classroom' classroom_slug=profile_global.classroom.slug %}"
             >Remove Student from classroom</a
           >
+          <a
+            class="bg-danger text-white mx-1" 
+            href="{% url 'teacher:student_list' classroom_slug=profile_global.classroom.slug %}"
+            >Student List</a
+          >
         </div>
       </div>
     </div>
