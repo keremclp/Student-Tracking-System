@@ -1,5 +1,6 @@
 {% extends 'core/base.html' %} 
 {% load static %} 
+{% load thumbnail %}
 {% block css %}
 <link
   href="{% static 'assets/plugins/custom/datatables/datatables.bundle.css' %}"
@@ -1138,7 +1139,7 @@
                                 <div class="modal-body">
                                     <!-- Add your modal content here -->
                                     {{ student.user.get_full_name }}
-                                    <img src="{{ student.user.profile_image.url }}" alt="">
+                                    <img src="{{ student.user.profile_image|thumbnail_url:'avatar'  }}" alt="">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -1179,10 +1180,5 @@
 <script src="{% static 'assets/js/custom/utilities/modals/create-app.js' %}"></script>
 <script src="{% static 'assets/js/custom/utilities/modals/users-search.js' %}"></script>
 <script src="{% static 'assets/plugins/custom/datatables/datatables.bundle.js' %}"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="{% static 'assets/js/jquery.min.js' %}"></script>
-<script src="{% static 'assets/js/popper.min.js' %}"></script>
-<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+
 {% endblock js %}

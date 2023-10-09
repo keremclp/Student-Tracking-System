@@ -47,7 +47,8 @@ BASE_APPS = [
 THIRD_PART_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
-    'autoslug'
+    'autoslug',
+    'easy_thumbnails'
 ]
 
 MY_APPS = [
@@ -168,6 +169,14 @@ LOGIN_ADMIN_RESTRICTED = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar': {'size': (30, 30), 'crop': True},
+        'avatar2': {'size': (60, 60), 'crop': True},
+        'thumbnail': {'size': (400, 300), 'crop': True},
+        'page': {'size': (1000, 250), 'crop': True},
+    },
+}
 
 # YAPILMASI DÜŞÜNÜNLER:
 # TODO: user_profile appine profile işlemleri aktar!! ve bunu #2Ecommerce->Customer Details gibi yapabilirsin
