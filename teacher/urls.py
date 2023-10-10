@@ -31,6 +31,7 @@ urlpatterns = [
          add_student_classroom, name='add_student_classroom'),
     path('edit-student-classroom/<slug:classroom_slug>/',
          remove_student_from_classroom, name='remove_student_from_classroom'),
-    path('student-list/<slug:classroom_slug>/', student_list, name='student_list'),
+    path('student-list/<slug:classroom_slug>/',
+         student_list, name='student_list'),
 
 ]
