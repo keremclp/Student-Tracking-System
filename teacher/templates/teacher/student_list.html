@@ -1147,9 +1147,9 @@
                                                         <div class="col-sm-4 bg-c-lite-green user-profile">
                                                             <div class="card-block text-center text-white">
                                                                 <div class="m-b-25">
-                                                                    <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image">
+                                                                    <img src="{{ student.user.profile_image|thumbnail_url:'avatar2' }}" class="rounded-circle" alt="User-Profile-Image">
                                                                 </div>
-                                                                <h6 class="f-w-600">Hembo Tingor</h6>
+                                                                <h6 class="f-w-600"> {{ student.user.get_full_name }} </h6>
                                                                 <p>Web Designer</p>
                                                                 <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
                                                             </div>
@@ -1160,7 +1160,7 @@
                                                                 <div class="row">
                                                                     <div class="col-sm-6">
                                                                       <div class="d-flex flex-row flex-start ">
-                                                                        <div class="d-flex flex-column flex-start pr-3">
+                                                                        <div class="d-flex flex-column flex-start pr-5">
                                                                             <p class="m-b-10 f-w-600">Email</p>
                                                                             <h6 class="text-muted f-w-400">rntng@gmail.com</h6>
                                                                         </div>
@@ -1175,15 +1175,14 @@
                                                                 <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Projects</h6>
                                                                 <div class="row ">
                                                                     <div class="col-sm-6">
-                                                                      <div class="d-flex justify-content-between">
-                                                                        <div class=" mx-3">
-                                                                          <p class="m-b-10 f-w-600">Recent</p>
-                                                                          <h6 class="text-muted f-w-800">Sam Disuja</h6>
-                                                                          
+                                                                      <div class="d-flex flex-row flex-start ">
+                                                                        <div class="d-flex flex-column flex-start pr-5">
+                                                                            <p class="m-b-10 f-w-600">Recent</p>
+                                                                            <h6 class="text-muted f-w-800" style="white-space: nowrap;">Sam Disuja</h6>
                                                                         </div>
-                                                                        <div class="">
-                                                                          <p class="m-b-10 f-w-900 mw-100">Most Viewed</p>
-                                                                          <h6 class="text-muted f-w-400">Dinoter husainm</h6>
+                                                                        <div class="d-flex flex-column flex-start">
+                                                                          <p class="m-b-10 f-w-900 mw-100" style="white-space: nowrap;">Most Viewed</p>
+                                                                          <h6 class="text-muted f-w-400" style="white-space: nowrap;">Dinoter husainm</h6>
                                                                         </div>
                                                                       </div>
                                                                     </div>
