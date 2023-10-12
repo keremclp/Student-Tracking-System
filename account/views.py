@@ -11,16 +11,19 @@ def login_view(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
-            if user is not None and user.role and user.is_authenticated == 'student':
+            
+            if user is not None and user.role == 'student':
+                profile, profile_created = StudentProfile.objects.get_or_create(user=user)
+                profile.save()
                 login(request, user)
                 messages.success(request,f'{username} successfully logged in.')
                 return redirect('student:student_dashboard')
-            
-            elif user is not None and user.role and user.is_authenticated == 'teacher': 
+
+            elif user is not None and user.role == 'teacher': 
                 login(request, user)
                 messages.success(request,f'{username} successfully logged in.')
                 return redirect('teacher:teacher_dashboard')
-            elif user is not None and user.role and user.is_authenticated == 'parent':
+            elif user is not None and user.role == 'parent':
                 login(request, user)
                 return redirect('employee')
             else:
