@@ -18,9 +18,13 @@
   </head>
 
   <body>
-    {% include 'core/messages.html' %} {% block content %} {% endblock content%}
+    {% include 'core/messages.html' %} 
+    {% block content %} 
+    {% endblock content%}
     {% block script %}
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="assets/plugins/global/plugins.bundle.js"></script>
+		<script src="assets/js/scripts.bundle.js"></script>
     {% endblock script %}
   </body>
 </html>
