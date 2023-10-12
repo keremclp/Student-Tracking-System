@@ -5,27 +5,27 @@ from account.forms import LoginForm, SignUpForm
 from student.models import StudentProfile
 from teacher.models import TeacherProfile
 def login_view(request):
-    
     form = LoginForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
-            if user is not None and user.role == 'student':
+            if user is not None and user.role and user.is_authenticated == 'student':
                 login(request, user)
                 messages.success(request,f'{username} successfully logged in.')
                 return redirect('student:student_dashboard')
             
-            elif user is not None and user.role == 'teacher':
+            elif user is not None and user.role and user.is_authenticated == 'teacher': 
                 login(request, user)
                 messages.success(request,f'{username} successfully logged in.')
                 return redirect('teacher:teacher_dashboard')
-            elif user is not None and user.role == 'parent':
+            elif user is not None and user.role and user.is_authenticated == 'parent':
                 login(request, user)
                 return redirect('employee')
             else:
                 messages.warning(request,"Please check your email or password")
+                return redirect('account:error_view')
         else:
             messages.error(request, "Validation Error")
     return render(request, 'account/login.html', {'form': form})
@@ -59,3 +59,6 @@ def logout_view(request):
     logout(request)
     messages.success(request,f'{username} successfully log out.')
     return redirect('account:login_view')
+
+def error_view(request):
+    return render(request,'account/error.html')
