@@ -1,10 +1,15 @@
-{% extends 'core/base_without_navbar.html' %} 
-{% load static %}  
-{% block css %}
-		<link href="{% static 'assets/plugins/global/plugins.bundle.css' %}" rel="stylesheet" type="text/css" />
-		<link href="{% static 'assets/css/style.bundle.css' %}" rel="stylesheet" type="text/css" />
-{% endblock css %}
-{% block content %}
+{% extends 'core/base_without_navbar.html' %} {% load static %} {% block css %}
+<link
+  href="{% static 'assets/plugins/global/plugins.bundle.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'assets/css/style.bundle.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+{% endblock css %} {% block content %}
 <!--begin::Root-->
 <div class="d-flex flex-column flex-root" id="kt_app_root">
   <!--begin::Page bg image-->
