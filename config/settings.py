@@ -57,7 +57,8 @@ MY_APPS = [
     'account',
     'student',
     'teacher',
-    'classroom'
+    'classroom',
+    'blog'
 ]
 
 INSTALLED_APPS = BASE_APPS + THIRD_PART_APPS + MY_APPS
