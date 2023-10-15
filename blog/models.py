@@ -1,11 +1,7 @@
 from django.db import models
-from django.urls import reverse
-from django.contrib.auth.models import User
-from slugify import slugify 
 
 # Models
 from account.models import User
-
 # Third Party App:
 from autoslug import AutoSlugField
 from tinymce import models as tinymce_models
@@ -19,8 +15,8 @@ class CommonModel(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
-            super(CommonModel, self).save(*args, **kwargs)
+            self.slug = self.title
+        super().save(*args, **kwargs)
 
     class Meta:
         abstract = True
