@@ -1,4 +1,7 @@
-{% extends 'core/base.html' %} {% load static %} {% block content %}
+{% extends 'core/base.html' %} 
+{% load static %}
+{% load thumbnail %} 
+{% block content %}
 <!--begin::Toolbar-->
 <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
   <!--begin::Toolbar container-->
@@ -225,114 +228,56 @@
           <div class="row">
             <!--begin::Col-->
             <div class="col-md-6">
+              {% for post in post_1 %}
               <!--begin::Feature post-->
-              <div
-                class="h-100 d-flex flex-column justify-content-between pe-lg-6 mb-lg-0 mb-10"
-              >
-                <!--begin::Video-->
-                <div class="mb-3">
-                  <!--begin::Title-->
-                  <a
-                    href="#"
-                    class="fs-2 text-dark fw-bold text-hover-primary text-dark lh-base"
-                    >Admin Panel - How To Get Started Tutorial. <br />Create
-                    easy customizable applications</a
-                  >
-                  <!--end::Title-->
-                  <!--begin::Text-->
-                  <div class="fw-semibold fs-5 text-gray-600 text-dark mt-4">
-                    We’ve been focused on making the from v4 to v5 but we have
-                    also not been afraid to step away been focused on from v4 to
-                    v5 speaker approachable making focused a but from a step
-                    away afraid to step away been focused Writing a blog post is
-                    a little like driving; you can study the highway code (or
-                    read articles telling you how to write a blog post) for
-                    months, but nothing can prepare you for the real thing like
-                    getting behind the wheel
-                  </div>
-                  <!--end::Text-->
-                </div>
-                <!--end::Video-->
-                <div class="d-flex flex-stack flex-wrap mb-3">
-                  <!--begin::Item-->
-                  <div class="d-flex align-items-center pe-2">
-                    <!--begin::Avatar-->
-                    <div class="symbol symbol-35px symbol-circle me-3">
-                      <img alt="" src="assets/media/avatars/300-9.jpg" />
-                    </div>
-                    <!--end::Avatar-->
+                <div
+                  class="mh-100 d-flex flex-column justify-content-between pe-lg-6 mb-lg-0 mb-10"
+                >
+                  <!--begin::Video-->
+                  <div class="">
+                    <!--begin::Title-->
+                    <a
+                      href="#"
+                      class="fs-2 text-dark fw-bold text-hover-primary text-dark lh-base"
+                      >{{ post.title }}</a
+                    >
+                    <!--end::Title-->
                     <!--begin::Text-->
-                    <div class="fs-5 fw-bold">
-                      <a
-                        href="../../demo1/dist/pages/user-profile/overview.html"
-                        class="text-gray-700 text-hover-primary"
-                        >David Morgan</a
-                      >
-                      <span class="text-muted">on Apr 27 2021</span>
+                    <div class="fw-semibold fs-5 text-gray-600 text-dark mt-4">
+                      {{ post.content|safe }}
                     </div>
                     <!--end::Text-->
-                  </div>
-                  <!--end::Item-->
-                  <!--begin::Label-->
-                  <span class="badge badge-light-primary fw-bold my-2"
-                    >TUTORIALS</span
-                  >
-                  <!--end::Label-->
-                </div>
-                <!--begin::Body-->
-                <div class="mb-5">
-                  <!--begin::Title-->
-                  <a
-                    href="#"
-                    class="fs-2 text-dark fw-bold text-hover-primary text-dark lh-base"
-                    >Admin Panel - How To Get Started Tutorial. <br />Create
-                    easy customizable applications</a
-                  >
-                  <!--end::Title-->
-                  <!--begin::Text-->
-                  <div class="fw-semibold fs-5 text-gray-600 text-dark mt-4">
-                    We’ve been focused on making the from v4 to v5 but we have
-                    also not been afraid to step away been focused on from v4 to
-                    v5 speaker approachable making focused a but from a step
-                    away afraid to step away been focused Writing a blog post is
-                    a little like driving; you can study the highway code (or
-                    read articles telling you how to write a blog post) for
-                    months, but nothing can prepare you for the real thing like
-                    getting behind the wheel
-                  </div>
-                  <!--end::Text-->
-                </div>
-                <!--end::Body-->
-                <!--begin::Footer-->
-                <div class="d-flex flex-stack flex-wrap">
-                  <!--begin::Item-->
-                  <div class="d-flex align-items-center pe-2">
-                    <!--begin::Avatar-->
-                    <div class="symbol symbol-35px symbol-circle me-3">
-                      <img alt="" src="assets/media/avatars/300-9.jpg" />
-                    </div>
-                    <!--end::Avatar-->
-                    <!--begin::Text-->
-                    <div class="fs-5 fw-bold">
-                      <a
-                        href="../../demo1/dist/pages/user-profile/overview.html"
-                        class="text-gray-700 text-hover-primary"
-                        >David Morgan</a
+                    <div class="d-flex flex-stack flex-wrap mt-3">
+                      <!--begin::Item-->
+                      <div class="d-flex align-items-center pe-2">
+                        <!--begin::Avatar-->
+                        <div class="symbol symbol-35px symbol-circle me-3">
+                          <img alt="" src="{{ post.user.profile_image|thumbnail_url:'avatar'  }}" />
+                        </div>
+                        <!--end::Avatar-->
+                        <!--begin::Text-->
+                        <div class="fs-5 fw-bold">
+                          <a
+                            href="../../demo1/dist/pages/user-profile/overview.html"
+                            class="text-gray-700 text-hover-primary"
+                            > {{ post.user.get_full_name }} </a
+                          >
+                          <span class="text-muted">on {{ post.created_at|date:"M d Y" }}</span>
+                        </div>
+                        <!--end::Text-->
+                      </div>
+                      <!--end::Item-->
+                      <!--begin::Label-->
+                      <span class="badge badge-light-primary fw-bold my-1"
+                        > {{ post.category }} </span
                       >
-                      <span class="text-muted">on Apr 27 2021</span>
+                      <!--end::Label-->
                     </div>
-                    <!--end::Text-->
                   </div>
-                  <!--end::Item-->
-                  <!--begin::Label-->
-                  <span class="badge badge-light-primary fw-bold my-2"
-                    >TUTORIALS</span
-                  >
-                  <!--end::Label-->
+                  <!--end::Video-->
                 </div>
-                <!--end::Footer-->
-              </div>
-              <!--end::Feature post-->
+                <!--end::Feature post-->
+              {% endfor %}
             </div>
             <!--end::Col-->
             <!--begin::Col-->
@@ -356,38 +301,39 @@
                     v5 speaker approachable making focused
                   </div>
                   <!--end::Text-->
+                  <!--begin::Footer-->
+                  <div class="d-flex flex-stack flex-wrap">
+                    <!--begin::Item-->
+                    <div class="d-flex align-items-center pe-2">
+                      <!--begin::Avatar-->
+                      <div class="symbol symbol-35px symbol-circle me-3">
+                        <img
+                          src="assets/media/avatars/300-20.jpg"
+                          class=""
+                          alt=""
+                        />
+                      </div>
+                      <!--end::Avatar-->
+                      <!--begin::Text-->
+                      <div class="fs-5 fw-bold">
+                        <a
+                          href="../../demo1/dist/pages/user-profile/overview.html"
+                          class="text-gray-700 text-hover-primary"
+                          >Jane Miller</a
+                        >
+                        <span class="text-muted">on Apr 27 2021</span>
+                      </div>
+                      <!--end::Text-->
+                    </div>
+                    <!--end::Item-->
+                    <!--begin::Label-->
+                    <span class="badge badge-light-info fw-bold my-2">BLOG</span>
+                    <!--end::Label-->
+                  </div>
+                <!--end::Footer-->
                 </div>
                 <!--end::Body-->
-                <!--begin::Footer-->
-                <div class="d-flex flex-stack flex-wrap">
-                  <!--begin::Item-->
-                  <div class="d-flex align-items-center pe-2">
-                    <!--begin::Avatar-->
-                    <div class="symbol symbol-35px symbol-circle me-3">
-                      <img
-                        src="assets/media/avatars/300-20.jpg"
-                        class=""
-                        alt=""
-                      />
-                    </div>
-                    <!--end::Avatar-->
-                    <!--begin::Text-->
-                    <div class="fs-5 fw-bold">
-                      <a
-                        href="../../demo1/dist/pages/user-profile/overview.html"
-                        class="text-gray-700 text-hover-primary"
-                        >Jane Miller</a
-                      >
-                      <span class="text-muted">on Apr 27 2021</span>
-                    </div>
-                    <!--end::Text-->
-                  </div>
-                  <!--end::Item-->
-                  <!--begin::Label-->
-                  <span class="badge badge-light-info fw-bold my-2">BLOG</span>
-                  <!--end::Label-->
-                </div>
-                <!--end::Footer-->
+                
               </div>
               <!--end::Post-->
               <!--begin::Post-->
