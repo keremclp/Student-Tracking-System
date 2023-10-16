@@ -6,6 +6,7 @@ from account.models import User
 from autoslug import AutoSlugField
 from tinymce import models as tinymce_models
 
+
 class CommonModel(models.Model):
     title = models.CharField(max_length=200)
     slug = AutoSlugField(unique=True)
@@ -22,6 +23,7 @@ class CommonModel(models.Model):
         abstract = True
         ordering = ('title',)
 
+
 class Category(CommonModel):
 
     def __str__(self):
@@ -32,6 +34,7 @@ class Category(CommonModel):
     #         "blog:category_view",
     #         kwargs={"category_slug": self.slug},
     #     )
+
 class BlogPost(CommonModel):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
