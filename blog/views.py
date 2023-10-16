@@ -4,9 +4,9 @@ from django.shortcuts import render
 from blog.models import BlogPost
 # Create your views here.
 def blog_home(request):
-    posts = BlogPost.objects.all()[:6]  # get the last five published posts
-    post_1 = [posts[0], posts[1], posts[2]]
-    post_2 = [posts[3], posts[4], posts[5]]
+    posts = BlogPost.objects.all().order_by('-created_at')[:6]  # get the latest six published posts
+    post_1 = posts[:3]
+    post_2 = posts[3:6]
     context = dict(
         post_1=post_1,
         post_2=post_2,
