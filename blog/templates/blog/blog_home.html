@@ -283,167 +283,59 @@
             <!--begin::Col-->
             <div class="col-md-6 justify-content-between d-flex flex-column">
               <!--begin::Post-->
+              {% for post in post_2 %}
+                <div class="ps-lg-6 mb-16 mt-md-0 mt-17">
+                  <!--begin::Body-->
+                  <div class="mb-6">
+                    <!--begin::Title-->
+                    <a
+                      href="#"
+                      class="fw-bold text-dark mb-4 fs-2 lh-base text-hover-primary"
+                      > {{ post.title }} </a
+                    >
+                    <!--end::Title-->
+                    <!--begin::Text-->
+                    <div class="fw-semibold fs-5 mt-4 text-gray-600 text-dark">
+                      {{ post.content|safe|truncatewords_html:10 }}
+                    </div>
+                    <!--end::Text-->
+                    <!--begin::Footer-->
+                    <div class="d-flex flex-stack flex-wrap">
+                      <!--begin::Item-->
+                      <div class="d-flex align-items-center pe-2">
+                        <!--begin::Avatar-->
+                        <div class="symbol symbol-35px symbol-circle me-3">
+                          <img
+                            src="{{ post.user.profile_image|thumbnail_url:'avatar'  }}"
+                            class=""
+                            alt=""
+                          />
+                        </div>
+                        <!--end::Avatar-->
+                        <!--begin::Text-->
+                        <div class="fs-5 fw-bold">
+                          <a
+                            href="../../demo1/dist/pages/user-profile/overview.html"
+                            class="text-gray-700 text-hover-primary"
+                            > {{ post.user.get_full_name }} </a
+                          >
+                          <span class="text-muted">on {{ post.created_at|date:"M d Y" }}</span>
+                        </div>
+                        <!--end::Text-->
+                      </div>
+                      <!--end::Item-->
+                      <!--begin::Label-->
+                      <span class="badge badge-light-info fw-bold my-2"> {{ post.category }} </span>
+                      <!--end::Label-->
+                    </div>
+                  <!--end::Footer-->
+                  </div>
+                  <!--end::Body-->
+                  
+                </div>
+              <!--end::Post-->
+              {% endfor %}
               
-              <div class="ps-lg-6 mb-16 mt-md-0 mt-17">
-                <!--begin::Body-->
-                <div class="mb-6">
-                  <!--begin::Title-->
-                  <a
-                    href="#"
-                    class="fw-bold text-dark mb-4 fs-2 lh-base text-hover-primary"
-                    >Bootstrap Admin Theme - How To Get Started Tutorial. Create
-                    customizable applications</a
-                  >
-                  <!--end::Title-->
-                  <!--begin::Text-->
-                  <div class="fw-semibold fs-5 mt-4 text-gray-600 text-dark">
-                    We’ve been focused on making the from v4 to v5 a but we’ve
-                    also not been afraid to step away been focused on from v4 to
-                    v5 speaker approachable making focused
-                  </div>
-                  <!--end::Text-->
-                  <!--begin::Footer-->
-                  <div class="d-flex flex-stack flex-wrap">
-                    <!--begin::Item-->
-                    <div class="d-flex align-items-center pe-2">
-                      <!--begin::Avatar-->
-                      <div class="symbol symbol-35px symbol-circle me-3">
-                        <img
-                          src="assets/media/avatars/300-20.jpg"
-                          class=""
-                          alt=""
-                        />
-                      </div>
-                      <!--end::Avatar-->
-                      <!--begin::Text-->
-                      <div class="fs-5 fw-bold">
-                        <a
-                          href="../../demo1/dist/pages/user-profile/overview.html"
-                          class="text-gray-700 text-hover-primary"
-                          >Jane Miller</a
-                        >
-                        <span class="text-muted">on Apr 27 2021</span>
-                      </div>
-                      <!--end::Text-->
-                    </div>
-                    <!--end::Item-->
-                    <!--begin::Label-->
-                    <span class="badge badge-light-info fw-bold my-2">BLOG</span>
-                    <!--end::Label-->
-                  </div>
-                <!--end::Footer-->
-                </div>
-                <!--end::Body-->
-                
-              </div>
-              <!--end::Post-->
-              <!--begin::Post-->
-              <div class="ps-lg-6 mb-16">
-                <!--begin::Body-->
-                <div class="mb-6">
-                  <!--begin::Title-->
-                  <a
-                    href="#"
-                    class="fw-bold text-dark mb-4 fs-2 lh-base text-hover-primary"
-                    >Angular Admin Theme - How To Get Started Tutorial.</a
-                  >
-                  <!--end::Title-->
-                  <!--begin::Text-->
-                  <div class="fw-semibold fs-5 mt-4 text-gray-600 text-dark">
-                    We’ve been focused on making the from v4 to v5 a but we’ve
-                    also not been afraid to step away
-                  </div>
-                  <!--end::Text-->
-                </div>
-                <!--end::Body-->
-                <!--begin::Footer-->
-                <div class="d-flex flex-stack flex-wrap">
-                  <!--begin::Item-->
-                  <div class="d-flex align-items-center pe-2">
-                    <!--begin::Avatar-->
-                    <div class="symbol symbol-35px symbol-circle me-3">
-                      <img
-                        src="assets/media/avatars/300-9.jpg"
-                        class=""
-                        alt=""
-                      />
-                    </div>
-                    <!--end::Avatar-->
-                    <!--begin::Text-->
-                    <div class="fs-5 fw-bold">
-                      <a
-                        href="../../demo1/dist/pages/user-profile/overview.html"
-                        class="text-gray-700 text-hover-primary"
-                        >Cris Morgan</a
-                      >
-                      <span class="text-muted">on Mar 14 2021</span>
-                    </div>
-                    <!--end::Text-->
-                  </div>
-                  <!--end::Item-->
-                  <!--begin::Label-->
-                  <span class="badge badge-light-primary fw-bold my-2"
-                    >TUTORIALS</span
-                  >
-                  <!--end::Label-->
-                </div>
-                <!--end::Footer-->
-              </div>
-              <!--end::Post-->
-              <!--begin::Post-->
-              <div class="ps-lg-6">
-                <!--begin::Body-->
-                <div class="mb-6">
-                  <!--begin::Title-->
-                  <a
-                    href="#"
-                    class="fw-bold text-dark mb-4 fs-2 lh-base text-hover-primary"
-                    >React Admin Theme - How To Get Started Tutorial. Create
-                    best applications</a
-                  >
-                  <!--end::Title-->
-                  <!--begin::Text-->
-                  <div class="fw-semibold fs-5 mt-4 text-gray-600 text-dark">
-                    We’ve been focused on making the from v4 to v5 but we’ve
-                    also not been afraid to step away been focused
-                  </div>
-                  <!--end::Text-->
-                </div>
-                <!--end::Body-->
-                <!--begin::Footer-->
-                <div class="d-flex flex-stack flex-wrap">
-                  <!--begin::Item-->
-                  <div class="d-flex align-items-center pe-2">
-                    <!--begin::Avatar-->
-                    <div class="symbol symbol-35px symbol-circle me-3">
-                      <img
-                        src="assets/media/avatars/300-19.jpg"
-                        class=""
-                        alt=""
-                      />
-                    </div>
-                    <!--end::Avatar-->
-                    <!--begin::Text-->
-                    <div class="fs-5 fw-bold">
-                      <a
-                        href="../../demo1/dist/pages/user-profile/overview.html"
-                        class="text-gray-700 text-hover-primary"
-                        >Cris Morgan</a
-                      >
-                      <span class="text-muted">on Mar 14 2021</span>
-                    </div>
-                    <!--end::Text-->
-                  </div>
-                  <!--end::Item-->
-                  <!--begin::Label-->
-                  <span class="badge badge-light-warning fw-bold my-2"
-                    >NEWS</span
-                  >
-                  <!--end::Label-->
-                </div>
-                <!--end::Footer-->
-              </div>
-              <!--end::Post-->
             </div>
             <!--end::Col-->
           </div>
