@@ -234,7 +234,7 @@
                   class="mh-100 d-flex flex-column justify-content-between pe-lg-6 mb-lg-0 mb-10"
                 >
                   <!--begin::Video-->
-                  <div class="">
+                  <div class="ps-lg-6 mb-16 mt-md-0 mt-17">
                     <!--begin::Title-->
                     <a
                       href="#"
@@ -244,7 +244,7 @@
                     <!--end::Title-->
                     <!--begin::Text-->
                     <div class="fw-semibold fs-5 text-gray-600 text-dark mt-4">
-                      {{ post.content|safe }}
+                      {{ post.content|safe|truncatewords_html:10 }}
                     </div>
                     <!--end::Text-->
                     <div class="d-flex flex-stack flex-wrap mt-3">
@@ -283,6 +283,7 @@
             <!--begin::Col-->
             <div class="col-md-6 justify-content-between d-flex flex-column">
               <!--begin::Post-->
+              
               <div class="ps-lg-6 mb-16 mt-md-0 mt-17">
                 <!--begin::Body-->
                 <div class="mb-6">
