@@ -23,6 +23,16 @@ class CommonModel(models.Model):
         abstract = True
         ordering = ('title',)
 
+class Tag(CommonModel):
+
+    def __str__(self):
+        return self.title
+
+    # def get_absolute_url(self):
+    #     return reverse(
+    #         "blog:tag_view",
+    #         kwargs={"tag_slug": self.slug}
+    #     )
 
 class Category(CommonModel):
 
@@ -39,6 +49,7 @@ class BlogPost(CommonModel):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    tag = models.ManyToManyField(Tag, blank=True, null=True)
     cover_image = models.ImageField(upload_to='post')
     content = tinymce_models.HTMLField(blank=True, null=True)
     view_count = models.PositiveBigIntegerField(default=0)
