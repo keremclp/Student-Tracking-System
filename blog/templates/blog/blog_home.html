@@ -236,16 +236,24 @@
                   <!--begin::Video-->
                   <div class="ps-lg-6 mb-16 mt-md-0 mt-17">
                     <!--begin::Title-->
-                    <a
-                      href="#"
-                      class="fs-2 text-dark fw-bold text-hover-primary text-dark lh-base"
-                      >{{ post.title }}</a
-                    >
+                    <div class="d-flex justify-content-between">
+                      <div class="mr-auto">
+                        <a
+                          href="#"
+                          class="fs-2 text-dark fw-bold text-hover-primary text-dark lh-base"
+                          >{{ post.title }}</a
+                        >
+                      </div>
+                      <div class=" badge badge-dark fw-bold mx-2">{{ post.category }}</div>
+                    </div>
                     <!--end::Title-->
                     <!--begin::Text-->
                     <div class="fw-semibold fs-5 text-gray-600 text-dark mt-4">
                       {{ post.content|safe|truncatewords_html:10 }}
                     </div>
+                    {% for tag in post.tag.all %}
+                          <a href="#" class="badge badge-light-info fw-bold mx-2 ">{{ tag.title }}</a>
+                    {% endfor %}
                     <!--end::Text-->
                     <div class="d-flex flex-stack flex-wrap mt-3">
                       <!--begin::Item-->
@@ -268,9 +276,7 @@
                       </div>
                       <!--end::Item-->
                       <!--begin::Label-->
-                      <span class="badge badge-light-primary fw-bold my-1"
-                        > {{ post.category }} </span
-                      >
+                      
                       <!--end::Label-->
                     </div>
                   </div>
@@ -320,13 +326,16 @@
                             > {{ post.user.get_full_name }} </a
                           >
                           <span class="text-muted">on {{ post.created_at|date:"M d Y" }}</span>
+                          
                         </div>
                         <!--end::Text-->
                       </div>
                       <!--end::Item-->
                       <!--begin::Label-->
-                      <span class="badge badge-light-info fw-bold my-2"> {{ post.category }} </span>
                       <!--end::Label-->
+                      {% for tag in tags %}
+                        <a href="#" class="badge badge-light-info fw-bold my-2">{{ tag.title }}</a>
+                      {% endfor %}
                     </div>
                   <!--end::Footer-->
                   </div>
