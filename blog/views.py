@@ -1,5 +1,5 @@
 import json
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 
 # Models
@@ -49,4 +49,38 @@ def create_blog_post_view(request):
             messages.success(request, "Blog kaydedildi")
             return redirect('blog:blog_home')
 
+    return render(request, 'blog/create_blog.html', context)
+
+@login_required(login_url='user_profile:login_view')
+def post_edit_view(request, post_slug):
+    post = get_object_or_404(BlogPost, slug=post_slug)
+
+    if not post.user == request.user:
+        messages.warning(request, "You can n ot edit this blog")
+        return redirect('home_view')
+
+    title = post.title
+    form = BlogPostModelForm(instance=post)
+
+    if request.method == 'POST':
+        form = BlogPostModelForm(request.POST or None,
+                                 request.FILES or None, instance=post)
+        if form.is_valid():
+            print("Valid oldu...")
+            f = form.save(commit=False)
+            f.save()
+            tags = json.loads(form.cleaned_data.get('tag'))
+            for item in tags:
+                tag_item, created = Tag.objects.get_or_create(
+                    title=item.get('value').lower())
+                f.tag.isActive = True
+                tag_item.save()
+                f.tag.add(tag_item)
+            messages.success(request, "Blog düzenlendi")
+            return redirect('home_view')
+
+    context = dict(
+        title=title,
+        form=form
+    )
     return render(request, 'blog/create_blog.html', context)
