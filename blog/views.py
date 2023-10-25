@@ -57,7 +57,7 @@ def post_edit_view(request, post_slug):
 
     if not post.user == request.user:
         messages.warning(request, "You can n ot edit this blog")
-        return redirect('home_view')
+        return redirect('blog:blog_home')
 
     title = post.title
     form = BlogPostModelForm(instance=post)
@@ -77,7 +77,7 @@ def post_edit_view(request, post_slug):
                 tag_item.save()
                 f.tag.add(tag_item)
             messages.success(request, "Blog düzenlendi")
-            return redirect('home_view')
+            return redirect('blog:blog_home')
 
     context = dict(
         title=title,
