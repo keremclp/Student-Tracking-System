@@ -84,3 +84,10 @@ def post_edit_view(request, post_slug):
         form=form
     )
     return render(request, 'blog/create_blog.html', context)
+
+def all_posts_view(request, user_slug):
+    posts = BlogPost.objects.filter(user=request.user , is_active=True)
+    context = dict(
+        posts=posts
+    )
+    return render(request, 'blog/all_posts.html', context)

@@ -76,6 +76,12 @@ class StudentProfile(models.Model):
             kwargs={'user_slug': self.slug}
         )
     
+    def get_all_posts_url(self):
+        return reverse(
+            'blog:all_posts_view',
+            kwargs={'user_slug': self.slug}
+        )
+    
     def age(self):
         if self.birth_date:
             today = date.today()
