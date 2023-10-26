@@ -13,3 +13,4 @@ class User(AbstractUser):
     profile_image = models.ImageField(upload_to='profile_image')
     
 
+# TODO: add slug field for user
