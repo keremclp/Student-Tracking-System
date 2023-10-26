@@ -90,6 +90,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'config.global_context_processor.profile_image',
                 'config.global_context_processor.completion_percentage',
+                'config.global_context_processor.blog_profile',
                 # 'config.global_context_processor.StudentClassroom',
             ],
         },

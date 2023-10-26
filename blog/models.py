@@ -45,7 +45,7 @@ class Category(CommonModel):
     #         kwargs={"category_slug": self.slug},
     #     )
 
-class BlogPost(CommonModel):
+class BlogPost(CommonModel):    
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)

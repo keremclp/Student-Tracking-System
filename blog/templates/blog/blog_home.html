@@ -123,10 +123,9 @@
                         <!--begin::Text-->
                         <div class="fs-5 fw-bold">
                           <a
-                            href="{{ profile_global.get_all_posts_url }}"
+                            href="{% url 'blog:all_posts_view' user_slug=post.user.username %}"
                             class="text-gray-700 text-hover-primary"
                             > {{ post.user.get_full_name }} </a
-                          >
                           <span class="text-muted">on {{ post.created_at|date:"M d Y" }}</span>
                         </div>
                         <!--end::Text-->
@@ -178,7 +177,7 @@
                         <!--begin::Text-->
                         <div class="fs-5 fw-bold">
                           <a
-                            href="{{ profile_global.get_all_posts_url }}"
+                            href="{% url 'blog:all_posts_view' user_slug=post.user.username %}"
                             class="text-gray-700 text-hover-primary"
                             > {{ post.user.get_full_name }} </a
                           >

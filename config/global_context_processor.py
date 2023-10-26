@@ -1,3 +1,4 @@
+from blog.models import BlogPost
 from student.models import StudentProfile
 from teacher.models import TeacherProfile
 
@@ -68,3 +69,16 @@ def completion_percentage(request):
     
     return {'completion_percentage': completion_percentage}
 
+def blog_profile(request):
+    user = request.user
+    posts = BlogPost.objects.all().order_by('-created_at')[:6]  # get the latest six published posts
+    post_1 = posts[:3]
+    post_2 = posts[3:6]
+    print("---------------------------")
+    print(post_1[1].user)
+    blog_profile = {
+        'post_1': post_1,
+        'post_2': post_2,
+        'posts': posts
+    }
+    return {'blog_profile': blog_profile}
