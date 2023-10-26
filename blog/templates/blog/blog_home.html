@@ -150,11 +150,16 @@
                   <!--begin::Body-->
                   <div class="mb-6">
                     <!--begin::Title-->
-                    <a
-                      href="#"
-                      class="fw-bold text-dark mb-4 fs-2 lh-base text-hover-primary"
-                      > {{ post.title }} </a
-                    >
+                    <div class="d-flex justify-content-between">
+                      <div class="mr-auto">
+                        <a
+                          href="#"
+                          class="fs-2 text-dark fw-bold text-hover-primary text-dark lh-base"
+                          >{{ post.title }}</a
+                        >
+                      </div>
+                      <div class=" badge badge-dark fw-bold mx-2">{{ post.category }}</div>
+                    </div>
                     <!--end::Title-->
                     <!--begin::Text-->
                     <div class="fw-semibold fs-5 mt-4 text-gray-600 text-dark">
