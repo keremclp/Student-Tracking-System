@@ -109,7 +109,7 @@
                       {{ post.content|safe|truncatewords_html:10 }}
                     </div>
                     {% for tag in post.tag.all %}
-                          <a href="#" class="badge badge-light-info fw-bold mx-2 ">{{ tag.title }}</a>
+                          <a href="#" class="badge badge-light-info fw-bold my-2 mx-1 ">{{ tag.title }}</a>
                     {% endfor %}
                     <!--end::Text-->
                     <div class="d-flex flex-stack flex-wrap mt-3">
@@ -160,6 +160,9 @@
                     <div class="fw-semibold fs-5 mt-4 text-gray-600 text-dark">
                       {{ post.content|safe|truncatewords_html:10 }}
                     </div>
+                    {% for tag in post.tag.all %}
+                          <a href="#" class="badge badge-light-info fw-bold my-2 ">{{ tag.title }}</a>
+                    {% endfor %}
                     <!--end::Text-->
                     <!--begin::Footer-->
                     <div class="d-flex flex-stack flex-wrap">
@@ -189,11 +192,9 @@
                       <!--end::Item-->
                       <!--begin::Label-->
                       <!--end::Label-->
-                      {% for tag in tags %}
-                        <a href="#" class="badge badge-light-info fw-bold my-2">{{ tag.title }}</a>
-                      {% endfor %}
                     </div>
                   <!--end::Footer-->
+
                   </div>
                   <!--end::Body-->
                   
