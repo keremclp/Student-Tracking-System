@@ -74,7 +74,7 @@ class SignUpForm(UserCreationForm):
         ),
     )
     profile_image = forms.ImageField(
-        required=False,  
+        required=True,  
         widget=forms.ClearableFileInput(
             attrs={
                 "class": "form-control-file"
