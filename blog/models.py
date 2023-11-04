@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Models
 from account.models import User
@@ -60,14 +61,14 @@ class BlogPost(CommonModel):
     class Meta:
         ordering = ('created_at',)
 
-    # def get_absolute_url(self):
-    #     return reverse(
-    #         "read:post_detail_view",
-    #         kwargs={
-    #             "user_slug": self.user.profile.slug,
-    #             "post_slug": self.slug
-    #         },
-    #     )
+    def get_absolute_url(self):
+        return reverse(
+            "blog:post_detail_view",
+            kwargs={
+                "user_slug": self.user.userslug,
+                "post_slug": self.slug
+            },
+        )
     # def get_post_edit_url(self):
     #     return reverse(
     #         "blog:post_edit_view",

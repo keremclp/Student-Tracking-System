@@ -4,6 +4,7 @@ from django.contrib import messages
 
 # Models
 from blog.models import BlogPost, Tag
+from account.models import User
 
 # Forms
 from blog.forms import BlogPostModelForm
@@ -91,3 +92,10 @@ def all_posts_view(request, user_slug):
         posts=posts
     )
     return render(request, 'blog/all_posts.html', context)
+
+def post_detail_view(request,user_slug,post_slug):
+    # user = get_object_or_404(User, )
+    # post = get_object_or_404(BlogPost, slug=post_slug)
+    
+    print(request)
+    return render(request, 'blog/post_detail.html')
