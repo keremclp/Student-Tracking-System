@@ -45,7 +45,7 @@ def create_blog_post_view(request):
                 tag_item, created = Tag.objects.get_or_create(title=item.get('value'))
                 tag_item.title = tag_item.title.lower() 
                 f.tag.isActive = True
-                tag_item.save()
+                tag_item.save() # TODO: Taglar database e kayıt yapıyor ama belirli bir post oluşturmak istedğinde o posta kaydetmiyor
                 f.tag.add(tag_item)
             messages.success(request, "Blog kaydedildi")
             return redirect('blog:blog_home')
