@@ -94,8 +94,14 @@ def all_posts_view(request, user_slug):
     return render(request, 'blog/all_posts.html', context)
 
 def post_detail_view(request,user_slug,post_slug):
-    # user = get_object_or_404(User, )
-    # post = get_object_or_404(BlogPost, slug=post_slug)
+    user = get_object_or_404(User, userlug= user_slug)
+    post = get_object_or_404(BlogPost, slug=post_slug)
+
+    context = dict(
+        post=post,
+        user=user
+
+    )
     
     print(request)
-    return render(request, 'blog/post_detail.html')
+    return render(request, 'blog/post_detail.html', context)
