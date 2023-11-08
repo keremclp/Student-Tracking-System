@@ -178,6 +178,7 @@ THUMBNAIL_ALIASES = {
         'profile': {'size': (200,200), 'crop':True},
         'thumbnail': {'size': (400, 300), 'crop': True},
         'page': {'size': (1000, 250), 'crop': True},
+        'cover_image': {'size': (730,350), 'crop': True}
     },
 }
 
