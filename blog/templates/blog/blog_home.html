@@ -107,6 +107,7 @@
                     <!--begin::Text-->
                     <div class="fw-semibold fs-5 text-gray-600 text-dark mt-4">
                       {{ post.content|safe|truncatewords_html:10 }}
+                      <a href="{{ post.get_absolute_url }}" class="fs-6 bg-white text-success rounded p-1"><small>Read More</small></a>
                     </div>
                     {% for tag in post.tag.all %}
                           <a href="#" class="badge badge-light-info fw-bold my-2 mx-1 ">{{ tag.title }}</a>
