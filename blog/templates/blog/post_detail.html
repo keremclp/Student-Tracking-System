@@ -1,4 +1,7 @@
-{% extends 'core/base.html' %} {% block content %}
+{% extends 'core/base.html' %} 
+{% load static %}
+{% load thumbnail %}
+{% block content %}
 <!--begin::Toolbar-->
 <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
   <!--begin::Toolbar container-->
@@ -230,7 +233,7 @@
             <div class="d-flex flex-column text-center mb-9 px-9">
               <!--begin::Photo-->
               <div class="symbol symbol-80px symbol-lg-150px mb-4">
-                <img src="assets/media/avatars/300-3.jpg" class="" alt="" />
+                <img src="{{ user.profile_image|thumbnail_url:'profile' }}" class="" alt="" />
               </div>
               <!--end::Photo-->
               <!--begin::Info-->
@@ -239,12 +242,12 @@
                 <a
                   href="../../demo1/dist/pages/user-profile/overview.html"
                   class="text-gray-800 fw-bold text-hover-primary fs-4"
-                  >Jerry Kane</a
+                  > {{ user.get_full_name }} </a
                 >
                 <!--end::Name-->
                 <!--begin::Position-->
                 <span class="text-muted d-block fw-semibold"
-                  >Grade 8, AE3 Student</span
+                  >Grade {{ profile.classroom.classroom.grade_level }}, {{ profile.classroom.classroom.name }} {{ user.role }} </span
                 >
                 <!--end::Position-->
               </div>
@@ -490,6 +493,8 @@
       <div class="w-100 flex-lg-row-fluid mx-lg-13">
 		<div class="h-100 card">
 			<div class="card-body mb-5 pt-15 px-0">
+        <!--begin::Header-->
+        
 				
 			</div>
 

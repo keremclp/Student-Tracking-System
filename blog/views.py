@@ -5,6 +5,8 @@ from django.contrib import messages
 # Models
 from blog.models import BlogPost, Tag
 from account.models import User
+from teacher.models import TeacherProfile
+from student.models import StudentProfile
 
 # Forms
 from blog.forms import BlogPostModelForm
@@ -94,13 +96,18 @@ def all_posts_view(request, user_slug):
     return render(request, 'blog/all_posts.html', context)
 
 def post_detail_view(request,user_slug,post_slug):
-    user = get_object_or_404(User, userlug= user_slug)
+    # check the user
+    user = get_object_or_404(User, userslug= user_slug)
+    if user == 'teacher':
+        profile = get_object_or_404(TeacherProfile, user=user)
+    else:
+        profile = get_object_or_404(StudentProfile, user=user)
     post = get_object_or_404(BlogPost, slug=post_slug)
 
     context = dict(
         post=post,
-        user=user
-
+        user=user,
+        profile = profile
     )
     
     print(request)
