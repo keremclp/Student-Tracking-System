@@ -217,7 +217,7 @@
 
 {% block js %}
 
-<script src="{% static 'js/axios.min.js' %}"></script>
+<script src="{% static 'assests/js/axios.min.js' %}"></script>
 
 <script>
     const items = document.querySelectorAll("[data-post-slug]");
@@ -228,7 +228,7 @@
             let form = new FormData()
             form.append('slug',slug)
             form.append('csrfmiddlewaretoken', '{{ csrf_token }}' )
-            axios.post('/blog/fav-update/',form).then(res => console.log(res)).catch(err => console.error(err))
+            axios.post('/fav-update/',form).then(res => console.log(res)).catch(err => console.error(err))
         }
 
     }))

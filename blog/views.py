@@ -1,9 +1,10 @@
 import json
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 
 # Models
-from blog.models import BlogPost, Tag
+from blog.models import BlogPost, Tag, UserPostFav
 from account.models import User
 from teacher.models import TeacherProfile
 from student.models import StudentProfile
@@ -112,3 +113,18 @@ def post_detail_view(request,user_slug,post_slug):
     
     print(request)
     return render(request, 'blog/post_detail.html', context)
+
+@login_required(login_url='user_profile:login_view')
+def fav_update_view(request):
+    if request.method == 'POST':
+        post = get_object_or_404(BlogPost, slug=request.POST.get('slug'))
+        if (post):
+            post_fav, created = UserPostFav.objects.get_or_create(
+                user=request.user,
+                post=post,
+            )
+            if not created:
+                post_fav.is_deleted = not post_fav.is_deleted
+                post_fav.save()
+
+    return JsonResponse({'status': 200})
