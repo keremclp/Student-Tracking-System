@@ -47,6 +47,13 @@
     <!--end::Page title-->
     <!--begin::Actions-->
     <div class="d-flex align-items-center gap-2 gap-lg-3">
+      {% if request.user == user %}
+      <a
+        href="{% url 'blog:post_edit_view' post_slug=post.slug %}"
+        class="btn btn-sm fw-bold btn-primary"
+        >Edit</a
+      >
+      {% endif %}
       <!--begin::Primary button-->
       <a
         href="{% url 'blog:create_blog' %}"
@@ -172,7 +179,7 @@
             </div>
             <div>
               <li class="list-inline-item fs-12 float-end">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                 data-post-slug = "{{ post.slug }}"
                     class="bi bi-bookmark-plus" viewBox="0 0 16 16">
 
