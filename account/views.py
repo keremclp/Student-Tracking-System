@@ -2,8 +2,12 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login,logout
 from account.forms import LoginForm, SignUpForm
+from blog.models import BlogPost
 from student.models import StudentProfile
 from teacher.models import TeacherProfile
+
+from django.contrib.auth.decorators import login_required
+
 def login_view(request):
     form = LoginForm(request.POST or None)
     if request.method == 'POST':
@@ -65,3 +69,14 @@ def logout_view(request):
 
 def error_view(request):
     return render(request,'account/error.html')
+
+@login_required(login_url='user_profile:login_view')
+def user_fav_view(request):
+    # user = request.user
+    # favs = user.userpostfav_set.filter(is_deleted=False).order_by('-updated_at')
+    ids = request.user.userpostfav_set.filter(is_deleted=False).values_list('post_id', flat=True).order_by('-updated_at')
+    context = dict(
+        title="Favs",
+        favs=BlogPost.objects.filter(id__in=ids, is_active=True)
+    )
+    return render(request, 'account/blog/post_list.html', context)

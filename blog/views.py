@@ -17,7 +17,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @login_required(login_url='account:login_view')
 def blog_home(request):
-    posts = BlogPost.objects.all().order_by('-created_at')[:6]  # get the latest six published posts
+    posts = BlogPost.objects.all().filter(is_active=True).order_by('-created_at')[:6]  # get the latest six published posts
     post_1 = posts[:3]
     post_2 = posts[3:6]
     context = dict(
@@ -99,7 +99,7 @@ def all_posts_view(request, user_slug):
 def post_detail_view(request,user_slug,post_slug):
     # check the user
     user = get_object_or_404(User, userslug= user_slug)
-    if user == 'teacher':
+    if user.role == 'teacher':
         profile = get_object_or_404(TeacherProfile, user=user)
     else:
         profile = get_object_or_404(StudentProfile, user=user)
