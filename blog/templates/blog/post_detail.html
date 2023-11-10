@@ -1,6 +1,13 @@
 {% extends 'core/base.html' %} 
 {% load static %}
 {% load thumbnail %}
+{% block css %}
+<style>
+  .bookmarked path {
+    fill: rgb(255, 0, 0) !important; /* Change to the color you want for the bookmarked state */
+  }
+</style>
+{% endblock %}
 {% block content %}
 <!--begin::Toolbar-->
 <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
@@ -179,14 +186,9 @@
             </div>
             <div>
               <li class="list-inline-item fs-12 float-end">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                data-post-slug = "{{ post.slug }}"
-                    class="bi bi-bookmark-plus" viewBox="0 0 16 16">
-
-                    <path
-                        d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
-                    <path
-                        d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z" />
+                
+                <svg id="bookmark-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16" data-post-slug = "{{ post.slug }}">
+                  <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
                 </svg>
               </li>
             </div>
@@ -240,6 +242,43 @@
 
     }))
 
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const icon = document.getElementById('bookmark-icon');
+    const slug = icon.getAttribute('data-post-slug');
+
+    // Retrieve bookmarked state from localStorage
+    const initialBookmarked = localStorage.getItem(`bookmarked_${slug}`) === 'true';
+
+    // Set the initial state of the bookmark icon
+    if (initialBookmarked) {
+      icon.querySelector('path').style.fill = 'rgb(255, 0, 0)';
+    }
+
+    // Add the click event listener
+    icon.addEventListener('click', () => {
+      let form = new FormData();
+      form.append('slug', slug);
+      form.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+
+      axios.post('/fav-update/', form)
+        .then(res => {
+          console.log(res);
+          if (res.data.status === 200) {
+            icon.classList.toggle('bookmarked');
+
+            // Update localStorage with the new bookmarked state
+            localStorage.setItem(`bookmarked_${slug}`, icon.classList.contains('bookmarked'));
+
+            // Update the fill color based on the bookmarked state
+            icon.querySelector('path').style.fill = icon.classList.contains('bookmarked') ? 'rgb(255, 0, 0)' : '';
+          }
+        })
+        .catch(err => console.error(err));
+    });
+  });
 </script>
 
 {% endblock js %}

@@ -1,3 +1,4 @@
+from django.shortcuts import render
 import json
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -118,7 +119,7 @@ def post_detail_view(request,user_slug,post_slug):
 def fav_update_view(request):
     if request.method == 'POST':
         post = get_object_or_404(BlogPost, slug=request.POST.get('slug'))
-        if (post):
+        if post:
             post_fav, created = UserPostFav.objects.get_or_create(
                 user=request.user,
                 post=post,
@@ -127,4 +128,6 @@ def fav_update_view(request):
                 post_fav.is_deleted = not post_fav.is_deleted
                 post_fav.save()
 
-    return JsonResponse({'status': 200})
+            return JsonResponse({'status': 200, 'bookmarked': not post_fav.is_deleted})
+
+    return JsonResponse({'status': 400, 'error': 'Bad Request'})
