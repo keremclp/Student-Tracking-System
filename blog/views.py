@@ -115,11 +115,12 @@ def post_detail_view(request,user_slug,post_slug):
     print(request)
     return render(request, 'blog/post_detail.html', context)
 
-@login_required(login_url='user_profile:login_view')
+
+@login_required(login_url='account:login_view')
 def fav_update_view(request):
     if request.method == 'POST':
         post = get_object_or_404(BlogPost, slug=request.POST.get('slug'))
-        if post:
+        if (post):
             post_fav, created = UserPostFav.objects.get_or_create(
                 user=request.user,
                 post=post,
@@ -128,6 +129,4 @@ def fav_update_view(request):
                 post_fav.is_deleted = not post_fav.is_deleted
                 post_fav.save()
 
-            return JsonResponse({'status': 200, 'bookmarked': not post_fav.is_deleted})
-
-    return JsonResponse({'status': 400, 'error': 'Bad Request'})
+    return JsonResponse({'status': 200})
