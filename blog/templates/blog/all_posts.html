@@ -3,6 +3,7 @@
 
 {% block content %}
 TODO:find necessary template for all posts view
-
-<h1>All Posts</h1>
+    {% for post in posts %}
+        <h1> {{ post.content }} </h1>
+    {% endfor %}
 {% endblock content %}

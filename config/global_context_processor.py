@@ -74,8 +74,6 @@ def blog_profile(request):
     posts = BlogPost.objects.all().order_by('-created_at')[:6]  # get the latest six published posts
     post_1 = posts[:3]
     post_2 = posts[3:6]
-    print("---------------------------")
-    print(post_1[1].user)
     blog_profile = {
         'post_1': post_1,
         'post_2': post_2,

@@ -91,7 +91,10 @@ def post_edit_view(request, post_slug):
     return render(request, 'blog/create_blog.html', context)
 
 def all_posts_view(request, user_slug):
-    posts = BlogPost.objects.filter(user=request.user , is_active=True)
+    user = get_object_or_404(User, userslug=user_slug)
+    posts = BlogPost.objects.filter(user=user, is_active=True)
+    print("-"*30)
+    print(posts)
     context = dict(
         posts=posts
     )
