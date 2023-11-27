@@ -76,7 +76,7 @@
         <!--begin::Section-->
         <div class="mb-17">
           <!--begin::Title-->
-          <h3 class="text-dark mb-7">Latest Articles, News & Updates</h3>
+          <h3 class="text-dark mb-7">Latest Blogs, News & Updates</h3>
           <!--end::Title-->
           <!--begin::Separator-->
           <div class="separator separator-dashed mb-9"></div>
@@ -88,10 +88,10 @@
               {% for post in post_1 %}
               <!--begin::Feature post-->
                 <div
-                  class="mh-100 d-flex flex-column justify-content-between pe-lg-6 mb-lg-0 mb-10"
+                  class="mh-100 d-flex flex-column justify-content-between p-4 border border-primary"
                 >
                   <!--begin::Video-->
-                  <div class="ps-lg-6 mb-16 mt-md-0 mt-17">
+                  <div class="ps-lg-6 mt-md-0 mt-17">
                     <!--begin::Title-->
                     <div class="d-flex justify-content-between">
                       <div class="mr-auto">
@@ -144,12 +144,14 @@
             </div>
             <!--end::Col-->
             <!--begin::Col-->
-            <div class="col-md-6 justify-content-between d-flex flex-column">
+            <div class="col-md-6">
               <!--begin::Post-->
               {% for post in post_2 %}
-                <div class="ps-lg-6 mb-16 mt-md-0 mt-17">
-                  <!--begin::Body-->
-                  <div class="mb-6">
+                <div
+                  class="mh-100 d-flex flex-column justify-content-between p-4 border border-danger"
+                >
+                  <!--begin::Video-->
+                  <div class="ps-lg-6 mt-md-0 mt-17">
                     <!--begin::Title-->
                     <div class="d-flex justify-content-between">
                       <div class="mr-auto">
@@ -163,25 +165,20 @@
                     </div>
                     <!--end::Title-->
                     <!--begin::Text-->
-                    <div class="fw-semibold fs-5 mt-4 text-gray-600 text-dark">
+                    <div class="fw-semibold fs-5 text-gray-600 text-dark mt-4">
                       {{ post.content|safe|truncatewords_html:10 }}
                       <a href="{{ post.get_absolute_url }}" class="fs-6 bg-white text-success rounded p-1"><small>Read More</small></a>
                     </div>
                     {% for tag in post.tag.all %}
-                          <a href="#" class="badge badge-light-info fw-bold my-2 ">{{ tag.title }}</a>
+                          <a href="#" class="badge badge-light-info fw-bold my-2 mx-1 ">{{ tag.title }}</a>
                     {% endfor %}
                     <!--end::Text-->
-                    <!--begin::Footer-->
-                    <div class="d-flex flex-stack flex-wrap">
+                    <div class="d-flex flex-stack flex-wrap mt-6">
                       <!--begin::Item-->
                       <div class="d-flex align-items-center pe-2">
                         <!--begin::Avatar-->
                         <div class="symbol symbol-35px symbol-circle me-3">
-                          <img
-                            src="{{ post.user.profile_image|thumbnail_url:'avatar'  }}"
-                            class=""
-                            alt=""
-                          />
+                          <img alt="" src="{{ post.user.profile_image|thumbnail_url:'avatar'  }}" />
                         </div>
                         <!--end::Avatar-->
                         <!--begin::Text-->
@@ -190,22 +187,17 @@
                             href="{% url 'blog:all_posts_view' user_slug=post.user.username %}"
                             class="text-gray-700 text-hover-primary"
                             > {{ post.user.get_full_name }} </a
-                          >
                           <span class="text-muted">on {{ post.created_at|date:"M d Y" }}</span>
-                          
                         </div>
                         <!--end::Text-->
-                        <!-- Create a read more button in here? -->
                       </div>
                       <!--end::Item-->
                       <!--begin::Label-->
+                      
                       <!--end::Label-->
                     </div>
-                  <!--end::Footer-->
-
                   </div>
-                  <!--end::Body-->
-                  
+                  <!--end::Video-->
                 </div>
               <!--end::Post-->
               {% endfor %}
