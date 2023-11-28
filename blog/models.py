@@ -54,6 +54,7 @@ class BlogPost(CommonModel):
     cover_image = models.ImageField(upload_to='post')
     content = tinymce_models.HTMLField(blank=True, null=True)
     view_count = models.PositiveBigIntegerField(default=0)
+    
 
     def __str__(self):
         return self.title

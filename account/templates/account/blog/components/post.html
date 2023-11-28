@@ -3,14 +3,17 @@
     <div class="col-sm-8">
         <div>
             <a href="{{ post.user.profile.get_all_posts_url }}" class="text-decoration-none text-muted">
-                <img src="{{ post.user.profile.avatar|thumbnail_url:'avatar' }}" class="rounded-circle" alt="">
+                <img src="{{ post.user.profile_image|thumbnail_url:'avatar' }}" class="rounded-circle" alt="">
                 <small class="ms-2">{{ post.user.get_full_name }}</small>
             </a>
         </div>
         <h3 class="mt-2 mb-1">
             <a href="{{ post.get_absolute_url }}" class="text-dark">{{ post.title }}</a>
         </h3>
-        <span class="text-muted">{{ post.content|safe|truncatewords_html:10 }}</spa>
+        <span class="text-muted">
+            {{ post.content|safe|truncatewords_html:10 }}
+            <a href="{{ post.get_absolute_url }}" class="fs-6 text-success rounded p-1"><small>Read More</small></a>
+        </span>
         <ul class="list-inline">
             <li class="list-inline-item fs-12">Sep 30</li>
             <li class="list-inline-item fs-12">

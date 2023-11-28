@@ -96,7 +96,8 @@ def all_posts_view(request, user_slug):
     print("-"*30)
     print(posts)
     context = dict(
-        posts=posts
+        posts=posts,
+        user = user
     )
     return render(request, 'blog/all_posts.html', context)
 
