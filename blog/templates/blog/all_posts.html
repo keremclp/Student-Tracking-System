@@ -2,8 +2,16 @@
 {% load static %}
 
 {% block content %}
-TODO:find necessary template for all posts view
-    {% for post in posts %}
-        <h1> {{ post.content }} </h1>
-    {% endfor %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8 offset-sm-2 mt-5 bg-light border p-5">
+            Instagram : {{ profile.instagram }}
+        </div>
+        <div class="col-sm-8 offset-sm-2 mt-5">
+            {% for post in posts %}
+                {% include 'account/blog/components/post.html' %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock content %}

@@ -1,0 +1,65 @@
+{% load thumbnail %}
+<article class="row mb-3">
+    <div class="col-sm-12">
+        <img src="{{ post.cover_image|thumbnail_url:'page' }}" alt="" class="w-100 img-thumbnail">
+    </div>
+    <div class="col-sm-8 offset-sm-2">
+         
+        <h3 class="mt-2 mb-1">
+            {{ post.title }}
+            {% if post.user == request.user %}
+                <small>
+                    <a href="{{ post.get_post_edit_url }}">
+                        Düzenle
+                    </a>
+                </small>
+            {% endif %}
+        </h3>
+
+        {{ post.content|safe }}
+        <hr>
+        <div>
+            <a href="{{ post.user.profile.get_all_posts_url }}" class="text-decoration-none text-muted">
+                <img src="{{ post.user.profile.avatar|thumbnail_url:'avatar' }}" class="rounded-circle" alt="">
+                <small class="ms-2">{{ post.user.get_full_name }}</small>
+            </a>
+        </div>
+        <hr>
+        
+        <ul class="list-inline">
+            <li class="list-inline-item fs-12">{{ post.title }}</li>
+            <li class="list-inline-item fs-12">
+                {{ post.view_count }}
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                  </svg>
+            
+
+            </li>
+            <li class="list-inline-item fs-12">
+                <span class="badge bg-secondary">{{ post.category }}</span>
+            </li>
+            <li class="list-inline-item fs-12 float-end">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-bookmark-plus" viewBox="0 0 16 16">
+                    <path
+                        d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
+                    <path
+                        d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z" />
+                </svg>
+            </li>
+        </ul>
+        <hr>
+        <ul class="list-inline mt-3">
+            {% for tag in post.tag.all %}
+            <li class="list-inline-item">
+                <a href="{{ tag.get_absolute_url }}" class="text-decoration-none text-muted fs-14">{{ tag.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        <hr>
+    </div>
+    
+
+</article>
