@@ -26,11 +26,21 @@
       >
         <!--begin::Item-->
         <li class="breadcrumb-item text-muted">
+          {% if profile_global.user.role == 'student'  %}
           <a
-            href="../../demo1/dist/index.html"
+            href="{% url 'student:student_dashboard' %}" 
             class="text-muted text-hover-primary"
-            >Home</a
           >
+            Home</a
+          >
+          {% elif profile_global.user.role == 'teacher'  %}
+          <a
+            href="{% url 'teacher:teacher_dashboard' %}" 
+            class="text-muted text-hover-primary"
+          >
+            Home</a 
+          >
+          {% endif %}
         </li>
         <!--end::Item-->
         <!--begin::Item-->

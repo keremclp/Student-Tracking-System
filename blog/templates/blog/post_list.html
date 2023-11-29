@@ -4,9 +4,9 @@
   <div class="row">
     <div class="col-sm-8 offset-sm-2 mt-5 bg-light border p-5">
       {% if category %}
-      <h1>{{ category.title }}</h1>
+      <h1>Blogs belonging to the {{ category.title }} category</h1>
       {% elif tag %}
-      <h1>{{ tag.title }}</h1>
+      <h1>#{{ tag.title }}</h1>
       {% elif favs %}
       <h1>{{ title }}</h1>
       {% endif %}
