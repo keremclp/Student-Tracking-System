@@ -102,6 +102,10 @@ def all_posts_view(request, user_slug):
     return render(request, 'blog/all_posts.html', context)
 
 def post_detail_view(request,user_slug,post_slug):
+    post = get_object_or_404(BlogPost, slug=post_slug, is_active=True)
+    post.view_count += 1
+    post.save()
+    print(post.view_count)  
     # check the user
     user = get_object_or_404(User, userslug= user_slug)
     if user.role == 'teacher':
