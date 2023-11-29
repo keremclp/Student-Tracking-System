@@ -185,7 +185,7 @@ THUMBNAIL_ALIASES = {
 # YAPILMASI DÜŞÜNÜNLER:
 # TODO: user_profile appine profile işlemleri aktar!! ve bunu #2Ecommerce->Customer Details gibi yapabilirsin
 # TODO: Teacher için öğrenciyi takip etme
-# TODO: öğretmenlerin öğrencilerini görme, bunun çin student profiline gitmeyecek, ayrı bir liste oluşturup orada gösterip öyle çekmemiz gerekiyor https://twitter.com/html5css3_dv/status/1695199371896184939?t=ntiUELfq3U3goBhQAB5r4w&s=08
+# DONE: öğretmenlerin öğrencilerini görme, bunun çin student profiline gitmeyecek, ayrı bir liste oluşturup orada gösterip öyle çekmemiz gerekiyor https://twitter.com/html5css3_dv/status/1695199371896184939?t=ntiUELfq3U3goBhQAB5r4w&s=08
 # bunu yaparken bir buton koy carcatlog projesindeki gibi bir modal açılsın öyle görsün öğrenci hakkındaki detayları öğretmen !! Öğrenci profili gibi değil! Metronic de vardı bir yerde!!
 
 # DONE: Öğrenci ve Teacher için bilgilerini güncelleme
@@ -203,11 +203,9 @@ THUMBNAIL_ALIASES = {
 # TODO: Kullanıcıya mesaj gönderme (django-messages 0.6.0)
 # TODO: Kullanıcıya bildirim gönderme (django-notifications-hq 1.5.0)
 
-# TODO: Telefon numarası teacher ya da parent tarafından onaylanması
+# DONE: Telefon numarası teacher ya da parent tarafından onaylanması
 
-# TODO: Öğrenciler için blog sistemi olabilir #Social->Feeds  # https://twitter.com/html5css3_dv/status/1695199371896184939?t=ntiUELfq3U3goBhQAB5r4w&s=08 bunu da kullanabirsin.
-
-# TODO: (Hocanı notla kısmı) https://twitter.com/html5css3_dv/status/1695199371896184939?t=ntiUELfq3U3goBhQAB5r4w&s=08 bunu da kullanabirsin.
+# DONE: Öğrenciler için blog sistemi olabilir #Social->Feeds  # https://twitter.com/html5css3_dv/status/1695199371896184939?t=ntiUELfq3U3goBhQAB5r4w&s=08 bunu da kullanabirsin.
 
 
 # TODO: Öğrenciler için oyunlar vs olabilir.   https://twitter.com/html5css3_dv/status/1695481194295734280?t=rEd-MhQkpNf4QhJTLAf-Hw&s=08
@@ -221,7 +219,7 @@ THUMBNAIL_ALIASES = {
 # DONE: Create timetable for teacher
 # DONE: Teacher atama yapabiliyor ama misal yanlış ya da eksik girdi onu düzeltmesi gerekiyor.(add student to classroom-edit )
 # TODO: Telefon numarası onaylama yapıldı ama telefon numarası olmadığı zamanda onaylıyor ve tel öğrenci tarafından girildiği zaman onaylanmış şekliyle geliyor.
-# TODO: öğretmenlerin öğrencilerini görme, bunun çin student profiline gitmeyecek, ayrı bir liste oluşturup orada gösterip öyle çekmemiz gerekiyor https://twitter.com/html5css3_dv/status/1695199371896184939?t=ntiUELfq3U3goBhQAB5r4w&s=08
+# DONE: öğretmenlerin öğrencilerini görme, bunun çin student profiline gitmeyecek, ayrı bir liste oluşturup orada gösterip öyle çekmemiz gerekiyor https://twitter.com/html5css3_dv/status/1695199371896184939?t=ntiUELfq3U3goBhQAB5r4w&s=08
 # bunu yaparken bir buton koy carcatlog projesindeki gibi bir modal açılsın öyle görsün öğrenci hakkındaki detayları öğretmen !! Öğrenci profili gibi değil! Metronic de vardı bir yerde!!
 
 # Version 2 için yapılacaklar :
