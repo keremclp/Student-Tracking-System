@@ -69,14 +69,3 @@ def logout_view(request):
 
 def error_view(request):
     return render(request,'account/error.html')
-
-@login_required(login_url='user_profile:login_view')
-def user_fav_view(request):
-    # user = request.user
-    # favs = user.userpostfav_set.filter(is_deleted=False).order_by('-updated_at')
-    ids = request.user.userpostfav_set.filter(is_deleted=False).values_list('post_id', flat=True).order_by('-updated_at')
-    context = dict(
-        title="Favs",
-        favs=BlogPost.objects.filter(id__in=ids, is_active=True)
-    )
-    return render(request, 'account/blog/post_list.html', context)

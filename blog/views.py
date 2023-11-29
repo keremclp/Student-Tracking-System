@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 
 # Models
-from blog.models import BlogPost, Tag, UserPostFav
+from blog.models import BlogPost, Category, Tag, UserPostFav
 from account.models import User
 from teacher.models import TeacherProfile
 from student.models import StudentProfile
@@ -16,9 +16,12 @@ from blog.forms import BlogPostModelForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+
+
 @login_required(login_url='account:login_view')
 def blog_home(request):
-    posts = BlogPost.objects.all().filter(is_active=True).order_by('-created_at')[:6]  # get the latest six published posts
+    posts = BlogPost.objects.all().filter(is_active=True).order_by(
+        '-created_at')[:6]  # get the latest six published posts
     post_1 = posts[:3]
     post_2 = posts[3:6]
     context = dict(
@@ -26,7 +29,8 @@ def blog_home(request):
         post_2=post_2,
         posts=posts
     )
-    return render(request, 'blog/blog_home.html', context)    
+    return render(request, 'blog/blog_home.html', context)
+
 
 def create_blog_post_view(request):
     title = "Yeni Blog Post :"
@@ -46,15 +50,17 @@ def create_blog_post_view(request):
             f.save()
             tags = json.loads(form.cleaned_data.get('tag'))
             for item in tags:
-                tag_item, created = Tag.objects.get_or_create(title=item.get('value'))
-                tag_item.title = tag_item.title.lower() 
+                tag_item, created = Tag.objects.get_or_create(
+                    title=item.get('value'))
+                tag_item.title = tag_item.title.lower()
                 f.tag.is_active = True
-                tag_item.save() # TODO: Taglar database e kayıt yapıyor ama belirli bir post oluşturmak istedğinde o posta kaydetmiyor
+                tag_item.save()  # TODO: Taglar database e kayıt yapıyor ama belirli bir post oluşturmak istedğinde o posta kaydetmiyor
                 f.tag.add(tag_item)
             messages.success(request, "Blog kaydedildi")
             return redirect('blog:blog_home')
 
     return render(request, 'blog/create_blog.html', context)
+
 
 @login_required(login_url='user_profile:login_view')
 def post_edit_view(request, post_slug):
@@ -90,6 +96,7 @@ def post_edit_view(request, post_slug):
     )
     return render(request, 'blog/create_blog.html', context)
 
+
 def all_posts_view(request, user_slug):
     user = get_object_or_404(User, userslug=user_slug)
     posts = BlogPost.objects.filter(user=user, is_active=True)
@@ -97,17 +104,18 @@ def all_posts_view(request, user_slug):
     print(posts)
     context = dict(
         posts=posts,
-        user = user
+        user=user
     )
     return render(request, 'blog/all_posts.html', context)
 
-def post_detail_view(request,user_slug,post_slug):
+
+def post_detail_view(request, user_slug, post_slug):
     post = get_object_or_404(BlogPost, slug=post_slug, is_active=True)
     post.view_count += 1
     post.save()
-    print(post.view_count)  
+    print(post.view_count)
     # check the user
-    user = get_object_or_404(User, userslug= user_slug)
+    user = get_object_or_404(User, userslug=user_slug)
     if user.role == 'teacher':
         profile = get_object_or_404(TeacherProfile, user=user)
     else:
@@ -117,9 +125,9 @@ def post_detail_view(request,user_slug,post_slug):
     context = dict(
         post=post,
         user=user,
-        profile = profile
+        profile=profile
     )
-    
+
     print(request)
     return render(request, 'blog/post_detail.html', context)
 
@@ -138,3 +146,36 @@ def fav_update_view(request):
                 post_fav.save()
 
     return JsonResponse({'status': 200})
+
+
+@login_required(login_url='user_profile:login_view')
+def user_fav_view(request):
+    # user = request.user
+    # favs = user.userpostfav_set.filter(is_deleted=False).order_by('-updated_at')
+    ids = request.user.userpostfav_set.filter(is_deleted=False).values_list(
+        'post_id', flat=True).order_by('-updated_at')
+    context = dict(
+        title="Favs",
+        favs=BlogPost.objects.filter(id__in=ids, is_active=True)
+    )
+    return render(request, 'blog/post_list.html', context)
+
+
+def category_view(request, category_slug):
+    category = get_object_or_404(Category, slug=category_slug)
+    posts = BlogPost.objects.filter(category=category, is_active=True)
+    context = dict(
+        posts=posts,
+        category=category
+    )
+    return render(request, 'blog/post_list.html', context)
+
+
+def tag_view(request, tag_slug):
+    tag = get_object_or_404(Tag, slug=tag_slug)
+    posts = BlogPost.objects.filter(tag=tag, is_active=True)
+    context = dict(
+        posts=posts,
+        tag=tag
+    )
+    return render(request, 'blog/post_list.html', context)
