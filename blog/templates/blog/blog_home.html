@@ -101,7 +101,7 @@
                           >{{ post.title }}</a
                         >
                       </div>
-                      <div class=" badge badge-dark fw-bold mx-2">{{ post.category }}</div>
+                      <div class=" badge badge-dark fw-bold mx-2"><a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></div>
                     </div>
                     <!--end::Title-->
                     <!--begin::Text-->
@@ -110,7 +110,7 @@
                       <a href="{{ post.get_absolute_url }}" class="fs-6 bg-white text-success rounded p-1"><small>Read More</small></a>
                     </div>
                     {% for tag in post.tag.all %}
-                          <a href="#" class="badge badge-light-info fw-bold my-2 mx-1 ">{{ tag.title }}</a>
+                          <a href="{{ tag.get_absolute_url }}" class="badge badge-light-info fw-bold my-2 mx-1 ">{{ tag.title }}</a>
                     {% endfor %}
                     <!--end::Text-->
                     <div class="d-flex flex-stack flex-wrap mt-3">
@@ -168,7 +168,8 @@
                           >{{ post.title }}</a
                         >
                       </div>
-                      <div class=" badge badge-dark fw-bold mx-2">{{ post.category }}</div>
+                      <div class=" badge badge-dark fw-bold mx-2"><a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></div>
+
                     </div>
                     <!--end::Title-->
                     <!--begin::Text-->
@@ -177,7 +178,7 @@
                       <a href="{{ post.get_absolute_url }}" class="fs-6 bg-white text-success rounded p-1"><small>Read More</small></a>
                     </div>
                     {% for tag in post.tag.all %}
-                          <a href="#" class="badge badge-light-info fw-bold my-2 mx-1 ">{{ tag.title }}</a>
+                      <a href="{{ tag.get_absolute_url }}" class="badge badge-light-info fw-bold my-2 mx-1 ">{{ tag.title }}</a>
                     {% endfor %}
                     <!--end::Text-->
                     <div class="d-flex flex-stack flex-wrap mt-6">

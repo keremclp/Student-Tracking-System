@@ -29,22 +29,22 @@ class Tag(CommonModel):
     def __str__(self):
         return self.title
 
-    # def get_absolute_url(self):
-    #     return reverse(
-    #         "blog:tag_view",
-    #         kwargs={"tag_slug": self.slug}
-    #     )
+    def get_absolute_url(self):
+        return reverse(
+            "blog:tag_view",
+            kwargs={"tag_slug": self.slug}
+        )
 
 class Category(CommonModel):
 
     def __str__(self):
         return self.title
 
-    # def get_absolute_url(self):
-    #     return reverse(
-    #         "blog:category_view",
-    #         kwargs={"category_slug": self.slug},
-    #     )
+    def get_absolute_url(self):
+        return reverse(
+            "blog:category_view",
+            kwargs={"category_slug": self.slug},
+        )
 
 class BlogPost(CommonModel):    
 
