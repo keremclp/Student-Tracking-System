@@ -17,6 +17,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+# TODO: Blog sistemi için gereken yerlere pagination mevzularına bak!!
 
 @login_required(login_url='account:login_view')
 def blog_home(request):
