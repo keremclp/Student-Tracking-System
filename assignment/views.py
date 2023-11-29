@@ -1,17 +1,19 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import Quiz, Question, Choice, Result
 from .forms import QuizForm, AnswerForm
 
+from assignment.models import Quiz, Question, Choice, Result
+from teacher.models import TeacherProfile
 
 def create_quiz(request):
     if request.user.is_authenticated and request.user.role =='teacher':
         if request.method == 'POST':
             form = QuizForm(request.POST)
             if form.is_valid():
+                teacher_profile = get_object_or_404(TeacherProfile, user=request.user)
                 quiz = form.save(commit=False)
-                quiz.teacher = request.user.teacher
+                quiz.teacher = teacher_profile
                 quiz.save()
-                return redirect('quiz_detail', quiz_id=quiz.id)
+                return redirect('teacher:teacher_dashboard')
         else:
             form = QuizForm()
         return render(request, 'assignment/create_quiz.html', {'form': form})

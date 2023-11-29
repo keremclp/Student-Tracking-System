@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<!-- create_assignment.html -->
+<div class="d-flex flex-column  align-items-center">
+    <h2>Create Quiz</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create Quiz</button>
+    </form>
+</div>
+{% endblock content %}
