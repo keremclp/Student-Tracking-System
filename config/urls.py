@@ -37,5 +37,8 @@ urlpatterns = [
     # BLOG
     path('', include('blog.urls', namespace='blog')),
 
+    # ASSIGNMENT
+    path('', include('assignment.urls', namespace='assignment')),
+
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
