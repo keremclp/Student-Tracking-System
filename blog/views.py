@@ -48,7 +48,7 @@ def create_blog_post_view(request):
             for item in tags:
                 tag_item, created = Tag.objects.get_or_create(title=item.get('value'))
                 tag_item.title = tag_item.title.lower() 
-                f.tag.isActive = True
+                f.tag.is_active = True
                 tag_item.save() # TODO: Taglar database e kayıt yapıyor ama belirli bir post oluşturmak istedğinde o posta kaydetmiyor
                 f.tag.add(tag_item)
             messages.success(request, "Blog kaydedildi")
@@ -78,7 +78,7 @@ def post_edit_view(request, post_slug):
             for item in tags:
                 tag_item, created = Tag.objects.get_or_create(
                     title=item.get('value').lower())
-                f.tag.isActive = True
+                f.tag.is_active = True
                 tag_item.save()
                 f.tag.add(tag_item)
             messages.success(request, "Blog düzenlendi")

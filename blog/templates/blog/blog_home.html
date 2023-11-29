@@ -54,7 +54,7 @@
         >Create Blog</a
       >
       <a
-        href="#"
+        href="{% url 'blog:all_posts_view' user_slug=profile_global.user.userslug %}"
         class="btn btn-sm fw-bold btn-primary"
         >My Blogs</a
       >
