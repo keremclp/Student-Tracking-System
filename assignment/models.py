@@ -8,6 +8,9 @@ class Quiz(models.Model):
     title = models.CharField(max_length=255)
     teacher = models.ForeignKey(TeacherProfile, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.title
+
 
 class Question(models.Model):
     text = models.CharField(max_length=255)

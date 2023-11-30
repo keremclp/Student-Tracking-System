@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container">
+    <h1>Solving Quiz</h1>
+    <h6>
+        {{ quiz.title }}
+    </h6>
+    <h6>
+        {{ quiz.teacher.user.get_full_name }}
+    </h6>
+
+    <ul>
+        {% for question in questions.all %}
+        <li>
+            <h6>
+                {{ question.text }}
+            </h6>
+            <ul>
+                {% for choice in question.choices.all %}
+                <li>
+                    <input type="radio" name="question{{ forloop.counter }}" value="{{ choice.id }}" id="choice{{ forloop.counter }}">
+                    <label for="choice{{ forloop.counter }}">{{ choice.choice }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock content %}

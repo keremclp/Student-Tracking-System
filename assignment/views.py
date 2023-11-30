@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from .forms import QuizForm, AnswerForm
+from .forms import QuizForm, AnswerForm, QuestionForm
 
 from assignment.models import Quiz, Question, Choice, Result
 from teacher.models import TeacherProfile
@@ -20,6 +20,19 @@ def create_quiz(request):
     else:
         return redirect('account:login_view')  # or handle permission denied
 
+def create_questions(request):
+    if request.user.is_authenticated and request.user.role =='teacher':
+        if request.method == 'POST':
+            form = QuestionForm(request.POST)
+            if form.is_valid():
+                question = form.save(commit=False)
+                question.save()
+                return redirect('teacher:teacher_dashboard')
+        else:
+            form = QuestionForm()
+        return render(request, 'assignment/create_questions.html', {'form': form})
+    else:
+        return redirect('account:login_view')  # or handle permission denied
 
 def quiz_detail(request, quiz_id):
     quiz = Quiz.objects.get(id=quiz_id)
@@ -52,7 +65,7 @@ def solve_quiz(request, quiz_id):
     else:
         form = AnswerForm()
 
-    return render(request, 'solve_quiz.html', {'quiz': quiz, 'questions': questions, 'form': form})
+    return render(request, 'assignment/solve_quiz.html', {'quiz': quiz, 'questions': questions, 'form': form})
 
 
 def quiz_results(request, quiz_id):

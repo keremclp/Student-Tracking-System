@@ -13,7 +13,10 @@ class QuizForm(forms.ModelForm):
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ['text']
+        fields = [
+            'text',
+            'quiz'
+        ]
 
 
 class ChoiceForm(forms.ModelForm):
