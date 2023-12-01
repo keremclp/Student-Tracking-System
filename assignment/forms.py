@@ -19,22 +19,4 @@ class QuestionForm(forms.ModelForm):
         ]
 
 
-class ChoiceForm(forms.ModelForm):
-    class Meta:
-        model = Choice
-        fields = ['text', 'is_correct']
-
-
-ChoiceFormSet = forms.inlineformset_factory(
-    Question,
-    Choice,
-    form=ChoiceForm,
-    extra=2,  # Number of extra choice forms to display
-    min_num=2,  # Minimum number of choices required
-    validate_min=True,
-)
-
-class AnswerForm(forms.ModelForm):
-    class Meta:
-        model = Choice
-        fields = ['text']
+ChoiceFormSet = forms.inlineformset_factory(Question, Choice, fields=('text', 'is_correct'), extra=1, can_delete=False)

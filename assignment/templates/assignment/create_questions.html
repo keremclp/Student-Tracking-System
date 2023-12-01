@@ -1,12 +1,47 @@
 {% extends 'core/base.html' %}
 {% block content %}
-<!-- create_assignment.html -->
-<div class="d-flex flex-column  align-items-center">
-    <h2>Create Questions</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Create Questions</button>
-    </form>
+<div class="container mt-4">
+    <div class="row mt-4">
+        <div class="col-sm-6 offset-sm-2">
+            <h2>{{ title }}</h2>
+            <form method="post" class="my-10" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ question_form.as_p }}
+                <div class="border border-success">
+                </div>
+                {{ choice_formset.management_form }}
+                <table id="choice-formset">
+                    {% for form in choice_formset.forms %}
+                        {{ form.as_table }}
+                    {% endfor %}
+                </table>
+                <button type="button" id="add-choice-btn">Add Choice</button>
+                <input type="submit" value="Save Quiz">
+                
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock content %}
+{% block js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Function to add a new choice row
+        function addChoice() {
+            const choiceContainer = document.getElementById('choice-formset');
+
+            const newChoiceRow = document.createElement('tr');
+            newChoiceRow.innerHTML = `
+                <td><input type="text" name="choice_set-${Date.now()}-choice_text"></td>
+                <td><input type="checkbox" name="choice_set-${Date.now()}-is_correct"></td>
+            `;
+            choiceContainer.appendChild(newChoiceRow);
+        }
+
+        // Add event listener for the "Add Choice" button
+        const addChoiceBtn = document.getElementById('add-choice-btn');
+        addChoiceBtn.addEventListener('click', addChoice);
+    });
+</script>
+
+{% endblock js %}

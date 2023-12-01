@@ -24,6 +24,9 @@ class Choice(models.Model):
     text = models.CharField(max_length=100)
     is_correct = models.BooleanField(default=False)
 
+    def __str__(self) -> str:
+        return self.text
+
 
 class Result(models.Model):
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)

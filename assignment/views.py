@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from .forms import QuizForm, AnswerForm, QuestionForm
+from .forms import ChoiceFormSet, QuizForm, QuestionForm
 
 from assignment.models import Quiz, Question, Choice, Result
 from teacher.models import TeacherProfile
@@ -21,18 +21,32 @@ def create_quiz(request):
         return redirect('account:login_view')  # or handle permission denied
 
 def create_questions(request):
-    if request.user.is_authenticated and request.user.role =='teacher':
-        if request.method == 'POST':
-            form = QuestionForm(request.POST)
-            if form.is_valid():
-                question = form.save(commit=False)
-                question.save()
-                return redirect('teacher:teacher_dashboard')
+    if request.method == 'POST':
+        print(request.POST)
+        print("girildi post")
+        question_form = QuestionForm(request.POST)
+        choice_formset = ChoiceFormSet(request.POST, prefix='choices')
+        print("before valid")
+        if question_form.is_valid() and choice_formset.is_valid():
+            print("valid oldu")
+            question = question_form.save(commit=False)
+            question.quiz.pk = request.POST.get('quiz')
+            question.save()
+
+            for form in choice_formset:
+                choice = form.save(commit=False)
+                choice.question = question
+                choice.save()
+            print("before return blog")
+            return redirect('blog:blog_home')  # Redirect to the list of quizzes
         else:
-            form = QuestionForm()
-        return render(request, 'assignment/create_questions.html', {'form': form})
+            print("valid olmadin")
     else:
-        return redirect('account:login_view')  # or handle permission denied
+        quiz_form = QuizForm()
+        question_form = QuestionForm()
+        choice_formset = ChoiceFormSet(prefix='choices')
+
+    return render(request, 'assignment/create_questions.html', {'question_form': question_form, 'choice_formset': choice_formset})
 
 def quiz_detail(request, quiz_id):
     quiz = Quiz.objects.get(id=quiz_id)
