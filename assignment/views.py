@@ -23,31 +23,40 @@ def create_quiz(request):
 def create_questions(request):
     if request.method == 'POST':
         print(request.POST)
-        print("girildi post")
         question_form = QuestionForm(request.POST)
-        choice_formset = ChoiceFormSet(request.POST, prefix='choices')
-        print("before valid")
+        choice_formset = ChoiceFormSet(request.POST)
+        print(choice_formset)
+        print("before if")
         if question_form.is_valid() and choice_formset.is_valid():
-            print("valid oldu")
+            # Save the quiz
+            print("inside if")
+            # Save the question associated with the quiz
             question = question_form.save(commit=False)
             question.quiz.pk = request.POST.get('quiz')
             question.save()
+            for i in range(0,5):
+                choice = choice_formset.save(commit=False)
+                print(choice[i])
+                choice[i].question = question
+                choice[i].text = request.POST.get(f'choice_set-{i}-question')
+                choice[i].save()
+                
+            
 
-            for form in choice_formset:
-                choice = form.save(commit=False)
-                choice.question = question
-                choice.save()
-            print("before return blog")
-            return redirect('blog:blog_home')  # Redirect to the list of quizzes
-        else:
-            print("valid olmadin")
+            # Redirect to a view that lists all quizzes
+            return redirect('assignment:create_quiz')
+
     else:
-        quiz_form = QuizForm()
         question_form = QuestionForm()
-        choice_formset = ChoiceFormSet(prefix='choices')
+        choice_formset = ChoiceFormSet()
 
-    return render(request, 'assignment/create_questions.html', {'question_form': question_form, 'choice_formset': choice_formset})
+    context = {
+        'title': 'Create Questions',
+        'question_form': question_form,
+        'choice_formset': choice_formset,
+    }
 
+    return render(request, 'assignment/create_questions.html', context)
 def quiz_detail(request, quiz_id):
     quiz = Quiz.objects.get(id=quiz_id)
     questions = quiz.question_set.all()

@@ -11,7 +11,7 @@
                 </div>
                 {{ choice_formset.management_form }}
                 <table id="choice-formset">
-                    {% for form in choice_formset.forms %}
+                    {% for form in choice_formset %}
                         {{ form.as_table }}
                     {% endfor %}
                 </table>
@@ -28,13 +28,23 @@
     document.addEventListener('DOMContentLoaded', function () {
         // Function to add a new choice row
         function addChoice() {
+            console.log("girdim");
             const choiceContainer = document.getElementById('choice-formset');
-
+            const totalForms = document.getElementById('id_choice_set-TOTAL_FORMS');
+            console.log(totalForms.value)
+            // Get the current form count
+            const formCount = parseInt(totalForms.value);
+            console.log(formCount);
+            // Create a new form with the correct naming
             const newChoiceRow = document.createElement('tr');
             newChoiceRow.innerHTML = `
-                <td><input type="text" name="choice_set-${Date.now()}-choice_text"></td>
-                <td><input type="checkbox" name="choice_set-${Date.now()}-is_correct"></td>
+                <td><input type="text" name="choice_set-${formCount}-choice_text"></td>
+                <td><input type="checkbox" name="choice_set-${formCount}-is_correct"></td>
             `;
+            
+            // Increment the form count and update the TOTAL_FORMS field
+            totalForms.value = formCount + 1;
+            console.log(newChoiceRow);
             choiceContainer.appendChild(newChoiceRow);
         }
 
@@ -42,6 +52,8 @@
         const addChoiceBtn = document.getElementById('add-choice-btn');
         addChoiceBtn.addEventListener('click', addChoice);
     });
+
+
 </script>
 
 {% endblock js %}
