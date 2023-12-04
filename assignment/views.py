@@ -66,31 +66,19 @@ def quiz_detail(request, quiz_id):
 
 
 def solve_quiz(request, quiz_id):
-    def calculate_score(answers, questions):
-        # Implement your scoring logic here
-        score = 0
-        for question in questions:
-            if question.correct_choice == answers.get(str(question.id)):
-                score += 1
-        return score
-
     quiz = get_object_or_404(Quiz, id=quiz_id)
     questions = quiz.question_set.all()
+    questions_choices = [(question, question.choice_set.all())
+                         for question in questions]
+    print(questions_choices)
 
-    if request.method == 'POST':
-        # Handle submitted answers
-        form = AnswerForm(request.POST)
-        if form.is_valid():
-            # Process the answers and calculate the score
-            score = calculate_score(form.cleaned_data, questions)
-            # Save the result
-            Result.objects.create(
-                student=request.user.student, quiz=quiz, score=score)
-            return redirect('quiz_results', quiz_id=quiz.pk)
-    else:
-        form = AnswerForm()
+    context = dict(
+        quiz=quiz,
+        questions = questions, 
+        questions_choices=questions_choices,
+    )
 
-    return render(request, 'assignment/solve_quiz.html', {'quiz': quiz, 'questions': questions, 'form': form})
+    return render(request, 'assignment/solve_quiz.html', context)
 
 
 def quiz_results(request, quiz_id):

@@ -1,7 +1,6 @@
 {% extends 'core/base.html' %}
 {% block content %}
-<div class="container">
-    <h1>Solving Quiz</h1>
+<div>
     <h6>
         {{ quiz.title }}
     </h6>
@@ -10,17 +9,17 @@
     </h6>
 
     <ul>
-        {% for question in questions.all %}
+        {% for question, choices in questions_choices %}
         <li>
             <h6>
                 {{ question.text }}
             </h6>
             <ul>
-                {% for choice in question.choices.all %}
-                <li>
-                    <input type="radio" name="question{{ forloop.counter }}" value="{{ choice.id }}" id="choice{{ forloop.counter }}">
-                    <label for="choice{{ forloop.counter }}">{{ choice.choice }}</label>
-                </li>
+                {% for choice in choices %}
+                    <li class="list-inline">
+                        <input type="radio" name="question{{ forloop.parentloop.counter }}" value="{{ choice.id }}" id="choice{{ forloop.counter }}">
+                        <label for="choice{{ forloop.counter }}">{{ choice.text }}</label>
+                    </li>
                 {% endfor %}
             </ul>
         </li>
