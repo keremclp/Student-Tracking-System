@@ -25,23 +25,23 @@ def create_questions(request):
         print(request.POST)
         question_form = QuestionForm(request.POST)
         choice_formset = ChoiceFormSet(request.POST)
-        print(choice_formset)
         print("before if")
         if question_form.is_valid() and choice_formset.is_valid():
             # Save the quiz
             print("inside if")
             # Save the question associated with the quiz
-            array = []
+            
             question = question_form.save(commit=False)
             question.quiz.pk = request.POST.get('quiz')
             question.save()
-            for i in range(0,5):
-                choice = choice_formset.save(commit=False)
-                array.append(choice)
-                print(array[i])
-                array[i][0].question = question
-                array[i][0].text = request.POST.get(f'choice_set-{i}-question')
-                array[i][0].save()
+            choice = choice_formset.save(commit=False)
+            upper_bound = int(request.POST.get('choice_set-TOTAL_FORMS'))
+            print(choice)
+            # TODO: kullanıcı boş gönderdiği zaman hata alıyoruz!!
+            for i in range(0,upper_bound):
+                choice[i].question = question
+                choice[i].text = request.POST.get(f'choice_set-{i}-text')
+                choice[i].save()
                 
             
 
