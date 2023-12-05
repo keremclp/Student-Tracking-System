@@ -42,9 +42,6 @@ def create_questions(request):
                 choice[i].question = question
                 choice[i].text = request.POST.get(f'choice_set-{i}-text')
                 choice[i].save()
-                
-            
-
             # Redirect to a view that lists all quizzes
             return redirect('assignment:create_quiz')
 
@@ -70,7 +67,10 @@ def solve_quiz(request, quiz_id):
     questions = quiz.question_set.all()
     questions_choices = [(question, question.choice_set.all())
                          for question in questions]
-    print(questions_choices)
+    # print(questions_choices)
+
+    if request.method == 'POST':
+        print(request.POST)
 
     context = dict(
         quiz=quiz,

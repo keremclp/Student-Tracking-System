@@ -1,30 +1,33 @@
 {% extends 'core/base.html' %}
 {% block content %}
-<div>
+<div class="container d-flex flex-column justify-content-center align-items-center">
     <h6>
         {{ quiz.title }}
     </h6>
     <h6>
         {{ quiz.teacher.user.get_full_name }}
     </h6>
-
-    <ul>
-        {% for question, choices in questions_choices %}
-        <li>
-            <h6>
-                {{ question.text }}
-            </h6>
-            <ul>
-                {% for choice in choices %}
-                    <li class="list-inline">
-                        <input type="radio" name="question{{ forloop.parentloop.counter }}" value="{{ choice.id }}" id="choice{{ forloop.counter }}">
-                        <label for="choice{{ forloop.counter }}">{{ choice.text }}</label>
-                    </li>
-                {% endfor %}
-            </ul>
-        </li>
-        {% endfor %}
-    </ul>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <ul>
+            {% for question, choices in questions_choices %}
+            <li>
+                <h6>
+                    {{ question.text }}
+                </h6>
+                <ul>
+                    {% for choice in choices %}
+                        <li class="list-inline">
+                            <input type="radio" name="question{{ forloop.parentloop.counter }}" value="{{ choice.id }}" id="choice{{ forloop.counter }}">
+                            <label for="choice{{ forloop.counter }}">{{ choice.text }}</label>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+            <button type="submit" class="flex-end">Submit the Quiz </button>
+        </ul>
+    </form>
 </div>
 
 {% endblock content %}
