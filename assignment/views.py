@@ -3,6 +3,7 @@ from .forms import ChoiceFormSet, QuizForm, QuestionForm
 
 from assignment.models import Quiz, Question, Choice, Result
 from teacher.models import TeacherProfile
+from student.models import StudentProfile
 
 def create_quiz(request):
     if request.user.is_authenticated and request.user.role =='teacher':
@@ -71,6 +72,35 @@ def solve_quiz(request, quiz_id):
 
     if request.method == 'POST':
         print(request.POST)
+        score = 0 
+        for i,question in enumerate(questions):
+            selected_choice = request.POST.get(f'question{i}')
+            print(selected_choice)
+            if selected_choice:
+                print("--------------------before choice")
+                choice = question.choice_set.get(id=selected_choice)
+                print("after choice--------------------")
+                print(choice)
+                if choice.is_correct:
+                    score += 1
+        print(score)
+        user = request.user
+        student_profile = get_object_or_404(StudentProfile, user=user)
+        if request.user.role == 'student':
+            result = Result.objects.create(student=student_profile, quiz=quiz, score=score)
+            return redirect('assignment:quiz_results', quiz_id=quiz.pk)
+        # score = 0
+        # for question in questions:
+        #     selected_choice = request.POST.get(f'question-{question.id}')
+        #     print(selected_choice)
+        #     if selected_choice:
+        #         choice = question.choice_set.get(id=int(selected_choice))
+        #         if choice.is_correct:
+        #             score += 1
+        # print(score)
+        # result = Result.objects.create(
+        #     student=request.user.studentprofile, quiz=quiz, score=score)
+        # return redirect('assignment:quiz_results', quiz_id=quiz.pk)
 
     context = dict(
         quiz=quiz,
@@ -84,4 +114,4 @@ def solve_quiz(request, quiz_id):
 def quiz_results(request, quiz_id):
     quiz = Quiz.objects.get(id=quiz_id)
     results = Result.objects.filter(quiz=quiz)
-    return render(request, 'quiz_results.html', {'quiz': quiz, 'results': results})
+    return render(request, 'assignment/quiz_results.html', {'quiz': quiz, 'results': results})

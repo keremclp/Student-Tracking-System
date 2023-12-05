@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+{% block content %}
+{% for result in results %}
+<div class="container d-flex flex-column justify-content-center align-items-center">
+    <h6>
+        {{ result.question.text }}
+    </h6>
+    <h6>
+        {{ result.choice.text }}
+    </h6>
+    <h6>
+        {{ result.choice.is_correct }}
+    </h6>
+</div>
+{% endfor %}
+{% endblock content %}
