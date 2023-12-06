@@ -73,16 +73,17 @@ def solve_quiz(request, quiz_id):
     if request.method == 'POST':
         print(request.POST)
         score = 0 
-        for i,question in enumerate(questions):
+        for i,question in enumerate(questions,1):
             selected_choice = request.POST.get(f'question{i}')
             print(selected_choice)
             if selected_choice:
                 print("--------------------before choice")
-                choice = question.choice_set.get(id=selected_choice)
-                print("after choice--------------------")
-                print(choice)
+                choice = question.choice_set.get(id=int(selected_choice))
                 if choice.is_correct:
                     score += 1
+                print("after choice--------------------")
+                # if choice.is_correct:
+                #     score += 1
         print(score)
         user = request.user
         student_profile = get_object_or_404(StudentProfile, user=user)

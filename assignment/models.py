@@ -32,3 +32,6 @@ class Result(models.Model):
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     score = models.IntegerField()
+
+    def __str__(self) -> str:
+        return str(self.score)
