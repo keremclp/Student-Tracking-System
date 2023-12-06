@@ -94,12 +94,11 @@ def solve_quiz(request, quiz_id):
                 print("--------------------before choice")
                 choice = question.choice_set.get(id=int(selected_choice))
                 # save the user answer on model UserAnswer
-                for question in questions:
-                    # Assuming the user's answer is sent in the request.POST data                    
-                    user_choice = Choice.objects.get(id=selected_choice)
-                    # Create and save the UserAnswer
-                    user_answer = UserAnswer(question=question, choice=user_choice)
-                    user_answer.save()
+                # Assuming the user's answer is sent in the request.POST data                    
+                user_choice = Choice.objects.get(id=selected_choice)
+                # Create and save the UserAnswer
+                user_answer = UserAnswer(question=question, choice=user_choice)
+                user_answer.save()
                 if choice.is_correct:
                     score += 1
                 print("after choice--------------------")
