@@ -101,7 +101,9 @@ def solve_quiz(request, quiz_id):
         user = request.user
         student_profile = get_object_or_404(StudentProfile, user=user)
         if request.user.role == 'student' :
-            result = Result.objects.create(student=student_profile, quiz=quiz, score=score)
+            result,created = Result.objects.get_or_create(student=student_profile, quiz=quiz, score=score)
+            if created :
+                result.save()
             return redirect('assignment:quiz_results', quiz_id=quiz.pk, student_slug= student_profile.slug)
 
     context = dict(
