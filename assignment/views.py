@@ -127,11 +127,26 @@ def quiz_results(request, quiz_id, student_slug):
     result = get_object_or_404(Result, quiz=quiz, student=student)
     print(result.student)
     questions = quiz.question_set.all() # type: ignore 
-    choices = Choice.objects.filter(question__in=questions, is_correct=True).order_by('question__id')
+    choices = UserAnswer.objects.filter(choice__is_correct=True).order_by('question__id')
+    correct_answers = [c.question.text for c in choices]
+    print("....", correct_answers)
+    wrong_answers = []
+    for question in questions:
+        for choice in question.choice_set.all():
+            if not choice.is_correct and choice not in choices:
+                wrong_answers.append(choice.text)
+    print("Wrong answers...", wrong_answers)
+    # total_marks = len(correct_answers) * 2 + len(wrong_answers)
+    # percent_obtained = (len([q for q in questions if q.is_correct]) / len(questions)) * 5
+    
     print(choices)
     context = dict(
         quiz=quiz,
         result=result,
         questions=questions,
+        correct_answers=correct_answers,
+        wrong_answers=wrong_answers
+        # total_marks=total_marks,
+        # percent_obtained=percent_obtained,
     )
     return render(request, 'assignment/quiz_results.html',context)
