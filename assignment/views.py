@@ -1,12 +1,16 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import ChoiceFormSet, QuizForm, QuestionForm
+from django.contrib.auth.decorators import login_required
 
 from assignment.models import Quiz, Question, Choice, Result
 from teacher.models import TeacherProfile
 from student.models import StudentProfile
+from django.http import HttpResponse    
 
+
+@login_required(login_url='account:error_view')
 def create_quiz(request):
-    if request.user.is_authenticated and request.user.role =='teacher':
+    if request.user.role =='teacher':
         if request.method == 'POST':
             form = QuizForm(request.POST)
             if form.is_valid():
@@ -18,9 +22,10 @@ def create_quiz(request):
         else:
             form = QuizForm()
         return render(request, 'assignment/create_quiz.html', {'form': form})
-    else:
-        return redirect('account:login_view')  # or handle permission denied
+    return HttpResponse()  # Add a default return statement
 
+    
+@login_required(login_url='account:error_view')
 def create_questions(request):
     if request.method == 'POST':
         print(request.POST)
@@ -33,7 +38,7 @@ def create_questions(request):
             # Save the question associated with the quiz
             
             question = question_form.save(commit=False)
-            question.quiz.pk = request.POST.get('quiz')
+            question.quiz.pk = question_form.cleaned_data['quiz']
             question.save()
             choice = choice_formset.save(commit=False)
             upper_bound = int(request.POST.get('choice_set-TOTAL_FORMS'))
@@ -63,6 +68,7 @@ def quiz_detail(request, quiz_id):
     return render(request, 'quiz_detail.html', {'quiz': quiz, 'questions': questions})
 
 
+@login_required(login_url='account:error_view')
 def solve_quiz(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
     questions = quiz.question_set.all()
