@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import ChoiceFormSet, QuizForm, QuestionForm
 from django.contrib.auth.decorators import login_required
@@ -70,11 +71,18 @@ def quiz_detail(request, quiz_id):
 
 @login_required(login_url='account:error_view')
 def solve_quiz(request, quiz_id):
+    user = request.user
+    student_profile = get_object_or_404(StudentProfile, user=user)
     quiz = get_object_or_404(Quiz, id=quiz_id)
     questions = quiz.question_set.all() # type: ignore
     questions_choices = [(question, question.choice_set.all())
                          for question in questions]
     # print(questions_choices)
+    # Check if the user has already solved the quiz
+    result_exists = Result.objects.filter(student=student_profile, quiz=quiz).exists()
+    if result_exists:
+        messages.info(request, f'You have already solved {quiz.title}')
+        return redirect('assignment:quiz_results', quiz_id=quiz.pk, student_slug=student_profile.slug)
 
     if request.method == 'POST':
         print(request.POST)
@@ -97,9 +105,7 @@ def solve_quiz(request, quiz_id):
                 print("after choice--------------------")
                 # if choice.is_correct:
                 #     score += 1
-        print(score)
-        user = request.user
-        student_profile = get_object_or_404(StudentProfile, user=user)
+
         if request.user.role == 'student' :
             result,created = Result.objects.get_or_create(student=student_profile, quiz=quiz, score=score)
             if created :
