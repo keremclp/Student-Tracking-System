@@ -1,16 +1,22 @@
 {% extends 'core/base.html' %}
 {% block content %}
-{% for result in results %}
-<div class="container d-flex flex-column justify-content-center align-items-center">
-    <h6>
-        {{ result.question.text }}
-    </h6>
-    <h6>
-        {{ result.choice.text }}
-    </h6>
-    <h6>
-        {{ result.choice.is_correct }}
-    </h6>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="text-center">Quiz Results</h2>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">Questions:</h4>
+            {% for question in questions %}
+                <p class="card-text">{{ question.text }}</p>
+            {% endfor %}
+            <h4 class="card-title">Score:</h4>
+            <p class="card-text">{{ result.score }}</p>
+            <h4 class="card-title">Choice is correct:</h4>
+            <p class="card-text">{{ result.choice.is_correct }}</p>
+            <h4 class="card-title">Student:</h4>
+            <p class="card-text">{{ result.student.user.get_full_name }}</p>
+        </div>
+    </div>
 </div>
-{% endfor %}
 {% endblock content %}

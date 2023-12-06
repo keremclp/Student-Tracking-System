@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .forms import ChoiceFormSet, QuizForm, QuestionForm
 from django.contrib.auth.decorators import login_required
 
-from assignment.models import Quiz, Question, Choice, Result
+from assignment.models import Quiz, Question, Choice, Result, UserAnswer
 from teacher.models import TeacherProfile
 from student.models import StudentProfile
 from django.http import HttpResponse    
@@ -64,14 +64,14 @@ def create_questions(request):
     return render(request, 'assignment/create_questions.html', context)
 def quiz_detail(request, quiz_id):
     quiz = Quiz.objects.get(id=quiz_id)
-    questions = quiz.question_set.all()
+    questions = quiz.question_set.all() # type: ignore
     return render(request, 'quiz_detail.html', {'quiz': quiz, 'questions': questions})
 
 
 @login_required(login_url='account:error_view')
 def solve_quiz(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
-    questions = quiz.question_set.all()
+    questions = quiz.question_set.all() # type: ignore
     questions_choices = [(question, question.choice_set.all())
                          for question in questions]
     # print(questions_choices)
@@ -85,6 +85,13 @@ def solve_quiz(request, quiz_id):
             if selected_choice:
                 print("--------------------before choice")
                 choice = question.choice_set.get(id=int(selected_choice))
+                # save the user answer on model UserAnswer
+                for question in questions:
+                    # Assuming the user's answer is sent in the request.POST data                    
+                    user_choice = Choice.objects.get(id=selected_choice)
+                    # Create and save the UserAnswer
+                    user_answer = UserAnswer(question=question, choice=user_choice)
+                    user_answer.save()
                 if choice.is_correct:
                     score += 1
                 print("after choice--------------------")
@@ -93,21 +100,9 @@ def solve_quiz(request, quiz_id):
         print(score)
         user = request.user
         student_profile = get_object_or_404(StudentProfile, user=user)
-        if request.user.role == 'student':
+        if request.user.role == 'student' :
             result = Result.objects.create(student=student_profile, quiz=quiz, score=score)
-            return redirect('assignment:quiz_results', quiz_id=quiz.pk)
-        # score = 0
-        # for question in questions:
-        #     selected_choice = request.POST.get(f'question-{question.id}')
-        #     print(selected_choice)
-        #     if selected_choice:
-        #         choice = question.choice_set.get(id=int(selected_choice))
-        #         if choice.is_correct:
-        #             score += 1
-        # print(score)
-        # result = Result.objects.create(
-        #     student=request.user.studentprofile, quiz=quiz, score=score)
-        # return redirect('assignment:quiz_results', quiz_id=quiz.pk)
+            return redirect('assignment:quiz_results', quiz_id=quiz.pk, student_slug= student_profile.slug)
 
     context = dict(
         quiz=quiz,
@@ -118,7 +113,18 @@ def solve_quiz(request, quiz_id):
     return render(request, 'assignment/solve_quiz.html', context)
 
 
-def quiz_results(request, quiz_id):
+def quiz_results(request, quiz_id, student_slug):
+    """View function to show the results of a quiz."""
+    student = get_object_or_404(StudentProfile, slug=student_slug)
     quiz = Quiz.objects.get(id=quiz_id)
-    results = Result.objects.filter(quiz=quiz)
-    return render(request, 'assignment/quiz_results.html', {'quiz': quiz, 'results': results})
+    result = get_object_or_404(Result, quiz=quiz, student=student)
+    print(result.student)
+    questions = quiz.question_set.all() # type: ignore 
+    choices = Choice.objects.filter(question__in=questions, is_correct=True).order_by('question__id')
+    print(choices)
+    context = dict(
+        quiz=quiz,
+        result=result,
+        questions=questions,
+    )
+    return render(request, 'assignment/quiz_results.html',context)
