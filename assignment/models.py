@@ -19,6 +19,7 @@ class Question(models.Model):
     def __str__(self) -> str:
         return self.text
 
+
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     text = models.CharField(max_length=100)
@@ -36,9 +37,14 @@ class Result(models.Model):
     def __str__(self) -> str:
         return str(self.score)
 
+
 class UserAnswer(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='user_answers')
+    choice = models.ForeignKey(Choice, on_delete=models.CASCADE, related_name='user_answers')
+    student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE,null=True, blank=True)
+
+    class Meta:
+        unique_together = ('question', 'student')
 
     def __str__(self) -> str:
         return self.choice.text

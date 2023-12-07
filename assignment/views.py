@@ -97,7 +97,7 @@ def solve_quiz(request, quiz_id):
                 # Assuming the user's answer is sent in the request.POST data                    
                 user_choice = Choice.objects.get(id=selected_choice)
                 # Create and save the UserAnswer
-                user_answer = UserAnswer(question=question, choice=user_choice)
+                user_answer = UserAnswer(question=question, choice=user_choice, student=student_profile)
                 user_answer.save()
                 if choice.is_correct:
                     score += 1
@@ -127,25 +127,22 @@ def quiz_results(request, quiz_id, student_slug):
     result = get_object_or_404(Result, quiz=quiz, student=student)
     print(result.student)
     questions = quiz.question_set.all() # type: ignore 
-    choices = UserAnswer.objects.filter(choice__is_correct=True).order_by('question__id')
-    correct_answers = [c.question.text for c in choices]
-    print("....", correct_answers)
-    wrong_answers = []
-    for question in questions:
-        for choice in question.choice_set.all():
-            if not choice.is_correct and choice not in choices:
-                wrong_answers.append(choice.text)
-    print("Wrong answers...", wrong_answers)
+    # Python
+    user_answers = UserAnswer.objects.filter(student=student).order_by('question__id')
+    correct_questions = [ua.question.text for ua in user_answers if ua.choice.is_correct]
+    wrong_questions = [ua.question.text for ua in user_answers if not ua.choice.is_correct]
+    
+    print("Wrong answers...", wrong_questions)
     # total_marks = len(correct_answers) * 2 + len(wrong_answers)
     # percent_obtained = (len([q for q in questions if q.is_correct]) / len(questions)) * 5
     
-    print(choices)
+    
     context = dict(
         quiz=quiz,
         result=result,
         questions=questions,
-        correct_answers=correct_answers,
-        wrong_answers=wrong_answers
+        correct_questions=correct_questions,
+        wrong_questions=wrong_questions,
         # total_marks=total_marks,
         # percent_obtained=percent_obtained,
     )
