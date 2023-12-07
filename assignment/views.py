@@ -135,7 +135,10 @@ def quiz_results(request, quiz_id, student_slug):
     print("Wrong answers...", wrong_questions)
     # total_marks = len(correct_answers) * 2 + len(wrong_answers)
     # percent_obtained = (len([q for q in questions if q.is_correct]) / len(questions)) * 5
-    
+    for question in questions:
+        choices = question.choice_set.all()
+        for choice in choices:
+            print(choice)
     
     context = dict(
         quiz=quiz,
@@ -143,6 +146,7 @@ def quiz_results(request, quiz_id, student_slug):
         questions=questions,
         correct_questions=correct_questions,
         wrong_questions=wrong_questions,
+        user_answers=user_answers
         # total_marks=total_marks,
         # percent_obtained=percent_obtained,
     )
