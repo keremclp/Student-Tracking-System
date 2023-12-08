@@ -3,7 +3,6 @@ from assignment.models import Question,Quiz,Choice,Result, UserAnswer
 # Register your models here.
 
 admin.site.register(Question)
-admin.site.register(Quiz)
 admin.site.register(Result)
 
 @admin.register(UserAnswer)
@@ -21,4 +20,11 @@ class ChoiceAdmin(admin.ModelAdmin):
         'pk',
         'text',
         'is_correct',
+    )
+@admin.register(Quiz)
+class QuizAdmin(admin.ModelAdmin):
+    # list display
+    list_display = (
+        'pk',
+        'title',
     )
