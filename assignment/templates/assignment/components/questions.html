@@ -22,9 +22,18 @@
             <h6>
                 {{ question.text }}
             </h6>
+            <label for="">your answer:</label>
             <ul>
                 {{ choice.text }}
             </ul>
+            <label for="">correct answer:</label>
+            {% for choice in question.choice_set.all %}
+                {% if choice.is_correct %}
+                <ul>
+                    {{ choice.text }}
+                </ul>
+                {% endif %}
+            {% endfor %}
         </li>
     {% endfor %}
 </ul>
