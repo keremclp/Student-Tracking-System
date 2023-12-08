@@ -2,33 +2,17 @@
 {% block content %}
 <div class="container mt-5">
     <div class="card">
-        <div class="card-header">
-            <h2 class="text-center">Quiz Results</h2>
+        <div class="d-flex flex-row justify-content-between align-items-center card-header mt-5">
+            <h3>Quiz Results for {{ quiz.title }} </h3>
+            <div class="d-flex flex-row align-items-center">
+                <h5 class="card-title">Score:</h5>
+                <p class="card-text display-1">{{ result.score }}</p>
+            </div>
         </div>
-        <div class="card-body">
+        <div class="d-flex flex-column align-items-center card-body">
             <h4 class="card-title">Questions:</h4>
-            <!-- Provide correct questions -->
-            <h6>Correct Questions</h6>
-            {% for question in correct_questions %}
-                <p> {{ question }} </p>
-                {% for q in questions %}
-                    {% if q. %}
-                        <p> {{ answer }} </p>                    
-                    {% endif %}
-                {% endfor %}
-            {% endfor %}
-            <!-- Provide wrong questions -->
-            <h6>Wrong Questions</h6>
-            {% for wrong in wrong_questions %}
-                <p> {{ wrong }} </p>
-                {% for answer in user_answers %}
-                    {% if answer.question == question and answer.choice.is_correct == False %}
-                        <p> {{ answer }} </p>                    
-                    {% endif %}
-                {% endfor %}
-            {% endfor %}
-            <h4 class="card-title">Score:</h4>
-            <p class="card-text">{{ result.score }}</p>
+            {% include 'assignment/components/questions.html' with include_input=include_input %}
+            
             <h4 class="card-title">Choice is correct:</h4>
             <p class="card-text">{{ result.choice.is_correct }}</p>
             <h4 class="card-title">Student:</h4>

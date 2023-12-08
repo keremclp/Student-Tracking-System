@@ -111,10 +111,12 @@ def solve_quiz(request, quiz_id):
                 result.save()
             return redirect('assignment:quiz_results', quiz_id=quiz.pk, student_slug= student_profile.slug)
 
+    include_input = True
     context = dict(
         quiz=quiz,
         questions = questions, 
         questions_choices=questions_choices,
+        include_input=include_input 
     )
 
     return render(request, 'assignment/solve_quiz.html', context)
@@ -125,29 +127,16 @@ def quiz_results(request, quiz_id, student_slug):
     student = get_object_or_404(StudentProfile, slug=student_slug)
     quiz = Quiz.objects.get(id=quiz_id)
     result = get_object_or_404(Result, quiz=quiz, student=student)
-    print(result.student)
-    questions = quiz.question_set.all() # type: ignore 
-    # Python
-    user_answers = UserAnswer.objects.filter(student=student).order_by('question__id')
-    correct_questions = [ua.question.text for ua in user_answers if ua.choice.is_correct]
-    wrong_questions = [ua.question.text for ua in user_answers if not ua.choice.is_correct]
+    user_answers = UserAnswer.objects.all()
+    print(user_answers)
+    questions_choices = [(answer.question, answer.choice) for answer in user_answers]
     
-    print("Wrong answers...", wrong_questions)
-    # total_marks = len(correct_answers) * 2 + len(wrong_answers)
-    # percent_obtained = (len([q for q in questions if q.is_correct]) / len(questions)) * 5
-    for question in questions:
-        choices = question.choice_set.all()
-        for choice in choices:
-            print(choice)
-    
+    print(questions_choices)
+    include_input = False
     context = dict(
         quiz=quiz,
         result=result,
-        questions=questions,
-        correct_questions=correct_questions,
-        wrong_questions=wrong_questions,
-        user_answers=user_answers
-        # total_marks=total_marks,
-        # percent_obtained=percent_obtained,
+        questions_choices=questions_choices,
+        include_input=include_input
     )
     return render(request, 'assignment/quiz_results.html',context)

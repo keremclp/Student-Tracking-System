@@ -9,7 +9,7 @@
     </h6>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {% include 'assignment/components/questions.html' %}
+        {% include 'assignment/components/questions.html' with include_input=include_input %}
     </form>
 </div>
 

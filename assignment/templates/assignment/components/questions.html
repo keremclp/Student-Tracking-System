@@ -1,18 +1,30 @@
 <ul>
-    {% for question, choices in questions_choices %}
+    {% if included_input %}
+        {% for question, choices in questions_choices %}
+            <li>
+                <h6>
+                    {{ question.text }}
+                </h6>
+                <ul>
+                    {% for choice in choices %}
+                        <li class="list-inline">
+                            <input type="radio" name="question{{ forloop.parentloop.counter }}" value="{{ choice.id }}" id="choice{{ forloop.counter }}">
+                            <label for="choice{{ forloop.counter }}">{{ choice.text }}</label>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+        <button type="submit" class="flex-end">Submit the Quiz </button>
+    {% endif %}
+    {% for question, choice in questions_choices %}
         <li>
             <h6>
                 {{ question.text }}
             </h6>
             <ul>
-                {% for choice in choices %}
-                    <li class="list-inline">
-                        <input type="radio" name="question{{ forloop.parentloop.counter }}" value="{{ choice.id }}" id="choice{{ forloop.counter }}">
-                        <label for="choice{{ forloop.counter }}">{{ choice.text }}</label>
-                    </li>
-                {% endfor %}
+                {{ choice.text }}
             </ul>
         </li>
     {% endfor %}
-    <button type="submit" class="flex-end">Submit the Quiz </button>
 </ul>
