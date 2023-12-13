@@ -1,21 +1,30 @@
 {% if include_input == True %}
-<ul>
+<div class="d-flex flex-column flex-end justify-content-center">
     {% for question, choices in questions_choices %}
-    <li class="question" data-question-id="{{ question.id }}" {% if forloop.first %}style="display: block;"{% else %}style="display: none;"{% endif %}>
-        <h6>{{ question.text }}</h6>
-        <ul>
-            {% for choice in choices %}
-            <li class="list-inline">
-                <input type="radio" name="question{{ forloop.parentloop.counter }}" value="{{ choice.id }}" id="choice{{ forloop.counter }}">
-                <label for="choice{{ forloop.counter }}">{{ choice.text }}</label>
-            </li>
-            {% endfor %}
-        </ul>
-    </li>
+        <li class="question" data-question-id="{{ question.id }}" {% if forloop.first %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+            <h6 class="text-center display-1 mb-5">{{ question.text }}</h6>
+            <div class="row">
+                {% for choice in choices %}
+                <div class="col-md-6">
+                    <div class="form-check">
+                        <div class="card text-bg-info mb-3" style="max-width: 35rem;">
+                            <div class="card-body">
+                                <input class="form-check-input" type="radio" name="question{{ forloop.parentloop.counter }}" value="{{ choice.id }}" id="choice{{ forloop.counter }}">
+                                <p class="card-text" for="choice{{ forloop.counter }}">
+                                    {{ choice.text }}
+                                </p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </li>
     {% endfor %}
-    <button type="button" class="next-question">Next Question</button>
-    <button type="submit" class="submit-quiz" style="display: none;">Submit the Quiz</button>
-</ul>
+    <button type="button" class="next-question btn btn-primary col-3 mr-5">Next Question</button>
+    <button type="submit" class="submit-quiz btn btn-success" style="display: none;">Submit the Quiz</button>
+</div>
 {% else %}
         <div class="container">
             <ul class="list-group">

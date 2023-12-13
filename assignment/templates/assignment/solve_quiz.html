@@ -1,16 +1,24 @@
 {% extends 'core/base.html' %}
 {% block content %}
-<div class="container d-flex flex-column justify-content-center align-items-center">
-    <h6>
-        {{ quiz.title }}
-    </h6>
-    <h6>
-        {{ quiz.teacher.user.get_full_name }}
-    </h6>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% include 'assignment/components/questions.html' with include_input=include_input %}
-    </form>
+<div class="container mt-5">
+    <div class="card">
+        <div class="d-flex flex-row justify-content-between align-items-center card-header mt-5">
+            <div class="d-flex flex-column flex-start">
+                <h6 class="flex-start">
+                    {{ quiz.title }}
+                </h6>
+                <h6>
+                    {{ quiz.teacher.user.get_full_name }}
+                </h6>
+            </div>
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-center mw-100">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% include 'assignment/components/questions.html' with include_input=include_input %}
+            </form>
+        </div>
+    </div>
 </div>
 
 {% endblock content %}
