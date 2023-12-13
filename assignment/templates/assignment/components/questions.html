@@ -22,7 +22,10 @@
             </div>
         </li>
     {% endfor %}
-    <button type="button" class="next-question btn btn-primary col-3 mr-5">Next Question</button>
+    <div class="d-flex justify-content-between w-75">
+        <button type="button" class="prev-question btn btn-primary">Previous Question</button>
+        <button type="button" class="next-question btn btn-primary">Next Question</button>
+    </div>
     <button type="submit" class="submit-quiz btn btn-success" style="display: none;">Submit the Quiz</button>
 </div>
 {% else %}

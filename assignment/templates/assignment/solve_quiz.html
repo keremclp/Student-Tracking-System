@@ -27,24 +27,41 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const questions = document.querySelectorAll('.question');
+        const prevButton = document.querySelector('.prev-question');
         const nextButton = document.querySelector('.next-question');
         const submitButton = document.querySelector('.submit-quiz');
 
         let currentQuestionIndex = 0;
 
-        nextButton.addEventListener('click', function () {
-            questions[currentQuestionIndex].style.display = 'none';
+        function showQuestion(index) {
+            questions.forEach((question, i) => {
+                if (i === index) {
+                    question.style.display = 'block';
+                } else {
+                    question.style.display = 'none';
+                }
+            });
 
+            prevButton.style.display = index > 0 ? 'block' : 'none';
+            nextButton.style.display = index < questions.length - 1 ? 'block' : 'none';
+            submitButton.style.display = index === questions.length - 1 ? 'block' : 'none';
+        }
+
+        nextButton.addEventListener('click', function () {
             if (currentQuestionIndex < questions.length - 1) {
                 currentQuestionIndex++;
-                questions[currentQuestionIndex].style.display = 'block';
-            }
-
-            if (currentQuestionIndex === questions.length - 1) {
-                nextButton.style.display = 'none';
-                submitButton.style.display = 'block';
+                showQuestion(currentQuestionIndex);
             }
         });
+
+        prevButton.addEventListener('click', function () {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+            }
+        });
+
+        showQuestion(currentQuestionIndex);
     });
 </script>
 {% endblock js %}
