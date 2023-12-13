@@ -1,9 +1,9 @@
-{% if include_input %}
+{% if include_input == True %}
 <ul>
         {% for question, choices in questions_choices %}
         <li>
             <h6>
-                {{ question.text }}
+                {{ question.text }}jşdlkfjsdşkflsjdf
             </h6>
             <ul>
                 {% for choice in choices %}
@@ -23,7 +23,7 @@
                 {% for question, user_choice in questions_choices %}
                     <li class="list-group-item">
                             <h6 class="mb-2">
-                            {{ question.text }}
+                            {{ question.text }}  
                             <hr >
                         </h6>
                         <div class="mb-2">
@@ -35,18 +35,16 @@
                             {% endif %}
                         </div>
                         {% for choice in question.choice_set.all %}
-                        {% if choice.is_correct %}
-                        {% if user_choice.text == choice.text %}
-                        <p class="text-info">Your choice is correct!</p>
-                        {% else %}
-                        <div>
-                            <label class="font-weight-bold" for="">Correct answer:</label>
-                            <ul class="pl-3">
-                                <li>{{ choice.text }}</li>
-                            </ul>
-                        </div>
-                        {% endif %}
-                        {% endif %}
+                            {% if choice.is_correct %}
+                                {% if user_choice.text == choice.text %}
+                                    <p class="text-info">Your choice is correct!</p>
+                            {% else %}
+                            <div>
+                                <label class="font-weight-bold" for="">Correct answer:</label>
+                                <p class="text-info">{{ choice.text }}</p>
+                            </div>
+                            {% endif %}
+                            {% endif %}
                         {% endfor %}
                     </li>
                 {% endfor %}

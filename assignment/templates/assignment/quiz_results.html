@@ -13,10 +13,9 @@
             <h1 class="card-title">Questions:</h1>
             {% include 'assignment/components/questions.html' with include_input=include_input %}
             
-            <h4 class="card-title">Choice is correct:</h4>
-            <p class="card-text">{{ result.choice.is_correct }}</p>
-            <h4 class="card-title">Student:</h4>
-            <p class="card-text">{{ result.student.user.get_full_name }}</p>
+            
+            <h4 class="card-title mt-2">Teacher:</h4>
+            <p class="card-text">{{ result.quiz.teacher.user.get_full_name }}</p>
         </div>
     </div>
 </div>

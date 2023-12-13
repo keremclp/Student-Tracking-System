@@ -97,6 +97,7 @@ def solve_quiz(request, quiz_id):
                 # Assuming the user's answer is sent in the request.POST data                    
                 user_choice = Choice.objects.get(id=selected_choice)
                 # Create and save the UserAnswer
+
                 user_answer = UserAnswer(question=question, choice=user_choice, student=student_profile)
                 user_answer.save()
                 if choice.is_correct:
@@ -127,11 +128,11 @@ def quiz_results(request, quiz_id, student_slug):
     student = get_object_or_404(StudentProfile, slug=student_slug)
     quiz = Quiz.objects.get(id=quiz_id)
     result = get_object_or_404(Result, quiz=quiz, student=student)
-    user_answers = UserAnswer.objects.all()
-    print(user_answers)
+    user_answers = UserAnswer.objects.filter(student=student)
     questions_choices = [(answer.question, answer.choice) for answer in user_answers]
     
     print(questions_choices)
+
     include_input = False
     context = dict(
         quiz=quiz,

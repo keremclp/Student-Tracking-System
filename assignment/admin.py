@@ -12,6 +12,7 @@ class UserAnswerAdmin(admin.ModelAdmin):
         'pk',
         'question',
         'choice',
+        'student'
     )
 @admin.register(Choice)
 class ChoiceAdmin(admin.ModelAdmin):
