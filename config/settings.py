@@ -24,11 +24,11 @@ SECRET_KEY = 'django-insecure-!2%hj727*@-2y*2@^z%(!qty8$toiah!67m=hk_%am0%)9hdzw
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+# Do it with, for example Ipv4 is x and you have to go this url x:8000
 ALLOWED_HOSTS = [
     '127.0.0.1',
     '192.168.1.41',
-    '10.26.241.91' # University library kbu_C
+    '10.26.246.72'  # University library kbu_C
 ]
 
 

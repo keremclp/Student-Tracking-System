@@ -14,3 +14,29 @@
 </div>
 
 {% endblock content %}
+
+{% block js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const questions = document.querySelectorAll('.question');
+        const nextButton = document.querySelector('.next-question');
+        const submitButton = document.querySelector('.submit-quiz');
+
+        let currentQuestionIndex = 0;
+
+        nextButton.addEventListener('click', function () {
+            questions[currentQuestionIndex].style.display = 'none';
+
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                questions[currentQuestionIndex].style.display = 'block';
+            }
+
+            if (currentQuestionIndex === questions.length - 1) {
+                nextButton.style.display = 'none';
+                submitButton.style.display = 'block';
+            }
+        });
+    });
+</script>
+{% endblock js %}
