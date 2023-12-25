@@ -6,7 +6,10 @@ from django.contrib.auth.decorators import login_required
 from assignment.models import Quiz, Question, Choice, Result, UserAnswer
 from teacher.models import TeacherProfile
 from student.models import StudentProfile
-from django.http import HttpResponse    
+from django.http import HttpResponse
+
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 
 @login_required(login_url='account:error_view')
@@ -123,11 +126,35 @@ def solve_quiz(request, quiz_id):
     return render(request, 'assignment/solve_quiz.html', context)
 
 
+def validate_quiz_id(quiz_id):
+    if not Quiz.objects.filter(id=quiz_id).exists():
+        raise ValidationError(
+            _('%(quiz_id)s does not exist'),
+            params={'quiz_id': quiz_id},
+        )
+
+def validate_student_slug(student_slug):
+    if not StudentProfile.objects.filter(slug=student_slug).exists():
+        raise ValidationError(
+            _('%(student_slug)s does not exist'),
+            params={'student_slug': student_slug},
+        )
+
 def quiz_results(request, quiz_id, student_slug):
     """View function to show the results of a quiz."""
+    try:
+        validate_quiz_id(quiz_id)
+        validate_student_slug(student_slug)
+    except ValidationError as e:
+        return redirect("account:error_view")
+
     student = get_object_or_404(StudentProfile, slug=student_slug)
     quiz = Quiz.objects.get(id=quiz_id)
-    result = get_object_or_404(Result, quiz=quiz, student=student)
+    result = Result.objects.filter(quiz=quiz, student=student)
+    if not result.exists():
+        return HttpResponse("The requested resource does not exist")
+    print("Result", result)
+
     user_answers = UserAnswer.objects.filter(student=student)
     questions_choices = [(answer.question, answer.choice) for answer in user_answers]
     
