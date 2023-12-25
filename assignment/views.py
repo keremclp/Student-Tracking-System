@@ -165,3 +165,12 @@ def quiz_results(request, quiz_id, student_slug):
         include_input=include_input
     )
     return render(request, 'assignment/quiz_results.html',context)
+
+
+def solve_quiz_lists(request):
+    """View function to show the results of a quiz."""
+    quizzes = Quiz.objects.all()
+    context = dict(
+        quizzes=quizzes,
+    )
+    return render(request, 'assignment/solve_quiz_lists.html',context)
