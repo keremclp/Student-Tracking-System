@@ -150,11 +150,8 @@ def quiz_results(request, quiz_id, student_slug):
 
     student = get_object_or_404(StudentProfile, slug=student_slug)
     quiz = Quiz.objects.get(id=quiz_id)
-    result = Result.objects.filter(quiz=quiz, student=student)
-    if not result.exists():
-        return HttpResponse("The requested resource does not exist")
+    result = get_object_or_404(Result, quiz=quiz, student=student)
     print("Result", result)
-
     user_answers = UserAnswer.objects.filter(student=student)
     questions_choices = [(answer.question, answer.choice) for answer in user_answers]
     
