@@ -1,5 +1,6 @@
 # quiz/models.py
 from django.db import models
+from django.urls import reverse
 from student.models import StudentProfile
 from teacher.models import TeacherProfile
 
@@ -11,6 +12,13 @@ class Quiz(models.Model):
     def __str__(self):
         return self.title
 
+    def get_solve_quiz_url(self):
+        return reverse(
+            "assignment:solve_quiz",
+            kwargs={
+                "quiz_id": self.pk,
+            },
+        )
 
 class Question(models.Model):
     text = models.CharField(max_length=255)
