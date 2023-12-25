@@ -3,14 +3,13 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .forms import ChoiceFormSet, QuizForm, QuestionForm
 from django.contrib.auth.decorators import login_required
 
-from assignment.models import Quiz, Question, Choice, Result, UserAnswer
+from assignment.models import Quiz, Choice, Result, UserAnswer
 from teacher.models import TeacherProfile
 from student.models import StudentProfile
 from django.http import HttpResponse
 
 from django.core.exceptions import ValidationError
-from django.utils.translation import gettext_lazy as _
-
+from assignment.validation import validate_quiz_id,validate_student_slug
 
 @login_required(login_url='account:error_view')
 def create_quiz(request):
@@ -125,20 +124,6 @@ def solve_quiz(request, quiz_id):
 
     return render(request, 'assignment/solve_quiz.html', context)
 
-
-def validate_quiz_id(quiz_id):
-    if not Quiz.objects.filter(id=quiz_id).exists():
-        raise ValidationError(
-            _('%(quiz_id)s does not exist'),
-            params={'quiz_id': quiz_id},
-        )
-
-def validate_student_slug(student_slug):
-    if not StudentProfile.objects.filter(slug=student_slug).exists():
-        raise ValidationError(
-            _('%(student_slug)s does not exist'),
-            params={'student_slug': student_slug},
-        )
 
 def quiz_results(request, quiz_id, student_slug):
     """View function to show the results of a quiz."""
