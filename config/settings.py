@@ -225,3 +225,4 @@ THUMBNAIL_ALIASES = {
 
 # Version 2 için yapılacaklar :
 # TODO: Yapay zeka işin içi egiriş olmuş olacak ve fotoğraf yükleme için araştırma yap!!
+# TODO: AI asistant yapılmalı!!
