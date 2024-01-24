@@ -29,36 +29,42 @@
     <button type="submit" class="submit-quiz btn btn-success" style="display: none;">Submit the Quiz</button>
 </div>
 {% else %}
-        <div class="container">
-            <ul class="list-group">
-                {% for question, user_choice in questions_choices %}
-                    <li class="list-group-item">
+<div class="w-100">
+        <div class="d-flex flex-wrap justify-content-center">
+            {% for question, user_choice in questions_choices %}
+                <div class="m-2">
+                    <div class="card" style="width: 300px;">
+                        <div class="card-body">
                             <h6 class="mb-2">
-                            {{ question.text }}  
-                            <hr >
-                        </h6>
-                        <div class="mb-2">
-                            <label class="font-weight-bold" for="">Your answer:</label>
-                            {% if user_choice.is_correct == True %}
-                            <p class="text-success">{{ user_choice.text }}</p>
-                            {% else %}
-                            <p class="text-danger">{{ user_choice.text }}</p>
-                            {% endif %}
-                        </div>
-                        {% for choice in question.choice_set.all %}
-                            {% if choice.is_correct %}
-                                {% if user_choice.text == choice.text %}
-                                    <p class="text-info">Your choice is correct!</p>
-                            {% else %}
-                            <div>
-                                <label class="font-weight-bold" for="">Correct answer:</label>
-                                <p class="text-info">{{ choice.text }}</p>
+                                {{ question.text }}
+                                <hr>
+                            </h6>
+                            <div class="mb-2">
+                                <label class="font-weight-bold" for="">Your answer:</label>
+                                {% if user_choice.is_correct == True %}
+                                    <p class="text-success">{{ user_choice.text }}</p>
+                                {% else %}
+                                    <p class="text-danger">{{ user_choice.text }}</p>
+                                {% endif %}
                             </div>
-                            {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                    </li>
-                {% endfor %}
-            </ul>
+                            {% for choice in question.choice_set.all %}
+                                {% if choice.is_correct %}
+                                    {% if user_choice.text == choice.text %}
+                                        <p class="text-info">Your choice is correct!</p>
+                                    {% else %}
+                                        <div>
+                                            <label class="font-weight-bold" for="">Correct answer:</label>
+                                            <p class="text-info">{{ choice.text }}</p>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
+    </div>
+
+
 {% endif %}
