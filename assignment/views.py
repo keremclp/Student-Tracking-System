@@ -109,6 +109,10 @@ def solve_quiz(request, quiz_id):
                 #     score += 1
 
         if request.user.role == 'student' :
+            # Uptade status field on the Quiz model
+            quiz.status = True
+            quiz.save()
+            
             result,created = Result.objects.get_or_create(student=student_profile, quiz=quiz, score=score)
             if created :
                 result.save()
