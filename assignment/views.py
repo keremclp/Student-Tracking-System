@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .forms import ChoiceFormSet, QuizForm, QuestionForm
 from django.contrib.auth.decorators import login_required
 
-from assignment.models import Quiz, Choice, Result, UserAnswer
+from assignment.models import Quiz, Choice, Result, SolvedQuiz, UserAnswer
 from teacher.models import TeacherProfile
 from student.models import StudentProfile
 from django.http import HttpResponse
@@ -109,6 +109,9 @@ def solve_quiz(request, quiz_id):
                 #     score += 1
 
         if request.user.role == 'student' :
+            # Save the quiz into the SolvedQuiz model
+            solved_quiz = SolvedQuiz(quiz=quiz, student=student_profile, score=score)
+            solved_quiz.save()
             result,created = Result.objects.get_or_create(student=student_profile, quiz=quiz, score=score)
             if created :
                 result.save()
