@@ -59,3 +59,12 @@ class UserAnswer(models.Model):
 
     def __str__(self) -> str:
         return self.choice.text
+
+class SolvedQuiz(models.Model):
+    student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    score = models.IntegerField()
+    date_solved = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f"{self.student} solved {self.quiz} with score {self.score}"
