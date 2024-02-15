@@ -1,5 +1,4 @@
-{% extends 'core/base.html' %}
-{% block content %}
+{% extends 'core/base.html' %} {% block content %}
 <!--begin::Toolbar-->
 <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
   <!--begin::Toolbar container-->
@@ -220,7 +219,6 @@
   <div id="kt_app_content_container" class="app-container container-xxl">
     <!--begin::Card-->
     <div class="card">
-      
       <!--begin::Card body-->
       <div class="card-body py-4">
         <!--begin::Table-->
@@ -245,12 +243,11 @@
                   />
                 </div>
               </th>
-              <th class="min-w-125px">User</th>
-              <th class="min-w-125px">Role</th>
-              <th class="min-w-125px">Last login</th>
+              <th class="min-w-125px">Publisher Teacher</th>
               <th class="min-w-125px">Two-step</th>
-              <th class="min-w-125px">Joined Date</th>
+              <th class="min-w-125px">Deadline</th>
               <th class="text-end min-w-100px">Actions</th>
+              <th class="min-w-50px">Status</th>
             </tr>
             <!--end::Table row-->
           </thead>
@@ -258,72 +255,76 @@
           <!--begin::Table body-->
           <tbody class="text-gray-600 fw-semibold">
             <!--begin::Table row-->
-            {% for quiz in quizzes %} 
-                <tr>
-                <!--begin::Checkbox-->
-                <td>
-                    <div
-                    class="form-check form-check-sm form-check-custom form-check-solid"
-                    >
-                    <input class="form-check-input" type="checkbox" value="1" />
+            {% for quiz in quizzes %}
+            <tr>
+              <!--begin::Checkbox-->
+              <td>
+                <div
+                  class="form-check form-check-sm form-check-custom form-check-solid"
+                >
+                  <input class="form-check-input" type="checkbox" value="1" />
+                </div>
+              </td>
+              <!--end::Checkbox-->
+              <!--begin::User=-->
+              <td class="d-flex align-items-center">
+                <!--begin:: Avatar -->
+                <div
+                  class="symbol symbol-circle symbol-50px overflow-hidden me-3"
+                >
+                  <a
+                    href="../../demo1/dist/apps/user-management/users/view.html"
+                  >
+                    <div class="symbol-label">
+                      <img
+                        src="{{ quiz.teacher.user.profile_image.url }}"
+                        alt="Emma Smith"
+                        class="w-100"
+                      />
                     </div>
-                </td>
-                <!--end::Checkbox-->
-                <!--begin::User=-->
-                <td class="d-flex align-items-center">
-                    <!--begin:: Avatar -->
-                    <div
-                    class="symbol symbol-circle symbol-50px overflow-hidden me-3"
-                    >
-                    <a
-                        href="../../demo1/dist/apps/user-management/users/view.html"
-                    >
-                        <div class="symbol-label">
-                        <img
-                            src="{{ quiz.teacher.user.profile_image.url }}"
-                            alt="Emma Smith"
-                            class="w-100"
-                        />
-                        </div>
-                    </a>
-                    </div>
-                    <!--end::Avatar-->
-                    <!--begin::User details-->
-                    <div class="d-flex flex-column">
-                    <a
-                        href="../../demo1/dist/apps/user-management/users/view.html"
-                        class="text-gray-800 text-hover-primary mb-1"
-                        > {{ quiz.teacher.user.get_full_name }} </a
-                    >
-                    </div>
-                    <!--begin::User details-->
-                </td>
-                <!--end::User=-->
-                <!--begin::Role=-->
-                <td> {{ quiz.teacher.user.role }} </td>
-                <!--end::Role=-->
-                <!--begin::Last login=-->
-                <td>
-                    <div class="badge badge-light fw-bold">Yesterday</div>
-                </td>
-                <!--end::Last login=-->
-                <!--begin::Two step=-->
-                <td></td>
-                <!--end::Two step=-->
-                <!--begin::Joined-->
-                <td>21 Feb 2023, 6:05 pm</td>
-                <!--begin::Joined-->
-                <!--begin::Action=-->
-                {% if request.user.role == 'student' %}
-                <td class="text-end">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-info px-4 py-2">
-                        <a href="{{ quiz.get_solve_quiz_url }}">Solve quiz {{ quiz.pk }} </a>
-                    </button>
-                </td>
+                  </a>
+                </div>
+                <!--end::Avatar-->
+                <!--begin::User details-->
+                <div class="d-flex flex-column">
+                  <a
+                    href="../../demo1/dist/apps/user-management/users/view.html"
+                    class="text-gray-800 text-hover-primary mb-1"
+                  >
+                    {{ quiz.teacher.user.get_full_name }}
+                  </a>
+                </div>
+                <!--begin::User details-->
+              </td>
+
+              <!--begin::Two step=-->
+              <td></td>
+              <!--end::Two step=-->
+              <!--begin::Joined-->
+              <td>21 Feb 2023, 6:05 pm</td>
+              <!--begin::Joined-->
+              <!--begin::Action=-->
+              {% if request.user.role == 'student' %}
+              <td class="text-end">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-info px-4 py-2">
+                  <a href="{{ quiz.get_solve_quiz_url }}"
+                    >Solve quiz {{ quiz.pk }}
+                  </a>
+                </button>
+              </td>
+              {% endif %}
+              <!--end::Action=-->
+              <!--begin::Last login=-->
+              <td>
+                {% if quiz.status %}
+                <div class="badge badge-success fw-bolder">Solved</div> 
+                {% else %}
+                <div class="badge badge-light fw-bold">Not solved</div>
                 {% endif %}
-                <!--end::Action=-->
-                </tr>
+              </td>
+              <!--end::Last login=-->
+            </tr>
             <!--end::Table row-->
             {% endfor %}
           </tbody>

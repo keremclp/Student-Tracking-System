@@ -154,8 +154,12 @@ def quiz_results(request, quiz_id, student_slug):
 
 def solve_quiz_lists(request):
     """View function to show the results of a quiz."""
+    
     quizzes = Quiz.objects.all()
     context = dict(
         quizzes=quizzes,
     )
     return render(request, 'assignment/solve_quiz_lists.html',context)
+
+
+# Quiz status, solve_quiz da bunu update edip quiz lists göstermek 

@@ -8,6 +8,7 @@ from teacher.models import TeacherProfile
 class Quiz(models.Model):
     title = models.CharField(max_length=255)
     teacher = models.ForeignKey(TeacherProfile, on_delete=models.CASCADE)
+    status = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
