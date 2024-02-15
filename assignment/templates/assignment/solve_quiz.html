@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="d-flex flex-column justify-content-center align-items-center mw-100">
-            <form method="post" enctype="multipart/form-data">
+            <form id="quiz-form" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% include 'assignment/components/questions.html' with include_input=include_input %}
             </form>
@@ -25,43 +25,56 @@
 
 {% block js %}
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const questions = document.querySelectorAll('.question');
-        const prevButton = document.querySelector('.prev-question');
-        const nextButton = document.querySelector('.next-question');
-        const submitButton = document.querySelector('.submit-quiz');
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('quiz-form');
+    const questions = form.querySelectorAll('.question');
+    let currentQuestionIndex = 0;
 
-        let currentQuestionIndex = 0;
-
-        function showQuestion(index) {
-            questions.forEach((question, i) => {
-                if (i === index) {
-                    question.style.display = 'block';
-                } else {
-                    question.style.display = 'none';
-                }
-            });
-
-            prevButton.style.display = index > 0 ? 'block' : 'none';
-            nextButton.style.display = index < questions.length - 1 ? 'block' : 'none';
-            submitButton.style.display = index === questions.length - 1 ? 'block' : 'none';
+    function showQuestion(index) {
+        questions.forEach((question, idx) => {
+            if (idx === index) {
+                question.style.display = 'block';
+            } else {
+                question.style.display = 'none';
+            }
+        });
+        if (index === questions.length - 1) {
+            document.getElementById('next-question').style.display = 'none';
+            document.getElementById('submit-quiz').style.display = 'block';
+        } else {
+            document.getElementById('next-question').style.display = 'block';
+            document.getElementById('submit-quiz').style.display = 'none';
         }
+        if (index === 0) {
+            document.getElementById('previous-question').style.display = 'none';
+        } else {
+            document.getElementById('previous-question').style.display = 'block';
+        }
+    }
 
-        nextButton.addEventListener('click', function () {
-            if (currentQuestionIndex < questions.length - 1) {
-                currentQuestionIndex++;
-                showQuestion(currentQuestionIndex);
-            }
-        });
+    function handlePreviousQuestion() {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            showQuestion(currentQuestionIndex);
+        }
+    }
 
-        prevButton.addEventListener('click', function () {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                showQuestion(currentQuestionIndex);
-            }
-        });
+    function handleNextQuestion() {
+        if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            showQuestion(currentQuestionIndex);
+        }
+    }
 
-        showQuestion(currentQuestionIndex);
-    });
+    document.getElementById('previous-question').addEventListener('click', handlePreviousQuestion);
+    document.getElementById('next-question').addEventListener('click', handleNextQuestion);
+
+    // Initially hide the previous button when the page loads
+    showQuestion(currentQuestionIndex);
+});
 </script>
+
+
+
+
 {% endblock js %}
