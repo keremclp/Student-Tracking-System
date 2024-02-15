@@ -103,7 +103,7 @@ def solve_quiz(request, quiz_id):
                 user_answer = UserAnswer(question=question, choice=user_choice, student=student_profile)
                 user_answer.save()
                 if choice.is_correct:
-                    score += 1
+                    score += question.score
                 print("after choice--------------------")
                 # if choice.is_correct:
                 #     score += 1

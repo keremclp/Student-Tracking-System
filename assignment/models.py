@@ -25,7 +25,8 @@ class Quiz(models.Model):
 class Question(models.Model):
     text = models.CharField(max_length=255)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
-
+    # added a new field to the Question model which is realted o score of the question
+    score = models.IntegerField(default=1)
     def __str__(self) -> str:
         return self.text
 
