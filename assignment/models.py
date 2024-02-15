@@ -8,7 +8,6 @@ from teacher.models import TeacherProfile
 class Quiz(models.Model):
     title = models.CharField(max_length=255)
     teacher = models.ForeignKey(TeacherProfile, on_delete=models.CASCADE)
-    status = models.BooleanField(default=False)
     # deadline with a default value 
     deadline = models.DateTimeField(blank=True, null=True)    
     def __str__(self):
