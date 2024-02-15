@@ -301,7 +301,7 @@
               <td></td>
               <!--end::Two step=-->
               <!--begin::Joined-->
-              <td>21 Feb 2023, 6:05 pm</td>
+              <td>{{ quiz.deadline }}</td>
               <!--begin::Joined-->
               <!--begin::Action=-->
               {% if request.user.role == 'student' %}
@@ -319,7 +319,7 @@
                   <a href="{{ quiz.get_solve_quiz_url }}"
                     >Solve quiz {{ quiz.pk }}
                   </a>
-                </button> 
+                </button>
                 {% endif %}
               </td>
               {% endif %}
@@ -327,7 +327,7 @@
               <!--begin::Last login=-->
               <td>
                 {% if quiz.status %}
-                <div class="badge badge-success fw-bolder">Solved</div> 
+                <div class="badge badge-success fw-bolder">Solved</div>
                 {% else %}
                 <div class="badge badge-light fw-bold">Not solved</div>
                 {% endif %}
