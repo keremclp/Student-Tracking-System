@@ -307,11 +307,20 @@
               {% if request.user.role == 'student' %}
               <td class="text-end">
                 <!-- Button trigger modal -->
+                {% if quiz.status %}
+                <!-- TODO: fix the result issue for get_absolute_url -->
+                <button type="button" class="btn btn-info px-4 py-2">
+                  <a href="{{ quiz.get_solve_quiz_url }}"
+                    >Quiz Result {{ quiz.pk }}
+                  </a>
+                </button>
+                {% else %}
                 <button type="button" class="btn btn-info px-4 py-2">
                   <a href="{{ quiz.get_solve_quiz_url }}"
                     >Solve quiz {{ quiz.pk }}
                   </a>
-                </button>
+                </button> 
+                {% endif %}
               </td>
               {% endif %}
               <!--end::Action=-->
