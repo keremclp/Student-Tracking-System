@@ -1,5 +1,5 @@
 from django.contrib import admin
-from assignment.models import Question,Quiz,Choice,Result, UserAnswer, SolvedQuiz
+from assignment.models import Question,Quiz,Choice,Result, UserAnswer, SolvedQuiz,AssignmentFile
 # Register your models here.
 
 admin.site.register(Question)
@@ -39,3 +39,12 @@ class SolvedQuizAdmin(admin.ModelAdmin):
         'quiz',
         'student'
     )
+
+@admin.register(AssignmentFile)
+class AssignmentFileAdmin(admin.ModelAdmin):
+    # list display
+    list_display = (
+        'pk',
+        'title',
+        'deadline'
+    )   

@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
-from .forms import ChoiceFormSet, QuizForm, QuestionForm
+from .forms import AssignmentForm, ChoiceFormSet, QuizForm, QuestionForm
 from django.contrib.auth.decorators import login_required
 
 from assignment.models import Quiz, Choice, Result, SolvedQuiz, UserAnswer
@@ -177,4 +177,16 @@ def solve_quiz_lists(request):
     return render(request, 'assignment/solve_quiz_lists.html', context)
 
 
-# Quiz status, solve_quiz da bunu update edip quiz lists göstermek
+# ASSIGNMENT VIA UPLOADING FILE
+def create_assignment(request):
+    user = request.user
+    teacher_profile = get_object_or_404(TeacherProfile, user=user)
+    if request.method == 'POST':
+        form = AssignmentForm(request.POST)
+        if form.is_valid():
+            assignment = form.save(commit=False)
+            assignment.teacher = teacher_profile
+            assignment.save()
+    else:
+        form = AssignmentForm()
+    return render(request, 'assignment/create_assignment.html', {'form': form})

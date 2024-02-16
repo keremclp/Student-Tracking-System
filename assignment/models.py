@@ -4,7 +4,7 @@ from django.urls import reverse
 from student.models import StudentProfile
 from teacher.models import TeacherProfile
 
-
+# ASSIGNMENT VIA QUIZ
 class Quiz(models.Model):
     title = models.CharField(max_length=255)
     teacher = models.ForeignKey(TeacherProfile, on_delete=models.CASCADE)
@@ -71,3 +71,16 @@ class SolvedQuiz(models.Model):
 
     def __str__(self) -> str:
         return f"{self.student} solved {self.quiz} with score {self.score}"
+
+# ASSIGNMENT VIA UPLOADING FILE
+class AssignmentFile(models.Model):
+    title = models.CharField(max_length=100)
+    teacher = models.ForeignKey(TeacherProfile, on_delete=models.CASCADE)
+    description = models.TextField()
+    deadline = models.DateTimeField()
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ('deadline',)
