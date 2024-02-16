@@ -20,6 +20,9 @@ class Quiz(models.Model):
                 "quiz_id": self.pk,
             },
         )
+    
+    class Meta:
+        ordering = ('deadline',)
 
 class Question(models.Model):
     text = models.CharField(max_length=255)
