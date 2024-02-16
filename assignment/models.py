@@ -84,3 +84,9 @@ class AssignmentFile(models.Model):
 
     class Meta:
         ordering = ('deadline',)
+
+class UploadedSolution(models.Model):
+    student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
+    assignment = models.ForeignKey(AssignmentFile, on_delete=models.CASCADE)
+    file = models.FileField(upload_to='uploads/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)

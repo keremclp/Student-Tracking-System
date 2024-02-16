@@ -1,9 +1,9 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
-from .forms import AssignmentForm, ChoiceFormSet, QuizForm, QuestionForm
+from .forms import AssignmentForm, ChoiceFormSet, QuizForm, QuestionForm, UploadedSolutionForm
 from django.contrib.auth.decorators import login_required
 
-from assignment.models import Quiz, Choice, Result, SolvedQuiz, UserAnswer
+from assignment.models import AssignmentFile, Quiz, Choice, Result, SolvedQuiz, UserAnswer
 from teacher.models import TeacherProfile
 from student.models import StudentProfile
 from django.http import HttpResponse
@@ -190,3 +190,21 @@ def create_assignment(request):
     else:
         form = AssignmentForm()
     return render(request, 'assignment/create_assignment.html', {'form': form})
+
+
+@login_required(login_url='account:error_view')
+def upload_solution(request, assignment_id):
+    student = get_object_or_404(StudentProfile, user=request.user)
+    assignment = AssignmentFile.objects.get(pk=assignment_id)
+    if request.user.role == 'teacher':
+        return redirect('teacher:teacher_dashboard')
+    if request.method == 'POST':
+        form = UploadedSolutionForm(request.POST, request.FILES)
+        if form.is_valid():
+            solution = form.save(commit=False)
+            solution.student = student
+            solution.assignment = assignment
+            solution.save()
+    else:
+        form = UploadedSolutionForm()
+    return render(request, 'assignment/upload_solution.html', {'form': form, 'assignment': assignment})

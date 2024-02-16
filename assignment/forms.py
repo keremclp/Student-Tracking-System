@@ -1,5 +1,5 @@
 # forms.py
-from .models import AssignmentFile, Choice
+from .models import AssignmentFile, Choice, UploadedSolution
 from django import forms
 from .models import Quiz, Question, Choice
 
@@ -30,7 +30,13 @@ ChoiceFormSet = forms.inlineformset_factory(
 class AssignmentForm(forms.ModelForm):
     class Meta:
         model = AssignmentFile
-        fields = ['title', 'deadline']
+        fields = ['title', 'deadline', 'description']
         widgets = {
             'deadline': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
+
+
+class UploadedSolutionForm(forms.ModelForm):
+    class Meta:
+        model = UploadedSolution
+        fields = ['file']
