@@ -537,9 +537,9 @@
                         <!--begin::Section-->
                         <div class="me-2">
                           <a
-                            href="#"
+                            href="{% url 'assignment:solve_quiz_lists' %}"
                             class="text-gray-800 text-hover-primary fs-6 fw-bold"
-                            >Tests</a
+                            >Quizzes</a
                           >
                           <span class="text-gray-400 fw-bold d-block fs-7"
                             >You take {{ total_quiz|subtract:solved_quiz_number }} subjects at this semester</span
