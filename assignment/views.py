@@ -9,15 +9,17 @@ from student.models import StudentProfile
 from django.http import HttpResponse
 
 from django.core.exceptions import ValidationError
-from assignment.validation import validate_quiz_id,validate_student_slug
+from assignment.validation import validate_quiz_id, validate_student_slug
+
 
 @login_required(login_url='account:error_view')
 def create_quiz(request):
-    if request.user.role =='teacher':
+    if request.user.role == 'teacher':
         if request.method == 'POST':
             form = QuizForm(request.POST)
             if form.is_valid():
-                teacher_profile = get_object_or_404(TeacherProfile, user=request.user)
+                teacher_profile = get_object_or_404(
+                    TeacherProfile, user=request.user)
                 quiz = form.save(commit=False)
                 quiz.teacher = teacher_profile
                 quiz.save()
@@ -27,7 +29,7 @@ def create_quiz(request):
         return render(request, 'assignment/create_quiz.html', {'form': form})
     return HttpResponse()  # Add a default return statement
 
-    
+
 @login_required(login_url='account:error_view')
 def create_questions(request):
     if request.method == 'POST':
@@ -39,7 +41,7 @@ def create_questions(request):
             # Save the quiz
             print("inside if")
             # Save the question associated with the quiz
-            
+
             question = question_form.save(commit=False)
             question.quiz.pk = question_form.cleaned_data['quiz']
             question.save()
@@ -47,7 +49,7 @@ def create_questions(request):
             upper_bound = int(request.POST.get('choice_set-TOTAL_FORMS'))
             print(choice)
             # TODO: kullanıcı boş gönderdiği zaman hata alıyoruz!!
-            for i in range(0,upper_bound):
+            for i in range(0, upper_bound):
                 choice[i].question = question
                 choice[i].text = request.POST.get(f'choice_set-{i}-text')
                 choice[i].save()
@@ -65,9 +67,11 @@ def create_questions(request):
     }
 
     return render(request, 'assignment/create_questions.html', context)
+
+
 def quiz_detail(request, quiz_id):
     quiz = Quiz.objects.get(id=quiz_id)
-    questions = quiz.question_set.all() # type: ignore
+    questions = quiz.question_set.all()  # type: ignore
     return render(request, 'quiz_detail.html', {'quiz': quiz, 'questions': questions})
 
 
@@ -76,31 +80,33 @@ def solve_quiz(request, quiz_id):
     user = request.user
     student_profile = get_object_or_404(StudentProfile, user=user)
     quiz = get_object_or_404(Quiz, id=quiz_id)
-    questions = quiz.question_set.all() # type: ignore
+    questions = quiz.question_set.all()  # type: ignore
     questions_choices = [(question, question.choice_set.all())
                          for question in questions]
     # print(questions_choices)
     # Check if the user has already solved the quiz
-    result_exists = Result.objects.filter(student=student_profile, quiz=quiz).exists()
+    result_exists = Result.objects.filter(
+        student=student_profile, quiz=quiz).exists()
     if result_exists:
         messages.info(request, f'You have already solved {quiz.title}')
         return redirect('assignment:quiz_results', quiz_id=quiz.pk, student_slug=student_profile.slug)
 
     if request.method == 'POST':
         print(request.POST)
-        score = 0 
-        for i,question in enumerate(questions,1):
+        score = 0
+        for i, question in enumerate(questions, 1):
             selected_choice = request.POST.get(f'question{i}')
             print(selected_choice)
             if selected_choice:
                 print("--------------------before choice")
                 choice = question.choice_set.get(id=int(selected_choice))
                 # save the user answer on model UserAnswer
-                # Assuming the user's answer is sent in the request.POST data                    
+                # Assuming the user's answer is sent in the request.POST data
                 user_choice = Choice.objects.get(id=selected_choice)
                 # Create and save the UserAnswer
 
-                user_answer = UserAnswer(question=question, choice=user_choice, student=student_profile)
+                user_answer = UserAnswer(
+                    question=question, choice=user_choice, student=student_profile)
                 user_answer.save()
                 if choice.is_correct:
                     score += question.score
@@ -108,21 +114,23 @@ def solve_quiz(request, quiz_id):
                 # if choice.is_correct:
                 #     score += 1
 
-        if request.user.role == 'student' :
+        if request.user.role == 'student':
             # Save the quiz into the SolvedQuiz model
-            solved_quiz = SolvedQuiz(quiz=quiz, student=student_profile, score=score)
+            solved_quiz = SolvedQuiz(
+                quiz=quiz, student=student_profile, score=score)
             solved_quiz.save()
-            result,created = Result.objects.get_or_create(student=student_profile, quiz=quiz, score=score)
-            if created :
+            result, created = Result.objects.get_or_create(
+                student=student_profile, quiz=quiz, score=score)
+            if created:
                 result.save()
-            return redirect('assignment:quiz_results', quiz_id=quiz.pk, student_slug= student_profile.slug)
+            return redirect('assignment:quiz_results', quiz_id=quiz.pk, student_slug=student_profile.slug)
 
     include_input = True
     context = dict(
         quiz=quiz,
-        questions = questions, 
+        questions=questions,
         questions_choices=questions_choices,
-        include_input=include_input 
+        include_input=include_input
     )
 
     return render(request, 'assignment/solve_quiz.html', context)
@@ -141,8 +149,9 @@ def quiz_results(request, quiz_id, student_slug):
     result = get_object_or_404(Result, quiz=quiz, student=student)
     print("Result", result)
     user_answers = UserAnswer.objects.filter(student=student)
-    questions_choices = [(answer.question, answer.choice) for answer in user_answers]
-    
+    questions_choices = [(answer.question, answer.choice)
+                         for answer in user_answers]
+
     print(questions_choices)
 
     include_input = False
@@ -152,17 +161,20 @@ def quiz_results(request, quiz_id, student_slug):
         questions_choices=questions_choices,
         include_input=include_input
     )
-    return render(request, 'assignment/quiz_results.html',context)
+    return render(request, 'assignment/quiz_results.html', context)
 
 
 def solve_quiz_lists(request):
     """View function to show the results of a quiz."""
-    
+    student = get_object_or_404(StudentProfile, user=request.user)
     quizzes = Quiz.objects.all()
+    solved_quizes = SolvedQuiz.objects.filter(student=student)
+
     context = dict(
         quizzes=quizzes,
+        solved_quizes=solved_quizes
     )
-    return render(request, 'assignment/solve_quiz_lists.html',context)
+    return render(request, 'assignment/solve_quiz_lists.html', context)
 
 
-# Quiz status, solve_quiz da bunu update edip quiz lists göstermek 
+# Quiz status, solve_quiz da bunu update edip quiz lists göstermek

@@ -305,19 +305,38 @@
               <!--begin::Joined-->
               <!--begin::Action=-->
               {% if request.user.role == 'student' %}
+              
               <td class="text-end">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-info px-4 py-2">
-                  <a href="{{ quiz.get_solve_quiz_url }}"
-                    >Solve quiz {{ quiz.pk }}
-                  </a>
-                </button>
+                {% for solved in solved_quizes %}
+                  {% if solved.quiz.id == quiz.id %}
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-info px-4 py-2">
+                      <a href="{% url 'assignment:quiz_results' quiz_id=quiz.pk student_slug=request.user.username %}"
+                        >Result {{ quiz.title }}
+                      </a>
+                    </button>
+                  {% else %}
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-warning px-4 py-2">
+                      <a href="{{ quiz.get_solve_quiz_url }}"
+                        >Solve {{ quiz.title }}
+                      </a>
+                    </button>
+                  {% endif %}
+                {% endfor %}
+                
               </td>
               {% endif %}
               <!--end::Action=-->
               <!--begin::Last login=-->
               <td>
-                
+                {% for solved in solved_quizes %}
+                  {% if solved.quiz.id == quiz.id %}
+                    <span class="badge badge-light-success">Solved</span>
+                  {% else %}
+                    <span class="badge badge-light-danger">Not Solved</span>
+                  {% endif %}
+                {% endfor %}
               </td>
               <!--end::Last login=-->
             </tr>
