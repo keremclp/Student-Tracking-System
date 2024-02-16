@@ -1,6 +1,7 @@
 # quiz/models.py
 from django.db import models
 from django.urls import reverse
+from config.validators import validate_file_extension
 from student.models import StudentProfile
 from teacher.models import TeacherProfile
 
@@ -88,5 +89,5 @@ class AssignmentFile(models.Model):
 class UploadedSolution(models.Model):
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
     assignment = models.ForeignKey(AssignmentFile, on_delete=models.CASCADE)
-    file = models.FileField(upload_to='uploads/')
+    file = models.FileField(upload_to='uploads/', validators=[validate_file_extension])
     uploaded_at = models.DateTimeField(auto_now_add=True)

@@ -156,6 +156,10 @@ ADMINS = [
     ('KEREM CAN', 'django@django.com'),
 ]
 
+# Assignment settings
+ALLOWED_FILE_TYPES = ['.pdf', '.doc', '.docx']
+
+
 # Crispy Forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
