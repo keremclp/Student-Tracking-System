@@ -1,4 +1,5 @@
 {% extends 'core/base.html' %} 
+{% load subtract %}
 {% load static %} 
 {% block content %}
 
@@ -542,7 +543,7 @@
                             >Tests</a
                           >
                           <span class="text-gray-400 fw-bold d-block fs-7"
-                            >You take 12 subjects at this semester</span
+                            >You take {{ total_quiz|subtract:solved_quiz_number }} subjects at this semester</span
                           >
                         </div>
                         <!--end::Section-->
@@ -550,12 +551,12 @@
                       <!--end::Block-->
                       <!--begin::Info-->
                       <div class="d-flex align-items-center">
-                        <span class="text-dark fw-bolder fs-2x">27</span>
+                        <span class="text-dark fw-bolder fs-2x"> {{ solved_quiz_number }} </span>
                         <span class="fw-semibold fs-2 text-gray-600 mx-1 pt-1"
                           >/</span
                         >
                         <span class="text-gray-600 fw-semibold fs-2 me-3 pt-2"
-                          >38</span
+                          >{{ total_quiz }}</span
                         >
                         <span
                           class="badge badge-lg badge-light-warning align-self-center px-2"

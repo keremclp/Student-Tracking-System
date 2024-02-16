@@ -6,6 +6,7 @@ from student.forms import StudentProfileModelForm
 # Models
 from student.models import StudentProfile
 from classroom.models import Classroom, Timetable
+from assignment.models import Quiz, SolvedQuiz
 
 from django.contrib.auth.decorators import login_required
 
@@ -18,7 +19,7 @@ def student_dashboard(request):
     user_slug = StudentProfile.objects.get(user=user).slug
     profile = get_object_or_404(StudentProfile, slug=user_slug)
     student_classroom = profile.classroom
-    
+
     try:
         classroom_instance = None
         if student_classroom is not None:
@@ -29,15 +30,22 @@ def student_dashboard(request):
 
     # Convert QuerySet to a list and then group timetables by day of the week
     timetables_list = list(timetables)
-    timetables_list.sort(key=attrgetter('day_of_week'))  # Sort by day_of_week field
+    timetables_list.sort(key=attrgetter('day_of_week')
+                         )  # Sort by day_of_week field
     grouped_timetables = {}
     for day, day_timetables in groupby(timetables_list, key=lambda t: t.day_of_week):
-        day_name = dict(Timetable.DAY_CHOICES)[day]  # Convert integer day to day name
+        # Convert integer day to day name
+        day_name = dict(Timetable.DAY_CHOICES)[day]
         grouped_timetables[day_name] = list(day_timetables)
+
+    total_quiz = Quiz.objects.all().count()
+    solved_quiz_number = SolvedQuiz.objects.all().count()
 
     context = dict(
         grouped_timetables=grouped_timetables,
         profile=profile,
+        total_quiz=total_quiz,
+        solved_quiz_number=solved_quiz_number,
     )
     return render(request, 'student/student_dasboard.html', context)
 
