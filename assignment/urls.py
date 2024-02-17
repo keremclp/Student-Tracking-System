@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import create_quiz, quiz_detail, solve_quiz, quiz_results, create_questions, solve_quiz_lists, create_assignment,upload_solution, assignment_list
+from .views import create_quiz, quiz_detail, solve_quiz, quiz_results, create_questions, solve_quiz_lists, create_assignment, assignment_list,assignment_detail
 app_name = 'assignment'
 urlpatterns = [
     path('create-quiz/', create_quiz, name='create_quiz'),
@@ -12,6 +12,6 @@ urlpatterns = [
 
     # ASSIGNMENT VIA UPLOADING FILE
     path('create-assignment/', create_assignment, name='create_assignment'),
-    path('upload-solution/<int:assignment_id>/', upload_solution, name='upload_solution'),
     path('assignment-list/<slug:classroom_slug>/<slug:student_slug>', assignment_list, name='assignment_list'),
+    path('assignment-detail/<int:assignment_id>/', assignment_detail, name='assignment_detail'),
 ]

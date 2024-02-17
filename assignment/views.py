@@ -191,24 +191,6 @@ def create_assignment(request):
         form = AssignmentForm()
     return render(request, 'assignment/create_assignment.html', {'form': form})
 
-
-@login_required(login_url='account:error_view')
-def upload_solution(request, assignment_id):
-    student = get_object_or_404(StudentProfile, user=request.user)
-    assignment = AssignmentFile.objects.get(pk=assignment_id)
-    if request.user.role == 'teacher':
-        return redirect('teacher:teacher_dashboard')
-    if request.method == 'POST':
-        form = UploadedSolutionForm(request.POST, request.FILES)
-        if form.is_valid():
-            solution = form.save(commit=False)
-            solution.student = student
-            solution.assignment = assignment
-            solution.save()
-    else:
-        form = UploadedSolutionForm()
-    return render(request, 'assignment/upload_solution.html', {'form': form, 'assignment': assignment})
-
 def assignment_list(request, classroom_slug, student_slug):
     student = get_object_or_404(StudentProfile, slug=student_slug)
     classroom = get_object_or_404(StudentClassroom, slug=classroom_slug)
@@ -223,6 +205,28 @@ def assignment_list(request, classroom_slug, student_slug):
         student=student
     )
     return render(request, 'assignment/assignment_list.html', context)
+
+@login_required(login_url='account:error_view')
+def assignment_detail(request, assignment_id):
+    student = get_object_or_404(StudentProfile, user=request.user)
+    assignment = AssignmentFile.objects.get(pk=assignment_id)
+    if request.user.role == 'teacher':
+        return redirect('teacher:teacher_dashboard')
+    if request.method == 'POST':
+        form = UploadedSolutionForm(request.POST, request.FILES)
+        if form.is_valid():
+            solution = form.save(commit=False)
+            solution.student = student
+            solution.assignment = assignment
+            solution.save()
+    else:
+        form = UploadedSolutionForm()
+
+    context = dict(
+        assignment=assignment,
+        form=form
+    )
+    return render(request, 'assignment/assignment_detail.html', context)
 
 # TODO: add assignment list for student, tıkladıkan sonra assignment detayı ve upload yapabilecek, description ı görsün diye!
 # TODO: hangi sınıfa olduğunu girmesi gerekir hocanın assignment oluşturuken ve eğer o öğrenci o sınıfta yoksa göremez o assignmentı!

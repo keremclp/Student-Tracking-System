@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">{{ assignment.title }}</h1>
+                <p class="card-text"><span class="fw-bold">Teacher:</span> {{ assignment.teacher }}</p>
+                <p class="card-text"><span class="fw-bold">Description:</span> {{ assignment.description }}</p>
+                <p class="card-text"><span class="fw-bold">Deadline:</span> {{ assignment.deadline }}</p>
+                <p class="card-text"><span class="fw-bold">Classroom:</span> {{ assignment.classroom }}</p>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Upload Solution</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
