@@ -228,6 +228,6 @@ def assignment_detail(request, assignment_id):
     )
     return render(request, 'assignment/assignment_detail.html', context)
 
-# TODO: add assignment list for student, tıkladıkan sonra assignment detayı ve upload yapabilecek, description ı görsün diye!
-# TODO: hangi sınıfa olduğunu girmesi gerekir hocanın assignment oluşturuken ve eğer o öğrenci o sınıfta yoksa göremez o assignmentı!
+# DONE: add assignment list for student, tıkladıkan sonra assignment detayı ve upload yapabilecek, description ı görsün diye!
+# DONE: hangi sınıfa olduğunu girmesi gerekir hocanın assignment oluşturuken ve eğer o öğrenci o sınıfta yoksa göremez o assignmentı!
 # TODO: teacher assignment yükleyenleri sınıflara göre görebilecek ve indirip bakabilecek ve not verebilecek!

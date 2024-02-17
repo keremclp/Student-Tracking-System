@@ -1,8 +1,9 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.db.models import Q
+from django.contrib import messages
 
 # FORMS
-from teacher.forms import TeacherProfileModelForm, TeacherTimetableModelForm, TeacherCreateClassroom, CreateStudentClassroom,EditStudentClassroom
+from teacher.forms import TeacherProfileModelForm, TeacherTimetableModelForm, TeacherCreateClassroom, CreateStudentClassroom, EditStudentClassroom
 
 # MODELS
 from classroom.models import Classroom, Timetable
@@ -16,11 +17,12 @@ def teacher_dashboard(request):
     teacher_profile = TeacherProfile.objects.get(user=request.user)
     print(teacher_profile)
     # Retrieve the responsible class for the teacher
-    responsible_class = StudentClassroom.objects.filter(responsible_teacher=teacher_profile)
-    
+    responsible_class = StudentClassroom.objects.filter(
+        responsible_teacher=teacher_profile)
+
     students = []
     for classroom in responsible_class:
-        students = classroom.students.all() 
+        students = classroom.students.all()
     print(students)
     if responsible_class:
         students_in_class = students
@@ -29,10 +31,11 @@ def teacher_dashboard(request):
 
     # You can pass the students_in_class queryset to your template for rendering
     context = dict(
-        students_in_class = students_in_class,
+        students_in_class=students_in_class,
     )
 
     return render(request, 'teacher/teacher_dashboard.html', context)
+
 
 def teacher_profile_overview(request, user_slug):
     teacher_profile = get_object_or_404(TeacherProfile, slug=user_slug)
@@ -124,20 +127,20 @@ def teacher_create_classroom(request):
     return render(request, 'teacher/teacher_classroom_create.html', context)
 
 
-
 def add_student_classroom(request):
     form = CreateStudentClassroom()
     initial_data = dict(
-        
-    ) 
+
+    )
     if request.method == "POST":
         form = CreateStudentClassroom(request.POST)
         if form.is_valid():
             classroom = form.cleaned_data['classroom']
             students = form.cleaned_data['students']
-            
+
             # Check if a StudentClassroom already exists for this classroom
-            student_classroom, created = StudentClassroom.objects.get_or_create(classroom=classroom)
+            student_classroom, created = StudentClassroom.objects.get_or_create(
+                classroom=classroom)
 
             # Check if the selected students are already associated with the classroom
             existing_students = student_classroom.students.all()
@@ -153,7 +156,8 @@ def add_student_classroom(request):
             # Save the StudentClassroom object
             student_classroom.save()
 
-            teacher_profile = get_object_or_404(TeacherProfile, user=request.user)
+            teacher_profile = get_object_or_404(
+                TeacherProfile, user=request.user)
             student_classroom.responsible_teacher = teacher_profile
             student_classroom.save()
 
@@ -170,16 +174,28 @@ def add_student_classroom(request):
     return render(request, 'teacher/teacher_classroom_create.html', context)
 
 # TODO: öğrenciler için pagenation ekle ve #Usermanagement->Users içindeki list gibi yap actions kısmını o şekilde ayarlayabilirsin
-def remove_student_from_classroom(request, classroom_slug):
-    classroom = get_object_or_404(StudentClassroom, slug=classroom_slug)
+# TODO: Teacherlar hangi sınıfa responsible olduğunu kaydedip editlemesi gerekir ve bu izinle olmalı!!
 
-    if request.method == "POST":
+def remove_student_from_classroom(request, classroom_slug):
+
+    classroom = get_object_or_404(StudentClassroom, slug=classroom_slug)
+    teacher_profile = get_object_or_404(TeacherProfile, user=request.user)
+
+    # Ensure that only teachers can remove students from the classroom (you can modify this logic)
+    if not request.user.role == 'teacher':
+        return redirect('teacher_dashboard')
+    if classroom.responsible_teacher != teacher_profile.classroom:
+        messages.info(request, f'You are not responsible for this classroom, please contact your manager!')
+        return redirect('teacher:teacher_dashboard')
+
+    if request.method == "POST" and request.user.role == 'teacher':
+
         form = EditStudentClassroom(request.POST, instance=classroom)
-        
+
         if form.is_valid():
             # Get the selected students to be removed
             selected_students = form.cleaned_data.get('students')
-            
+
             # Remove the selected students from the classroom
             classroom.students.remove(*selected_students)
 
@@ -198,6 +214,7 @@ def remove_student_from_classroom(request, classroom_slug):
     }
     return render(request, 'teacher/edit_student_classroom.html', context)
 
+
 def activate_student(request, student_id):
     # Ensure that only teachers can activate students (you can modify this logic)
     if not request.user.role == 'teacher':
@@ -214,11 +231,12 @@ def activate_student(request, student_id):
 
     return redirect('teacher:teacher_dashboard')
 
+
 def student_list(request, classroom_slug):
     # Ensure that only teachers can view the list of users (you can modify this logic)
     if not request.user.role == 'teacher':
         return redirect('teacher_dashboard')
-    
+
     classroom = get_object_or_404(StudentClassroom, slug=classroom_slug)
     # Retrieve the list of students
     students = classroom.students.all()
@@ -230,4 +248,4 @@ def student_list(request, classroom_slug):
         'students': students,
         'teachers': teachers,
     }
-    return render(request, 'teacher/student_list.html', context)   
+    return render(request, 'teacher/student_list.html', context)
