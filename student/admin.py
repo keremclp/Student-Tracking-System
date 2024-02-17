@@ -3,7 +3,16 @@ from student.models import StudentProfile,StudentClassroom,StudentGrade,Attendan
 # Register your models here.
 
 admin.site.register(StudentProfile)
-admin.site.register(StudentClassroom)
+
+
+@admin.register(StudentClassroom)
+class StudentClassroomAdmin(admin.ModelAdmin):
+    # list display
+    list_display = (
+        'pk',
+        'slug'
+    )
+
 admin.site.register(StudentGrade)
 admin.site.register(AttendanceRecord)
 

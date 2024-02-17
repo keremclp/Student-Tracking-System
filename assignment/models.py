@@ -79,6 +79,7 @@ class AssignmentFile(models.Model):
     teacher = models.ForeignKey(TeacherProfile, on_delete=models.CASCADE)
     description = models.TextField()
     deadline = models.DateTimeField()
+    classroom = models.ForeignKey('student.StudentClassroom', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.title

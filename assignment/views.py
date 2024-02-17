@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 from assignment.models import AssignmentFile, Quiz, Choice, Result, SolvedQuiz, UserAnswer
 from teacher.models import TeacherProfile
-from student.models import StudentProfile
+from student.models import StudentClassroom, StudentProfile
 from django.http import HttpResponse
 
 from django.core.exceptions import ValidationError
@@ -208,3 +208,22 @@ def upload_solution(request, assignment_id):
     else:
         form = UploadedSolutionForm()
     return render(request, 'assignment/upload_solution.html', {'form': form, 'assignment': assignment})
+
+def assignment_list(request, classroom_slug, student_slug):
+    student = get_object_or_404(StudentProfile, slug=student_slug)
+    classroom = get_object_or_404(StudentClassroom, slug=classroom_slug)
+    assignments = AssignmentFile.objects.filter(classroom=classroom)
+    if student.classroom != classroom:
+        messages.info(request, f'You are not in this classroom!')
+        return redirect('student:student_dashboard')
+    
+    print(assignments)
+    context = dict(
+        assignments=assignments,
+        student=student
+    )
+    return render(request, 'assignment/assignment_list.html', context)
+
+# TODO: add assignment list for student, tıkladıkan sonra assignment detayı ve upload yapabilecek, description ı görsün diye!
+# TODO: hangi sınıfa olduğunu girmesi gerekir hocanın assignment oluşturuken ve eğer o öğrenci o sınıfta yoksa göremez o assignmentı!
+# TODO: teacher assignment yükleyenleri sınıflara göre görebilecek ve indirip bakabilecek ve not verebilecek!
