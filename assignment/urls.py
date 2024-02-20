@@ -13,7 +13,7 @@ urlpatterns = [
     # ASSIGNMENT VIA UPLOADING FILE
     # for teacher
     path('create-assignment/', create_assignment, name='create_assignment'),
-    path('uploded-solutions/', uploded_solution_list, name='uploded_solution_list'),
+    path('uploaded-solutions/', uploded_solution_list, name='uploded_solution_list'),
     # for student
     path('assignment-list/<slug:classroom_slug>/<slug:student_slug>', assignment_list, name='assignment_list'), 
     path('assignment-detail/<int:assignment_id>/', assignment_detail, name='assignment_detail'),
