@@ -83,7 +83,7 @@ class CreateStudentClassroom(forms.ModelForm):
 
 class EditStudentClassroom(forms.ModelForm):
     students = forms.ModelMultipleChoiceField(
-        queryset=None,
+        queryset=None, # type: ignore
         widget=forms.CheckboxSelectMultiple,
     )
 

@@ -105,6 +105,8 @@ def teacher_create_timetable(request):
 
 
 def teacher_create_classroom(request):
+    teacher = get_object_or_404(TeacherProfile, user=request.user) 
+    student_classroom = StudentClassroom.objects.filter(responsible_teacher=teacher)
     form = TeacherCreateClassroom()
     if request.method == "POST":
         form = TeacherCreateClassroom(request.POST)
@@ -116,8 +118,14 @@ def teacher_create_classroom(request):
                     form=form,
                     title='Create Classroom'
                 )
+                messages.info(
+                    request, f"{grade_level}-{name}  already exists.")
                 return render(request, 'teacher/teacher_classroom_create.html', context)
             else:
+                form.instance.responsible_teacher = teacher
+                classroom = form.save()
+                student_classroom = StudentClassroom.objects.create(classroom=classroom, responsible_teacher=teacher)
+                student_classroom.save()
                 form.save()
                 return redirect('teacher:teacher_dashboard')
     context = dict(
@@ -176,6 +184,7 @@ def add_student_classroom(request):
 # TODO: öğrenciler için pagenation ekle ve #Usermanagement->Users içindeki list gibi yap actions kısmını o şekilde ayarlayabilirsin
 # TODO: Teacherlar hangi sınıfa responsible olduğunu kaydedip editlemesi gerekir ve bu izinle olmalı!!
 
+
 def remove_student_from_classroom(request, classroom_slug):
 
     classroom = get_object_or_404(StudentClassroom, slug=classroom_slug)
@@ -185,7 +194,8 @@ def remove_student_from_classroom(request, classroom_slug):
     if not request.user.role == 'teacher':
         return redirect('teacher_dashboard')
     if classroom.responsible_teacher != teacher_profile.classroom:
-        messages.info(request, f'You are not responsible for this classroom, please contact your manager!')
+        messages.info(
+            request, f'You are not responsible for this classroom, please contact your manager!')
         return redirect('teacher:teacher_dashboard')
 
     if request.method == "POST" and request.user.role == 'teacher':
