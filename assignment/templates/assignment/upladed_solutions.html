@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+{% load basename %}
+{% block content  %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Uploaded Solutions</h1>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Assignment</th>
+                            <th>File</th>
+                            <th>Uploaded At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for solution in solutions %}
+                            <tr>
+                                <td>{{ solution.student }}</td>
+                                <td>{{ solution.assignment }}</td>
+                                <td><a href="{{ solution.file.url }}">{{ solution.file.url|filename }}</a></td>
+                                <td>{{ solution.uploaded_at }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

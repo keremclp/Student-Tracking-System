@@ -105,8 +105,9 @@ def teacher_create_timetable(request):
 
 
 def teacher_create_classroom(request):
-    teacher = get_object_or_404(TeacherProfile, user=request.user) 
-    student_classroom = StudentClassroom.objects.filter(responsible_teacher=teacher)
+    teacher = get_object_or_404(TeacherProfile, user=request.user)
+    student_classroom = StudentClassroom.objects.filter(
+        responsible_teacher=teacher)
     form = TeacherCreateClassroom()
     if request.method == "POST":
         form = TeacherCreateClassroom(request.POST)
@@ -124,7 +125,8 @@ def teacher_create_classroom(request):
             else:
                 form.instance.responsible_teacher = teacher
                 classroom = form.save()
-                student_classroom = StudentClassroom.objects.create(classroom=classroom, responsible_teacher=teacher)
+                student_classroom = StudentClassroom.objects.create(
+                    classroom=classroom, responsible_teacher=teacher)
                 student_classroom.save()
                 form.save()
                 return redirect('teacher:teacher_dashboard')

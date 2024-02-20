@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .forms import AssignmentForm, ChoiceFormSet, QuizForm, QuestionForm, UploadedSolutionForm
 from django.contrib.auth.decorators import login_required
 
-from assignment.models import AssignmentFile, Quiz, Choice, Result, SolvedQuiz, UserAnswer
+from assignment.models import AssignmentFile, Quiz, Choice, Result, SolvedQuiz, UploadedSolution, UserAnswer
 from teacher.models import TeacherProfile
 from student.models import StudentClassroom, StudentProfile
 from django.http import HttpResponse
@@ -27,7 +27,9 @@ def create_quiz(request):
         else:
             form = QuizForm()
         return render(request, 'assignment/create_quiz.html', {'form': form})
-    return HttpResponse()  # Add a default return statement
+    else:
+        messages.warning(request, "You are not authorized to create a quiz!")
+        return redirect('student:student_dashboard')
 
 
 @login_required(login_url='account:error_view')
@@ -190,6 +192,16 @@ def create_assignment(request):
     else:
         form = AssignmentForm()
     return render(request, 'assignment/create_assignment.html', {'form': form})
+
+def uploded_solution_list(request):
+    user = request.user
+    teacher = get_object_or_404(TeacherProfile, user=user)
+    solutions = UploadedSolution.objects.filter(assignment__teacher=teacher)
+    context = dict(
+        solutions=solutions
+    )
+    return render(request, "assignment/upladed_solutions.html", context)
+
 
 def assignment_list(request, classroom_slug, student_slug):
     student = get_object_or_404(StudentProfile, slug=student_slug)

@@ -30,7 +30,7 @@ ChoiceFormSet = forms.inlineformset_factory(
 class AssignmentForm(forms.ModelForm):
     class Meta:
         model = AssignmentFile
-        fields = ['title', 'deadline', 'description']
+        fields = ['title', 'deadline', 'description', 'classroom']
         widgets = {
             'deadline': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
