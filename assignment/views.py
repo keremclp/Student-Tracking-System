@@ -193,15 +193,16 @@ def create_assignment(request):
         form = AssignmentForm()
     return render(request, 'assignment/create_assignment.html', {'form': form})
 
-def uploded_solution_list(request):
+def uploded_solution_list(request, classroom_slug):
     user = request.user
     teacher = get_object_or_404(TeacherProfile, user=user)
-    solutions = UploadedSolution.objects.filter(assignment__teacher=teacher)
+    solutions = UploadedSolution.objects.filter(assignment__teacher=teacher, 
+                                                assignment__classroom__slug=classroom_slug)
     context = dict(
         solutions=solutions
     )
     return render(request, "assignment/upladed_solutions.html", context)
-
+#TODO: Hangi sınıfa ne verdiğini göremiyor, hoca 8-A seçerse ona ait assignmentlerı görmesi gerekir! Başkasını seçerse başkasını!!
 
 def assignment_list(request, classroom_slug, student_slug):
     student = get_object_or_404(StudentProfile, slug=student_slug)

@@ -1,9 +1,10 @@
 from django.contrib import admin
-from assignment.models import Question,Quiz,Choice,Result, UserAnswer, SolvedQuiz,AssignmentFile,UploadedSolution
+from assignment.models import Question, Quiz, Choice, Result, UserAnswer, SolvedQuiz, AssignmentFile, UploadedSolution
 # Register your models here.
 
 admin.site.register(Question)
 admin.site.register(Result)
+
 
 @admin.register(UserAnswer)
 class UserAnswerAdmin(admin.ModelAdmin):
@@ -14,6 +15,8 @@ class UserAnswerAdmin(admin.ModelAdmin):
         'choice',
         'student'
     )
+
+
 @admin.register(Choice)
 class ChoiceAdmin(admin.ModelAdmin):
     # list display
@@ -22,6 +25,8 @@ class ChoiceAdmin(admin.ModelAdmin):
         'text',
         'is_correct',
     )
+
+
 @admin.register(Quiz)
 class QuizAdmin(admin.ModelAdmin):
     # list display
@@ -30,8 +35,8 @@ class QuizAdmin(admin.ModelAdmin):
         'title',
     )
 
-@admin.register(SolvedQuiz)
 
+@admin.register(SolvedQuiz)
 class SolvedQuizAdmin(admin.ModelAdmin):
     # list display
     list_display = (
@@ -40,6 +45,7 @@ class SolvedQuizAdmin(admin.ModelAdmin):
         'student'
     )
 
+
 @admin.register(AssignmentFile)
 class AssignmentFileAdmin(admin.ModelAdmin):
     # list display
@@ -47,7 +53,8 @@ class AssignmentFileAdmin(admin.ModelAdmin):
         'pk',
         'title',
         'deadline'
-    )   
+    )
+
 
 @admin.register(UploadedSolution)
 class UploadedSolutionAdmin(admin.ModelAdmin):
