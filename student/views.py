@@ -6,7 +6,7 @@ from student.forms import StudentProfileModelForm
 # Models
 from student.models import StudentProfile
 from classroom.models import Classroom, Timetable
-from assignment.models import Quiz, SolvedQuiz
+from assignment.models import Quiz, SolvedQuiz, AssignmentFile, UploadedSolution
 
 from django.contrib.auth.decorators import login_required
 
@@ -38,14 +38,17 @@ def student_dashboard(request):
         day_name = dict(Timetable.DAY_CHOICES)[day]
         grouped_timetables[day_name] = list(day_timetables)
 
+    total_assignment = AssignmentFile.objects.all().count()
     total_quiz = Quiz.objects.all().count()
-    solved_quiz_number = SolvedQuiz.objects.all().count()
-
+    solved_quiz_number = SolvedQuiz.objects.filter(student=profile).count()
+    uploaded_solution =  UploadedSolution.objects.filter(student=profile).count()
     context = dict(
         grouped_timetables=grouped_timetables,
         profile=profile,
         total_quiz=total_quiz,
         solved_quiz_number=solved_quiz_number,
+        total_assignment=total_assignment,
+        uploaded_solution=uploaded_solution
     )
     return render(request, 'student/student_dasboard.html', context)
 

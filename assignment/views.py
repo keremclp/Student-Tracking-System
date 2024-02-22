@@ -139,7 +139,7 @@ def solve_quiz(request, quiz_id):
 
 
 def quiz_results(request, quiz_id, student_slug):
-    """View function to show the results of a quiz."""
+    """View function to show the results of a quiz.""" # TODO: There are some errors, check it out!
     try:
         validate_quiz_id(quiz_id)
         validate_student_slug(student_slug)
