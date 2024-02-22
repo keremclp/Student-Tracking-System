@@ -195,9 +195,8 @@ def remove_student_from_classroom(request, classroom_slug):
     # Ensure that only teachers can remove students from the classroom (you can modify this logic)
     if not request.user.role == 'teacher':
         return redirect('teacher_dashboard')
-    if classroom.responsible_teacher != teacher_profile.classroom:
-        messages.info(
-            request, f'You are not responsible for this classroom, please contact your manager!')
+    if classroom.responsible_teacher != teacher_profile:
+        messages.info(request, f'You are not responsible for this classroom, please contact your manager!')
         return redirect('teacher:teacher_dashboard')
 
     if request.method == "POST" and request.user.role == 'teacher':
