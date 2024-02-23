@@ -98,3 +98,8 @@ def student_profile_edit(request, user_slug):
         profile=profile,
     )
     return render(request, 'student/student_profile/student_profile_settings.html', context)
+
+# ATTENDANCE RECORD 
+
+def create_attendance_record(request):
+    return render(request, 'student/attendance/create_attendance_record.html', {})
