@@ -21,7 +21,6 @@ class AttendanceRecord(models.Model):
 
     date = models.DateField()
     status = models.CharField(max_length=1, choices=STATUS_CHOICES)
-    notes = models.TextField(blank=True, null=True)
 
     # str function
     def __str__(self):
