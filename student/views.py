@@ -41,7 +41,8 @@ def student_dashboard(request):
     total_assignment = AssignmentFile.objects.all().count()
     total_quiz = Quiz.objects.all().count()
     solved_quiz_number = SolvedQuiz.objects.filter(student=profile).count()
-    uploaded_solution =  UploadedSolution.objects.filter(student=profile).count()
+    uploaded_solution = UploadedSolution.objects.filter(
+        student=profile).count()
     context = dict(
         grouped_timetables=grouped_timetables,
         profile=profile,

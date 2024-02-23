@@ -14,6 +14,8 @@ from datetime import date
 class AttendanceRecord(models.Model):
     STATUS_CHOICES = [
         ('P', 'Present'),
+        ('I', 'Illness'),
+        ('L', 'Late'),
         ('A', 'Absent'),
     ]
 
