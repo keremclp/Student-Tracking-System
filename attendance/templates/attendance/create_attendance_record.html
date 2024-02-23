@@ -1,6 +1,13 @@
 {% extends 'core/base.html' %} 
 {% load static %} 
 {% load crispy_forms_tags %} 
+{% block css %}
+<link
+  href="{% static 'assets/css/select2.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+{% endblock css %} 
 {% block content %}
 <!--begin::Basic info-->
 <div class="card h-100">
@@ -21,7 +28,7 @@
   </div>
   <!--begin::Card header-->
   <!--begin::Content-->
-  
+
   <div
     id="kt_account_settings_profile_details"
     class="collapse show d-flex flex-center"
@@ -60,4 +67,27 @@
   <!--end::Content-->
 </div>
 <!--end::Basic info-->
-{% endblock content %}
+{% endblock content %} {% block js %}
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/select2.min.js' %}"></script>
+<script type="text/javascript">
+        $(document).ready(function() {
+            $('[data-ajax--url]').select2({
+                ajax: {
+                    url: function () {
+                        return $(this).data('ajax--url');
+                    },
+                    dataType: 'json',
+                    delay: 250,
+                    processResults: function (data) {
+                        return {
+                            results: data.results
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 2
+            });
+        });
+    </script>
+{% endblock js %}
