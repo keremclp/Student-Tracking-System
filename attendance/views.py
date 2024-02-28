@@ -18,13 +18,15 @@ def search_students(request):
         return JsonResponse({'results': data})
     return JsonResponse({}, status=400)
 
-
+# TODO: Validation of filtering students from StudentProfile model!
+# TODO: Keep in mind that the students should be filtered by the teacher's classroom
 def create_attendance_record(request):
     form = TeacherCreateAttendance()
     if request.user.role != 'teacher':
         messages.info(request, 'You are not authorized to access this page')
         return redirect('student:student_dashboard')
     if request.method == "POST":
+        print(request.POST)
         form = TeacherCreateAttendance(request.POST)
         if form.is_valid():
             form.save()
@@ -35,4 +37,3 @@ def create_attendance_record(request):
     )
     return render(request, 'attendance/create_attendance_record.html', context)
 
-# TODO: The teacher can not create attendance reacord for a student

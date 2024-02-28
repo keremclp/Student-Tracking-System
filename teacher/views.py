@@ -15,7 +15,6 @@ def teacher_dashboard(request):
     # Assuming you have a way to identify the currently logged-in teacher, e.g., request.user
     # Retrieve the teacher's profile
     teacher_profile = TeacherProfile.objects.get(user=request.user)
-    print(teacher_profile)
     # Retrieve the responsible class for the teacher
     responsible_class = StudentClassroom.objects.filter(
         responsible_teacher=teacher_profile)
@@ -23,7 +22,6 @@ def teacher_dashboard(request):
     students = []
     for classroom in responsible_class:
         students = classroom.students.all()
-    print(students)
     if responsible_class:
         students_in_class = students
     else:
@@ -61,7 +59,6 @@ def teacher_profile_edit(request, user_slug):
         )
         if form.is_valid():
             f = form.save(commit=False)
-            print(form.cleaned_data)
             user.first_name = form.cleaned_data.get('first_name')
             user.last_name = form.cleaned_data.get('last_name')
             new_profile_image = form.cleaned_data.get('profile_image')
@@ -252,7 +249,6 @@ def student_list(request):
     classroom = get_object_or_404(StudentClassroom, responsible_teacher= teacher)
     # Retrieve the list of students
     students = classroom.students.all()
-    print(students)
     # Retrieve the list of teachers
     teachers = TeacherProfile.objects.all()
 
