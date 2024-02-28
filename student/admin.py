@@ -7,6 +7,7 @@ from student.models import StudentProfile, StudentClassroom, StudentGrade, Atten
 class StudentProfileAdmin(admin.ModelAdmin):
     # list display
     list_display = (
+        'pk',
         'user',
         'classroom',
     )
