@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from student.forms import StudentProfileModelForm
 
 # Models
-from student.models import StudentProfile
+from student.models import AttendanceRecord, StudentProfile
 from classroom.models import Classroom, Timetable
 from assignment.models import Quiz, SolvedQuiz, AssignmentFile, UploadedSolution
 
@@ -19,7 +19,7 @@ def student_dashboard(request):
     user_slug = StudentProfile.objects.get(user=user).slug
     profile = get_object_or_404(StudentProfile, slug=user_slug)
     student_classroom = profile.classroom
-
+    # Showing Classroom
     try:
         classroom_instance = None
         if student_classroom is not None:
@@ -38,18 +38,35 @@ def student_dashboard(request):
         day_name = dict(Timetable.DAY_CHOICES)[day]
         grouped_timetables[day_name] = list(day_timetables)
 
+    # Showing Assignment 
     total_assignment = AssignmentFile.objects.all().count()
     total_quiz = Quiz.objects.all().count()
     solved_quiz_number = SolvedQuiz.objects.filter(student=profile).count()
     uploaded_solution = UploadedSolution.objects.filter(
         student=profile).count()
+    
+    # Show Attendance 
+    # Get the attendance records of the student from StduentProfile model by using attendance_records field
+    attendance = profile.attendance_records.all()
+    present_days = len([i for i in attendance if i.status == 'P'])
+    absent_days = len([i for i in attendance if i.status == 'A'])
+    illness_days = len([i for i in attendance if i.status == 'I'])
+    late_days = len([i for i in attendance if i.status == 'L'])
+    
     context = dict(
+        # Timetable
         grouped_timetables=grouped_timetables,
         profile=profile,
+        # Quiz
         total_quiz=total_quiz,
         solved_quiz_number=solved_quiz_number,
         total_assignment=total_assignment,
-        uploaded_solution=uploaded_solution
+        uploaded_solution=uploaded_solution,
+        # Attendance
+        present_days=present_days,
+        absent_days=absent_days,
+        illness_days=illness_days,
+        late_days=late_days,
     )
     return render(request, 'student/student_dasboard.html', context)
 

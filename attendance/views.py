@@ -29,7 +29,6 @@ def create_attendance_record(request):
         print(request.POST)
         form = TeacherCreateAttendance(request.POST)
         if form.is_valid():
-            # Get selected students and save the attendance record for each student on the StudentProfile mdoel at attendance_record field
             students = form.cleaned_data['students']
             date = form.cleaned_data['date']
             status = form.cleaned_data['status']
