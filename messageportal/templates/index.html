@@ -1,0 +1,82 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h3>Welcome to Room</h3>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="w-100">
+                <div class="mb-3">
+                    <label for="textMessage" class="form-label">Enter your message:</label>
+                    <input type="text" class="form-control" id="textMessage">
+                </div>
+                <button id="addMessage" class="btn btn-primary rounded-1">Send</button>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div id="messages" class="mt-4"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>    
+    // setup chat scoket
+    const chatSocket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/chat/public_room/'
+    );
+
+    // on socket open
+    chatSocket.onopen = function (e) {
+        console.log('Chat socket successfully connected.');
+    };
+
+    // on socket close
+    chatSocket.onclose = function (e) {
+        console.log('Chat socket closed unexpectedly');
+    };
+
+    // on receiving message on group
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        const message = data.message;
+        
+        setMessage(message);
+    };
+
+    // sending the text message to server
+    document.querySelector('#addMessage').onclick = function(e) {
+            const messageInputDom = document.querySelector('#textMessage');
+            const message = messageInputDom.value;
+
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            
+            messageInputDom.value = '';
+    };
+
+    // helper func setting message
+    function setMessage(message){
+        var div = document.createElement('div');
+        div.className = 'alert alert-success alert-dismissible fade show';
+        div.setAttribute('role', 'alert');
+
+        var message = document.createTextNode(message);
+        div.appendChild(message);
+         
+        var closeButton = document.createElement('button');
+        closeButton.type = 'button';
+        closeButton.className = 'btn-close';
+        closeButton.setAttribute('data-bs-dismiss', 'alert');
+        closeButton.setAttribute('aria-label', 'Close');
+        div.appendChild(closeButton);
+
+        var container = document.getElementById('messages');  
+        container.appendChild(div);
+    }
+
+</script>
+{% endblock %}

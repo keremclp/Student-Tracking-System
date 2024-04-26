@@ -28,13 +28,15 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1',
     '192.168.1.41',
-    '10.26.250.109'  # University library kbu_C
+    '10.26.250.109',  # University library kbu_C
+    '10.25.129.122',
 ]
 
 
 # Application definition
 
 BASE_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,7 +49,7 @@ THIRD_PART_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'autoslug',
-    'easy_thumbnails'
+    'easy_thumbnails',
 ]
 
 MY_APPS = [
@@ -60,9 +62,10 @@ MY_APPS = [
     'blog',
     'assignment',
     'attendance',
+    'messageportal'
 ]
 
-INSTALLED_APPS = BASE_APPS + THIRD_PART_APPS + MY_APPS
+INSTALLED_APPS = BASE_APPS + THIRD_PART_APPS +  MY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -98,9 +101,14 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
+# WSGI_APPLICATION = 'config.wsgi.application'
+ASGI_APPLICATION = 'config.asgi.application'
 
-
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': "channels.layers.InMemoryChannelLayer"
+    }
+}
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 

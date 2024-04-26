@@ -43,5 +43,7 @@ urlpatterns = [
     # ATTENDANCE
     path('', include('attendance.urls', namespace='attendance')),
 
+    # MESSAGEPORTAL
+    path('', include('messageportal.urls', namespace='messageportal'))
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
