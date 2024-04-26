@@ -389,16 +389,22 @@
                       <!--end::Block-->
                       <!--begin::Info-->
                       <div class="d-flex align-items-center">
-                        <span class="text-dark fw-bolder fs-2x">73</span>
+                        <span class="text-dark fw-bolder fs-2x"> {{ absent_days  }} </span>
                         <span class="fw-semibold fs-2 text-gray-600 mx-1 pt-1"
                           >/</span
                         >
                         <span class="text-gray-600 fw-semibold fs-2 me-3 pt-2"
-                          >76</span
-                        >
+                        > 
+                          {% if all_attendance %}
+                            {{ all_attendance }} 
+                          {% else %}
+                            0 
+                          {% endif %}
+                        
+                        </span>
                         <span
                           class="badge badge-lg badge-light-success align-self-center px-2"
-                          >95%</span
+                          >{{ absent_days|percentage:all_attendance }}%</span
                         >
                       </div>
                       <!--end::Info-->
@@ -594,7 +600,7 @@
                         <!--end::Bullet-->
                         <!--begin::Label-->
                         <div class="fs-8 fw-semibold text-muted">
-                          Precent(133)
+                          Precent({{ present_days }})
                         </div>
                         <!--end::Label-->
                       </div>

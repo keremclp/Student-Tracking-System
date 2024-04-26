@@ -52,7 +52,8 @@ def student_dashboard(request):
     absent_days = len([i for i in attendance if i.status == 'A'])
     illness_days = len([i for i in attendance if i.status == 'I'])
     late_days = len([i for i in attendance if i.status == 'L'])
-    
+    all_attendance = present_days + absent_days + illness_days + late_days
+    print(all_attendance)
     context = dict(
         # Timetable
         grouped_timetables=grouped_timetables,
@@ -67,6 +68,7 @@ def student_dashboard(request):
         absent_days=absent_days,
         illness_days=illness_days,
         late_days=late_days,
+        all_attendance=all_attendance
     )
     return render(request, 'student/student_dasboard.html', context)
 
