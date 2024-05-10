@@ -61,6 +61,7 @@ MY_APPS = [
     'blog',
     'assignment',
     'attendance',
+    'appointment'
 ]
 
 INSTALLED_APPS = BASE_APPS + THIRD_PART_APPS + MY_APPS
