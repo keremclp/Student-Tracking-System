@@ -43,5 +43,7 @@ urlpatterns = [
     # ATTENDANCE
     path('', include('attendance.urls', namespace='attendance')),
 
+    # APPOINTMENT
+    path('', include("appointment.urls", namespace="appointment")),
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
