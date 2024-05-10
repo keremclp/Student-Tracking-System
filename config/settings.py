@@ -36,7 +36,6 @@ ALLOWED_HOSTS = [
 # Application definition
 
 BASE_APPS = [
-    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -62,10 +61,9 @@ MY_APPS = [
     'blog',
     'assignment',
     'attendance',
-    'messageportal'
 ]
 
-INSTALLED_APPS = BASE_APPS + THIRD_PART_APPS +  MY_APPS
+INSTALLED_APPS = BASE_APPS + THIRD_PART_APPS + MY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -101,14 +99,9 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'config.wsgi.application'
-ASGI_APPLICATION = 'config.asgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': "channels.layers.InMemoryChannelLayer"
-    }
-}
+
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
